@@ -38,11 +38,32 @@
   "List packages installed in the default profile"
   "list")
 
+(def- rollback/options ()
+  (list
+   (clingon:make-option :string
+                        :description "specify command"
+                        :short-name #\t
+                        :long-name "to"
+                        :required nil
+                        :key :opt-command)))
+
+(def- rollback/handler (cmd)
+  "Handler for the `develop' command."
+  (let* ((args (clingon:command-arguments cmd))
+         (opt-command (clingon:getopt cmd :opt-command))
+         (full-args (append args
+                            (when opt-command '("--to")))))
+    (nrun "rollback" full-args)))
+
 (define-command profile rollback (back)
   "roll back to a previous version of a profile"
-  nil nil nil
+  nil 
+ (rollback/options)
+ #'rollback/handler
   "Roll back your default profile to the previous version"
-  "rollback")
+  "rollback"
+ "Roll back your default profile to version n"
+  "rollback -t version-profile")
 
 (define-command profile history (hist)
   "show all versions of a profile"
