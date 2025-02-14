@@ -19,9 +19,28 @@
   "Use the command `nix' to run ARGS."
   (run! (append (list "nix") (flatten-list args))))
 
+(defv- *vix-config*
+  (uiop:merge-pathnames* "vix.lisp"
+                         (home ".config/vix/"))
+  "The default location of Vix config.")
+
+(def- read-config ()
+  "Read the contents of the vix config."
+  (mapcar #'read-from-string (uiop:read-file-lines *vix-config*)))
+
+(def- default-flake ()
+  "Return the default flake."
+  (destructuring-bind (flake &rest args)
+      (read-config)
+    (declare (ignore args))
+    flake))
+
 (def pipe-args (args)
-  "Return a string from ARGS suitable for the `install' command."
-  (format nil "~{nixpkgs#~A~^ ~}" args))
+  (let* ((flake (default-flake))
+         (fmt-args (if (empty-string-p flake)
+                       `("~{~A~^ ~}" ,args)
+                       `(,(cat "~{" flake "#~A~^ ~}") ,args))))
+    (apply #'format nil fmt-args)))
 
 (def or-args (args)
   "Return a string from ARGS suitable for the `search' command."
@@ -53,6 +72,7 @@ Nix command CMD from it."
                                    :description "toggle Nixpkgs"
                                    :short-name #\n
                                    :long-name "nixpkgs"
+                                   :initial-value :true
                                    :required nil
                                    :key :opt-nixpkgs))
         ,@args))))

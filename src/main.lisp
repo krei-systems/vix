@@ -34,7 +34,19 @@
                         :long-name "verbose"
                         :key :verbose)))
 
-(def top-level/sub-commands^main-commands ()
+(def- zsh-completion/command ()
+  "Returns a command for generating the Zsh completion script"
+  (clingon:make-command
+   :name "zsh-completion"
+   :description "generate the Zsh completion script"
+   :usage ""
+   :handler (lambda (cmd)
+              ;; Use the parent command when generating the completions,
+              ;; so that we can traverse all sub-commands in the tree.
+              (let ((parent (clingon:command-parent cmd)))
+                (clingon:print-documentation :zsh-completions parent t)))))
+
+(def top-level/sub-commands ()
   "Returns the list of sub-commands for the top-level command"
   (macrolet ((%mac (&rest commands)
                `(list
@@ -121,7 +133,9 @@
           store-prefetch-file
           store-repair
           store-sign
-          store-verify)))
+          store-verify
+
+          zsh-completion)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."
