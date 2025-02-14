@@ -72,7 +72,6 @@ Nix command CMD from it."
                                    :description "toggle Nixpkgs"
                                    :short-name #\n
                                    :long-name "nixpkgs"
-                                   :initial-value :true
                                    :required nil
                                    :key :opt-nixpkgs))
         ,@args))))
