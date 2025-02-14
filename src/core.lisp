@@ -68,12 +68,14 @@ Nix command CMD from it."
     `(def- ,%fname ()
        ,%description
        (append
-        (list (clingon:make-option :flag
-                                   :description "toggle Nixpkgs"
-                                   :short-name #\n
-                                   :long-name "nixpkgs"
-                                   :required nil
-                                   :key :opt-nixpkgs))
+        (list
+         ;; (clingon:make-option :flag
+         ;;                           :description "toggle Nixpkgs"
+         ;;                           :short-name #\n
+         ;;                           :long-name "nixpkgs"
+         ;;                           :required nil
+         ;;                           :key :opt-nixpkgs)
+         )
         ,@args))))
 
 (defm define-handler (name command)
