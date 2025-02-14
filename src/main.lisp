@@ -41,10 +41,17 @@
    :description "generate the Zsh completion script"
    :usage ""
    :handler (lambda (cmd)
-              ;; Use the parent command when generating the completions,
-              ;; so that we can traverse all sub-commands in the tree.
               (let ((parent (clingon:command-parent cmd)))
                 (clingon:print-documentation :zsh-completions parent t)))))
+
+(defun print-doc/command ()
+  "Returns a command which will print the app's documentation"
+  (clingon:make-command
+   :name "print-doc"
+   :description "print the documentation"
+   :usage ""
+   :handler (lambda (cmd)
+              (clingon:print-documentation :markdown (clingon:command-parent cmd) t))))
 
 (def top-level/sub-commands ()
   "Returns the list of sub-commands for the top-level command"
@@ -135,7 +142,8 @@
           store-sign
           store-verify
 
-          zsh-completion)))
+          zsh-completion
+          print-doc)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."
