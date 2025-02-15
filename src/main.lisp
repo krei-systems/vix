@@ -11,7 +11,6 @@
         #:vix/src/profile
         #:vix/src/flake
         #:vix/src/store
-        #:vix/src/develop
         #:vix/src/etc
         #:vix/src/config
         #:vix/src/derivation
@@ -117,7 +116,7 @@ EOF")
    :version +project-version+
    :description +project-name+
    :long-description (fmt "~:(~A~) is a program for interacting with the Nix ecosystem" +project-name+)
-   :authors '("Rommel Martínez <ebzzry@icloud.com>")
+   :authors '("Rommel Martínez <ebzzry@icloud.com>" "Michael Adrian Villareal <eldrin@proton.me>")
    :handler #'top-level/handler
    :options (top-level/options)
    :sub-commands (top-level/sub-commands)))

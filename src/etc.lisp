@@ -8,6 +8,28 @@
 
 (in-package #:vix/src/etc)
 
+(define-command nil develop (d)
+  "run a dev shell"
+  nil
+  nil
+  nil
+  nil
+  "Run a dev shell"
+  "d"
+  "Run a dev and run `make' inside"
+  "d -- -c make")
+
+(define-command nil make (m)
+  "run `make' inside a dev shell"
+  nil
+  nil
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (nrun "develop" "--command" "make" args)))
+  nil
+  "Run `make' inside a dev shell"
+  "m")
+
 (define-command nil search (s)
   "search for packages"
   "package..."
