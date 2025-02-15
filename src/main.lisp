@@ -75,7 +75,7 @@
      shell
      print-dev-env
      daemon
-     realisation-info
+     realisation
      upgrade-nix
 
      registry

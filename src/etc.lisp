@@ -54,7 +54,7 @@
   t
   nil
   "Open the Nix expression of the `hello' package"
-  "ed hello")
+  "ed nixpkgs#hello")
 
 (define-command nil eval (e)
   "evaluate a Nix expression"
@@ -63,7 +63,9 @@
   t
   nil
   "Evaluate a Nix expression given on the command line"
-  "e -- --expr '1 + 2'")
+  "e -- --expr '1 + 2'"
+  "Print the store path of the Hello package"
+  "e -- --raw nixpkgs#hello")
 
 (define-command nil fmt ()
   "reformat your code in the standard style"
@@ -99,7 +101,7 @@
   t
   nil
   "Show one path through the dependency graph leading from `hello' to `glibc'"
-  "w hello glibc")
+  "w nixpkgs#hello nixpkgs#glibc")
 
 (define-command nil shell (sh)
   "run a shell in which the specified packages are available"
@@ -118,8 +120,8 @@
   nil
   t
   nil
-  "Get the build environment"
-  "print hello")
+  "Get the build environment of `hello'"
+  "print nixpkgs#hello")
 
 (define-command nil daemon (dm)
   "daemon to perform store operations on behalf of non-root clients"
@@ -132,14 +134,14 @@
   "Run the daemon and force all connections to be trusted"
   "dm -- --force-trusted")
 
-(define-command nil realisation-info (rinfo)
+(define-command nil realisation (real)
   "manipulate a Nix realisation"
   nil
   nil
   t
   nil
   "Show some information about the realisation of the package `hello'"
-  "rinfo hello")
+  "real info nixpkgs#hello")
 
 (define-command nil upgrade-nix (upgrade)
   "upgrade Nix to the latest stable version"
