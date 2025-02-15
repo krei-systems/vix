@@ -64,7 +64,7 @@ EOF")
   (macrolet ((%mac (&rest commands)
                `(list
                  ,@(loop :for command :in commands
-                         :for name := (read-cat command "/command")
+                         :for name := (read-cat command '/command)
                          :collect `(,name)))))
     (%mac profile
           flake
