@@ -8,7 +8,6 @@
         #:vix/src/core
         #:vix/src/registry
         #:vix/src/rebuild
-        #:vix/src/search
         #:vix/src/profile
         #:vix/src/flake
         #:vix/src/store
@@ -18,8 +17,7 @@
         #:vix/src/derivation
         #:vix/src/hash
         #:vix/src/key
-        #:vix/src/nar
-        ))
+        #:vix/src/nar))
 
 (in-package #:vix/src/main)
 
@@ -64,37 +62,42 @@
                  ,@(loop :for command :in commands
                          :for name := (read-cat command "/command")
                          :collect `(,name)))))
-    (%mac build
+    (%mac profile
+          flake
+
+          develop
+          make
+
+          rebuild
+
+          search
           run
+          repl
+          eval
+          shell
+
+          build
           bundle
           copy
           edit
-          eval
           fmt
-          repl
           path-info
+
           why-depends
-          shell
           print-dev-env
           daemon
           realisation
           upgrade-nix
 
           registry
-
-          rebuild
-          search
-          profile
-          flake
           store
-          develop
-          make
 
           config
           derivation
           hash
           key
           nar
+
           zsh-completions
           print-doc)))
 

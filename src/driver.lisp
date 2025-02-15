@@ -8,7 +8,6 @@
                  #:vix/src/core
                  #:vix/src/registry
                  #:vix/src/rebuild
-                 #:vix/src/search
                  #:vix/src/profile
                  #:vix/src/flake
                  #:vix/src/store

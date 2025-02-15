@@ -8,6 +8,15 @@
 
 (in-package #:vix/src/etc)
 
+(define-command nil search (s)
+  "search for packages"
+  "package..."
+  nil
+  t
+  nil
+  "Search in Nixpkgs for packages named `firefox'"
+  "search nixpkgs firefox")
+
 (define-command nil build (b)
   "build a derivation or fetch a store path"
   nil
