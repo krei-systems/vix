@@ -41,8 +41,13 @@
     (let ((parent (clingon:command-parent cmd)))
       (clingon:print-documentation :zsh-completions parent t)))
   nil
-  "Generate the Zsh completions of Vix"
-  "zsh-completions > ~/.zsh-completions/_vix")
+  "Generate the Zsh completions of Vix and enable them"
+  "zsh-completions > ~/.zsh-completions/_vix
+cat >>! ~/.zshenv << EOF
+fpath=(~/.zsh-completions $fpath)
+autoload -U compinit
+compinit
+EOF")
 
 (define-command nil print-doc (doc)
   "print the documentation"
@@ -52,8 +57,8 @@
     (clingon:print-documentation :markdown (clingon:command-parent
                                             cmd) t))
   nil
-  "Generate the documentation of Vix"
-  "print-doc")
+  "Generate the Markdown documentation of Vix and save it to README.md"
+  "print-doc > README.md")
 
 (def top-level/sub-commands ()
   "Returns the list of sub-commands for the top-level command"
