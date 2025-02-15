@@ -722,9 +722,9 @@ vix rebuild [-s] [-su]
 ``` shell
       --help           display usage information and exit
       --version        display version and exit
-  -f, --flake <VALUE>  source flake
-  -s, --switch         toggle switch [default: TRUE]
-  -u, --upgrade        toggle upgrade [default: FALSE]
+  -f, --flake <VALUE>  specify flake [default: /Users/ebzzry/etc/dev/]
+  -s, --switch         enable switch [default: TRUE]
+  -u, --upgrade        enable upgrade [default: FALSE]
 
 ```
 
