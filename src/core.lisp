@@ -110,9 +110,7 @@ Nix command CMD from it."
          (let* ((args (clingon:command-arguments cmd))
                 (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
                 (final-args (cond (opt-nixpkgs (append ',command-list (uiop:split-string (pipe-args args))))
-                                  (t (append ',command-list args))))
-                ;; (final-args (append ',command-list args))
-                )
+                                  (t (append ',command-list args)))))
            (apply #'nrun final-args))))))
 
 (defm define-basic-handler (group command)
