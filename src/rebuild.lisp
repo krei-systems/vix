@@ -22,14 +22,14 @@
                         :description "enable switch"
                         :short-name #\s
                         :long-name "switch"
-                        :initial-value (if (uiop:os-macosx-p) :true :false)
+                        :initial-value :true
                         :required nil
                         :key :opt-switch)
    (clingon:make-option :flag
                         :description "enable upgrade"
                         :short-name #\u
                         :long-name "upgrade"
-                        :initial-value (if (uiop:os-macosx-p) :false :true)
+                        :initial-value :false
                         :required nil
                         :key :opt-upgrade)))
 
@@ -38,11 +38,10 @@
   (let* ((args (clingon:command-arguments cmd))
          (opt-flake (clingon:getopt cmd :opt-flake))
          (opt-switch (clingon:getopt cmd :opt-switch))
-         (opt-upgrade (when opt-switch
-                        (clingon:getopt cmd :opt-upgrade)))
+         (opt-upgrade (clingon:getopt cmd :opt-upgrade))
          (full-args (append args
                             (when opt-switch '("switch"))
-                            (when opt-upgrade '("switch" "--upgrade")))))
+                            (when opt-upgrade '("--upgrade")))))
     (uiop:os-cond
      ((uiop:os-macosx-p)
       (run! `("darwin-rebuild" "--flake" ,opt-flake ,@full-args)))
