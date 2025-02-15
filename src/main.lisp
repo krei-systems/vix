@@ -115,10 +115,7 @@ EOF")
   (clingon:make-command
    :name +project-name+
    :version +project-version+
-   :description +project-name+
-   :long-description (fmt "~:(~A~) is a program for interacting with the Nix ecosystem" +project-name+)
-   :authors '("Rommel Martínez <ebzzry@icloud.com>"
-              "Michael Adrian Villareal <eldriv@proton.me>")
+   :description "a program for interacting with the Nix ecosystem"
    :handler #'top-level/handler
    :options (top-level/options)
    :sub-commands (top-level/sub-commands)))

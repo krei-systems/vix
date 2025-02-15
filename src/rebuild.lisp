@@ -52,11 +52,11 @@
 
 (define-command nil rebuild (rb)
   "rebuild the system configuration from a flake"
-  "[-s] [-su]"
+  "[-f flake] [-s] [-u]"
   (rebuild/options)
   #'rebuild/handler
   nil
   "Rebuild the system from the flake specified in `~/src/system/'"
-  "rb -s -f ~/src/system"
-  "Rebuild the system from flake and switch to it"
+  "rb -f ~/src/system -s"
+  "Rebuild the system from the default flake and switch to it"
   "rb -s")
