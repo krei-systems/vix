@@ -56,36 +56,8 @@
   nil
   "Roll back your default profile to the previous version"
   "rollback"
-  "Roll back your default profile to version n"
-  "rollback -t version-profile")
-
-;; (def- profile/rollback/options ()
-;;   (list
-;;    (clingon:make-option :string
-;;                         :description "specify command"
-;;                         :short-name #\t
-;;                         :long-name "to"
-;;                         :required nil
-;;                         :key :opt-command)))
-
-;; (def- profile/rollback/handler (cmd)
-;;   "Handler for the `develop' command."
-;;   (let* ((args (clingon:command-arguments cmd))
-;;          (opt-command (clingon:getopt cmd :opt-command))
-;;          (full-args (append args
-;;                             (when opt-command '("--to")))))
-;;     (nrun "rollback" full-args)))
-
-;; (define-command profile rollback (back)
-;;   "roll back to a previous version of a profile"
-;;   nil
-;;   (profile/rollback/options)
-;;   #'profile/rollback/handler
-;;   nil
-;;   "Roll back your default profile to the previous version"
-;;   "rollback"
-;;   "Roll back your default profile to version n"
-;;   "rollback -t version-profile")
+  "Roll back your default profile to an older version"
+  "rollback -- --to profile")
 
 (define-command profile history (h)
   "show all versions of a profile"
