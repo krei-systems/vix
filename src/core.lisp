@@ -141,10 +141,31 @@ Nix command CMD from it."
                 :collect `(,fname))))))
 
 (defm define-command (group command aliases
-                      desc
+                      description
                       usage options handler sub-command
                       &rest examples)
-  "Return a function for CLINGON:MAKE-COMMAND."
+  "Define a function for CLINGON:MAKE-COMMAND.
+
+GROUP is the name of the group, like `flake'.
+
+COMMAND is the name of the command from a group, or solo, like `init'.
+
+ALIASES is a list of alternative names, like `i' for `init'.
+
+DESCRIPTION is the command description that will show up in help.
+
+OPTIONS is the name of the function, that will be called to the program options;
+or T, which means to generate a default set of options.
+
+HANDLER is a function object that accepts a single argument that will handle the
+command itself; T to define a handler that accepts a group and (sub) command; or
+NIL to define a basic handler that acts like T, but without the group parameter.
+
+SUB-COMMAND is T, to indicate that the command being defined will handle
+sub-commands.
+
+EXAMPLES is a list of description/command-line usage pairs for the command.
+"
   (flet ((prefix (command)
            (prefix-command group command)))
     (let* ((%group (when group (prin1-downcase group)))
@@ -159,7 +180,7 @@ Nix command CMD from it."
          (clingon:make-command
           :name ,%command
           :aliases ',%aliases
-          :description ,desc
+          :description ,description
           :usage (if (null ,usage) "[argument...|option...]" ,usage)
           :options (cond ((eql t ,options)
                           (define-options ,group ,command)
