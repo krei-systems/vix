@@ -15,9 +15,9 @@
   t
   nil
   "Install a package from Nixpkgs"
-  "install hello"
+  "p i nixpkgs#hello"
   "Install a package from a specific Nixpkgs revision"
-  "install nixpkgs/d734#hello")
+  "p i nixpkgs/d734#hello")
 
 (define-command profile remove (r)
   "uninstall packages from a profile"
@@ -26,9 +26,9 @@
   t
   nil
   "Remove a package by name"
-  "uninstall hello"
+  "p r hello"
   "Remove all packages"
-  "uninstall -- --all")
+  "p r -- --all")
 
 (define-command profile upgrade (u)
   "upgrade packages using their most recent flake"
@@ -37,7 +37,7 @@
   t
   nil
   "Upgrade a specific package by name"
-  "upgrade hello")
+  "p u hello")
 
 (define-command profile list (l)
   "list the installed packages"
@@ -46,18 +46,18 @@
   t
   nil
   "List packages installed in the default profile"
-  "list")
+  "p l")
 
-(define-command profile rollback (b)
+(define-command profile rollback (rb)
   "roll back to a previous version of a profile"
   ""
   nil
   t
   nil
   "Roll back your default profile to the previous version"
-  "rollback"
-  "Roll back your default profile to an older version"
-  "rollback -- --to profile")
+  "p rb"
+  "Roll back your default profile to version 500"
+  "p rb -- --to 500")
 
 (define-command profile history (h)
   "show all versions of a profile"
@@ -66,7 +66,7 @@
   t
   nil
   "Show the changes between each version of your default profile"
-  "history")
+  "p h")
 
 (define-command profile wipe-history (w)
   "delete non-current versions of a profile"
@@ -75,7 +75,7 @@
   t
   nil
   "Delete all versions of the default profile older than 30 days"
-  "wipe-history -- --profile /tmp/profile --older-than 30d")
+  "p w -- --profile /tmp/profile --older-than 30d")
 
 (define-command profile diff-closures (d)
   "show the closure difference between each version of a profile"
@@ -84,7 +84,7 @@
   t
   nil
   "Show what changed between each version of the NixOS system profile"
-  "diff-closures -- --profile /nix/var/nix/profiles/system")
+  "p d -- --profile /nix/var/nix/profiles/system")
 
 (define-sub-commands profile
   install remove upgrade list
