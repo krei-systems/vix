@@ -95,7 +95,7 @@
   nil
   "Evaluate a Nix expression given on the command line"
   "e -- --expr '1 + 2'"
-  "Print the store path of the Hello package"
+  "Print the store path of the `hello' package"
   "e -- --raw nixpkgs#hello")
 
 (define-command nil fmt ()

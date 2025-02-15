@@ -115,6 +115,7 @@ vix profile install package...
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -523,7 +524,7 @@ Create a flake in the directory `hello':
 vix f n hello
 ```
 
-Create a flake in the directory `hello' using template haskell-hello:
+Create a flake in the directory `hello' using the template `haskell-hello':
 
 ``` shell
 vix f n hello -t templates#haskell-hello
@@ -785,6 +786,7 @@ vix run [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -852,7 +854,7 @@ Evaluate a Nix expression given on the command line:
 vix e -- --expr '1 + 2'
 ```
 
-Print the store path of the Hello package:
+Print the store path of the `hello' package:
 
 ``` shell
 vix e -- --raw nixpkgs#hello
@@ -875,6 +877,7 @@ vix shell [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -903,6 +906,7 @@ vix build [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -937,6 +941,7 @@ vix bundle [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -993,6 +998,7 @@ vix edit [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -1049,6 +1055,7 @@ vix path-info [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -1077,6 +1084,7 @@ vix why-depends [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -1105,6 +1113,7 @@ vix print-dev-env [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -1167,6 +1176,7 @@ vix realisation [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -1316,7 +1326,7 @@ vix registry remove flake
 
 ## Examples
 
-Remove the entry `nixpkgs' from the user registry:
+Remove the `nixpkgs' flake from the registry:
 
 ``` shell
 vix y r nixpkgs
@@ -1344,7 +1354,7 @@ vix registry pin flake
 
 ## Examples
 
-Pin `nixpkgs' to its most recent Git revision:
+Pin the `nixpkgs' flake to its most recent revision:
 
 ``` shell
 vix y p nixpkgs
@@ -1693,6 +1703,7 @@ vix store make-content-addressed path
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
@@ -2033,6 +2044,7 @@ vix derivation show derivation
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
