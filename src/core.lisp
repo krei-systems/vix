@@ -159,7 +159,7 @@ Nix command CMD from it."
 
 GROUP is the name of the group, like `flake'.
 
-COMMAND is the name of the command from a group, or solo, like `init'.
+COMMAND is the name of the command from a group, or standalone, like `init'.
 
 ALIASES is a list of alternative names, like `i' for `init'.
 

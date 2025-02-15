@@ -23,8 +23,8 @@
 
 ;;; fns
 
-(def- top-level/options ()
-  "Return the options for the top-level command."
+(def- main/options ()
+  "Return the options for the main command."
   (list
    (clingon:make-option :counter
                         :description "Verbosity"
@@ -53,14 +53,13 @@ EOF")
   ""
   nil
   (lambda (cmd)
-    (clingon:print-documentation :markdown (clingon:command-parent
-                                            cmd) t))
+    (clingon:print-documentation :markdown (clingon:command-parent cmd) t))
   nil
   "Generate the Markdown documentation of Vix and save it to README.md"
   "print-doc > README.md")
 
-(def top-level/sub-commands ()
-  "Return the list of sub-commands for the top-level command"
+(def main/sub-commands ()
+  "Return the list of sub-commands for the main command"
   (macrolet ((%mac (&rest commands)
                `(list
                  ,@(loop :for command :in commands
@@ -68,64 +67,56 @@ EOF")
                          :collect `(,name)))))
     (%mac profile
           flake
-
           develop
           make
-
           rebuild
-
           search
           find
           run
           repl
           eval
           shell
-
           build
           bundle
           copy
           edit
-          fmt
           path-info
-
           why-depends
           print-dev-env
           daemon
           realisation
-          upgrade-nix
-
           registry
           store
-
           config
           derivation
           hash
           key
           nar
-
+          fmt
+          upgrade-nix
           zsh-completions
           print-doc)))
 
-(def- top-level/handler (cmd)
-  "The handler for the top-level command. Prints the command usage."
+(def- main/handler (cmd)
+  "The handler for the main command. Prints the command usage."
   (clingon:print-usage-and-exit cmd t))
 
-(def- top-level/command ()
-  "Return the top-level command"
+(def- main/command ()
+  "Return the main command"
   (clingon:make-command
    :name +project-name+
    :version +project-version+
    :description "a program for interacting with the Nix ecosystem"
-   :handler #'top-level/handler
-   :options (top-level/options)
-   :sub-commands (top-level/sub-commands)))
+   :handler #'main/handler
+   :options (main/options)
+   :sub-commands (main/sub-commands)))
 
 
 ;;; entry point
 
 (def main (&rest args)
   "The main entry point of the program."
-  (let ((app (top-level/command)))
+  (let ((app (main/command)))
     (handler-case (clingon:run app)
       (#+sbcl sb-sys:interactive-interrupt
        #+ccl ccl:interrupt-signal-condition
