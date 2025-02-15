@@ -8,14 +8,30 @@
 
 (in-package #:vix/src/config)
 
-(define-command config show^config-show ()
+(define-command config show (s)
   "show the Nix configuration or the value of a specific setting"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Show configuration"
-  "config-show")
+  "cfg s")
 
-(define-command config check^config-check ()
+(define-command config check (k)
   "check your system for potential problems"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Check for problems"
-  "config-check")
+  "cfg k")
+
+(define-sub-commands config
+  show check)
+
+(define-command nil config (cfg)
+  "manage the Nix settings"
+  "command"
+  nil
+  #'usage
+  t)

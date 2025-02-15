@@ -54,7 +54,8 @@
   "[-s] [-su]"
   (rebuild/options)
   #'rebuild/handler
+  nil
   "Rebuild the system from the flake specified in `~/src/system/'"
-  "rebuild -s -f ~/src/system"
+  "rb -s -f ~/src/system"
   "Rebuild the system from flake and switch to it"
-  "rebuild -s")
+  "rb -s")

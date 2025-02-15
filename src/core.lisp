@@ -61,34 +61,57 @@ Nix command CMD from it."
 
 ;;; entry points
 
-(defm define-options (name &rest args)
-  "Return a list for defining options."
-  (let ((%fname (read-from-string (cat (prin1-to-string name) "/OPTIONS")))
-        (%description (fmt "Return the options for the `~A' command." name)))
-    `(def- ,%fname ()
-       ,%description
-       (append
-        (list
-         ;; (clingon:make-option :flag
-         ;;                           :description "toggle Nixpkgs"
-         ;;                           :short-name #\n
-         ;;                           :long-name "nixpkgs"
-         ;;                           :required nil
-         ;;                           :key :opt-nixpkgs)
-         )
-        ,@args))))
+(def- prefix-command (prefix cmd)
+  "Return a prefix string for CMD if PREFIX is true."
+  (let ((prefix-string (if prefix (prin1-to-string prefix) "")))
+    (if (¬ (empty-string-p prefix-string))
+        (cat prefix-string "/" cmd)
+        cmd)))
 
-(defm define-handler (name command)
+(defm define-options (group command &rest args)
+  "Return a list for defining options."
+  (flet ((prefix (command)
+           (prefix-command group command)))
+    (let ((%fn (read-cat (prefix command) '/options))
+          (%doc (fmt "Return the options for the `~A' command." command)))
+      `(def- ,%fn ()
+         ,%doc
+         (append
+          (list
+           ;; (clingon:make-option :flag :description "toggle Nixpkgs" :short-name #\n :long-name "nixpkgs" :required nil :key :opt-nixpkgs)
+           )
+          ,@args)))))
+
+(def usage (cmd)
+  "Print usage of CMD then exit."
+  (clingon:print-usage-and-exit cmd t))
+
+(defm define-handler (group command command-list)
   "Define a function for handling command."
-  (let ((%fname (read-from-string (cat (prin1-to-string name) "/HANDLER")))
-        (%description (fmt "The handler for the `~A' command." name)))
-    `(def- ,%fname (cmd)
-       ,%description
-       (let* ((args (clingon:command-arguments cmd))
-              (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
-              (final-args (cond (opt-nixpkgs (append ',command (uiop:split-string (pipe-args args))))
-                                (t (append ',command args)))))
-         (apply #'nrun final-args)))))
+  (flet ((prefix (command)
+           (prefix-command group command)))
+    (let ((%fn (read-cat (prefix command) '/handler))
+          (%doc (fmt "The handler for the `~A' command." command)))
+      `(def- ,%fn (cmd)
+         ,%doc
+         (let* ((args (clingon:command-arguments cmd))
+                ;; (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
+                ;; (final-args (cond (opt-nixpkgs (append ',command-list (uiop:split-string (pipe-args args))))
+                ;;                   (t (append ',command-list args))))
+                (final-args (append ',command-list args))
+                )
+           (apply #'nrun final-args))))))
+
+(defm define-basic-handler (group command)
+  "Define a basic handler for handling commands."
+  `(lambda (cmd)
+     (let* ((args (clingon:command-arguments cmd))
+            (final-args (if (¬ (empty-string-p ,group))
+                            (list ,group ,command args)
+                            (list ,command args))))
+       (if (null args)
+           (usage cmd)
+           (apply #'nrun final-args)))))
 
 (def- split-name (symbol &key (separator '(#\^)))
   "Return the split of SYMBOL by SEPARATOR."
@@ -108,39 +131,46 @@ Nix command CMD from it."
         (read-from-string alt-name)
         (read-from-string main-name))))
 
-(defm define-command (group cmd aliases
+(defm define-sub-commands (name &rest sub-commands)
+  "Return a list of subcommands for NAME from ARGS."
+  (let ((%name (read-cat name '/sub-commands)))
+    `(def- ,%name ()
+       (list
+        ,@(loop :for command :in sub-commands
+                :for fname := (read-cat name #\/ command '/command)
+                :collect `(,fname))))))
+
+(defm define-command (group command aliases
                       desc
-                      usage options handler
+                      usage options handler sub-command
                       &rest examples)
   "Return a function for CLINGON:MAKE-COMMAND."
-  (let* ((%group (when group (prin1-downcase group)))
-
-         (%cmd-raw (prin1-downcase (get-raw-name cmd)))
-         (%cmd (prin1-downcase (get-name cmd)))
-
-         (%fn (read-cat %cmd "/command"))
-
-         (%aliases (when aliases (mapcar #'prin1-downcase aliases)))
-         (%options (read-cat %cmd "/options"))
-         (%handler (read-cat "#'" %cmd "/handler")))
-    `(def ,%fn ()
-       (clingon:make-command
-        :name ,%cmd
-        :aliases ',%aliases
-        :description ,desc
-        :usage (if (null ,usage) "[option...]" ,usage)
-        :options (if (eql t ,options)
-                     (,%options)
-                     ,options)
-        :handler (cond ((eql t ,handler) ,%handler)
-                       ((null ,handler)
-                        (lambda (cmd)
-                          (let* ((args (clingon:command-arguments cmd))
-                                 (grp ,%group)
-                                 (final-args
-                                   (if grp
-                                       (list grp ,%cmd-raw args)
-                                       (list ,%cmd-raw args))))
-                            (apply #'nrun final-args))))
-                       (t ,handler))
-        :examples (mini-help ,@examples)))))
+  (flet ((prefix (command)
+           (prefix-command group command)))
+    (let* ((%group-raw (prin1-downcase (get-raw-name group)))
+           (%command-raw (prin1-downcase (get-raw-name command)))
+           (%group (when group (prin1-downcase group)))
+           (%command (prin1-downcase (get-name command)))
+           (%aliases (when aliases (mapcar #'prin1-downcase aliases)))
+           (%fn (read-cat (prefix %command) '/command))
+           (%options (read-cat (prefix %command) '/options))
+           (%handler (read-cat "#'" (prefix %command) '/handler))
+           (%sub-commands (read-cat (prefix %command) '/sub-commands)))
+      `(def ,%fn ()
+         (clingon:make-command
+          :name ,%command
+          :aliases ',%aliases
+          :description ,desc
+          :usage (if (null ,usage) "[argument...|option...]" ,usage)
+          :options (cond ((eql t ,options)
+                          (define-options ,group ,command)
+                          (,%options))
+                         (t ,options))
+          :handler (cond ((eql t ,handler)
+                          (define-handler ,group ,command (,%group-raw ,%command-raw))
+                          ,%handler)
+                         ((null ,handler)
+                          (define-basic-handler ,%group-raw ,%command-raw))
+                         (t ,handler))
+          ,@(when sub-command `(:sub-commands (,%sub-commands)))
+          ,@(when examples `(:examples (mini-help ,@examples))))))))

@@ -8,60 +8,97 @@
 
 (in-package #:vix/src/flake)
 
-(define-command flake init (fi)
+(define-command flake init (i)
   "create a flake in the current directory"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Create a flake using the default template"
-  "init")
+  "f i")
 
-(define-command flake metadata (fm)
+(define-command flake metadata (m)
   "show flake metadata"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Show flake metadata"
-  "metadata")
+  "f m")
 
-(define-command flake show (fs)
+(define-command flake show (s)
   "show the outputs provided by a flake"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Show the output attributes provided by the CWD flake"
-  "show"
+  "f s"
   "List available templates"
-  "show templates")
+  "f s templates")
 
-(define-command flake update (fu)
+(define-command flake update (u)
   "update flake lock file"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Update all inputs"
-  "update")
+  "f u")
 
-(define-command flake new (fn)
+(define-command flake new (n)
   "create a flake in the specified directory from a template"
-  nil nil nil
+  "flake"
+  nil
+  t
+  nil
   "Create a flake in the directory `hello'"
-  "new hello"
+  "f n hello"
   "Create a flake in the directory `hello' using template haskell-hello"
-  "new hello -t templates#haskell-hello")
+  "f n hello -t templates#haskell-hello")
 
-(define-command flake clone (fc)
+(define-command flake clone (c)
   "clone flake repository"
-  nil nil nil
+  "flake"
+  nil
+  t
+  nil
   "Check out the source code of the dwarffs flake"
-  "clone dwarffs -- --dest dwarffs")
+  "f c dwarffs -- --dest dwarffs")
 
-(define-command flake check (fh)
+(define-command flake check (k)
   "check whether the flake evaluates and run its tests"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Evaluate the flake in the current directory, and build its checks"
-  "check")
+  "f k")
 
-(define-command flake archive (fa)
+(define-command flake archive (a)
   "copy a flake and all its inputs to a store"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Fetch the dwarffs flake to the local Nix store"
-  "achive dwarffs")
+  "f a dwarffs")
 
-(define-command flake prefetch (fp)
+(define-command flake prefetch (p)
   "download the flake source tree into the Nix store"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Download the dwarffs flake"
-  "prefetch dwarffs")
+  "f p dwarffs")
+
+(define-sub-commands flake
+  init metadata show update new clone check archive prefetch)
+
+(define-command nil flake (f)
+  "flake commands"
+  "command"
+  nil
+  #'usage
+  t)

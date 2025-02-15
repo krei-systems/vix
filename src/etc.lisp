@@ -8,114 +8,144 @@
 
 (in-package #:vix/src/etc)
 
-(define-options build)
-(define-handler build ("build"))
-(define-command nil build ()
+(define-command nil build (b)
   "build a derivation or fetch a store path"
-  "[-n]" t t
+  nil
+  nil
+  t
+  nil
   "Build the default package from the flake in the current directory"
-  "build"
+  "b"
   "Build `hello' and `cowsay' from Nixpkgs, leaving two result symlinks"
-  "build -n hello cowsay")
+  "b nixpkgs#hello nixpkgs#cowsay"
+  )
 
-(define-options run)
-(define-handler run ("run"))
-(define-command nil run ()
+(define-command nil run (r)
   "run a Nix application"
-  nil t t
+  nil
+  nil
+  t
+  nil
   "Run `vim' from the `nixpkgs' flake"
-  "run -n vim")
+  "r nixpkgs#vim")
 
-(define-options bundle)
-(define-handler bundle ("bundle"))
-(define-command nil bundle ()
+(define-command nil bundle (u)
   "bundle an application so that it works outside of the Nix store"
-  nil t t
+  nil
+  nil
+  t
+  nil
   "Bundle `hello'"
-  "bundle -n vim")
+  "u nixpkgs#vim")
 
-(define-command nil copy ()
+(define-command nil copy (c)
   "start an interactive environment for evaluating Nix expressions"
-  nil nil nil
+  nil
+  nil
+  t
+  nil
   "Copy all store paths from a local binary cache"
-  "copy -- --all --from file:///tmp/cache")
+  "c -- --all --from file:///tmp/cache")
 
-(define-options edit)
-(define-handler edit ("edit"))
-(define-command nil edit ()
+(define-command nil edit (ed)
   "open the Nix expression of a Nix package in $EDITOR"
-  nil t t
+  nil
+  nil
+  t
+  nil
   "Open the Nix expression of the `hello' package"
-  "edit -n hello")
+  "ed hello")
 
-(define-command nil eval ()
+(define-command nil eval (e)
   "evaluate a Nix expression"
-  nil nil nil
+  nil
+  nil
+  t
+  nil
   "Evaluate a Nix expression given on the command line"
-  "eval -- --expr '1 + 2'")
+  "e -- --expr '1 + 2'")
 
-(define-command nil fmt (format)
+(define-command nil fmt ()
   "reformat your code in the standard style"
-  nil nil nil
+  nil
+  nil
+  t
+  nil
   "Format the current flake"
   "fmt")
 
 (define-command nil repl ()
   "start an interactive environment for evaluating Nix expressions"
-  nil nil nil
+  nil
+  nil
+  t
+  nil
   "Evaluate some simple Nix expressions"
   "repl")
 
-(define-options path-info)
-(define-handler path-info ("path-info"))
-(define-command nil path-info (path)
+(define-command nil path-info (info)
   "query information about store paths"
-  nil t t
+  nil
+  nil
+  t
+  nil
   "Print the store path produced by nixpkgs#hello"
-  "path -n hello")
+  "i nixpkgs#hello")
 
-(define-options why-depends)
-(define-handler why-depends ("why-depends"))
-(define-command nil why-depends (why)
+(define-command nil why-depends (w)
   "show why a package has another package in its closure"
-  nil t t
+  nil
+  nil
+  t
+  nil
   "Show one path through the dependency graph leading from `hello' to `glibc'"
-  "why -n hello glibc")
+  "w hello glibc")
 
-(define-options env-shell)
-(define-handler env-shell ("env" "shell"))
-(define-command env shell^env-shell (shell)
+(define-command nil shell (sh)
   "run a shell in which the specified packages are available"
-  nil t t
+  nil
+  nil
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (nrun "env" "shell" args)))
+  nil
   "Start a shell providing `yt-dlp' from the `nixpkgs' flake"
-  "shell -n yt-dlp")
+  "sh nixpkgs#yt-dlp")
 
-(define-options print-dev-env)
-(define-handler print-dev-env ("print-dev-env"))
 (define-command nil print-dev-env (print)
   "print shell code of derivation"
-  nil t t
+  nil
+  nil
+  t
+  nil
   "Get the build environment"
-  "print -n hello")
+  "print hello")
 
-(define-command nil daemon ()
+(define-command nil daemon (dm)
   "daemon to perform store operations on behalf of non-root clients"
-  nil nil nil
+  nil
+  nil
+  t
+  nil
   "Run the daemon"
-  "daemon"
+  "dm"
   "Run the daemon and force all connections to be trusted"
-  "daemon -- --force-trusted")
+  "dm -- --force-trusted")
 
-(define-options realisation-info)
-(define-handler realisation-info ("realisation" "info"))
-(define-command realisation info^realisation-info ()
+(define-command nil realisation-info (rinfo)
   "manipulate a Nix realisation"
-  nil t t
-  "Show some information about the realisation of the hello package"
-  "realisation-info -n hello")
+  nil
+  nil
+  t
+  nil
+  "Show some information about the realisation of the package `hello'"
+  "rinfo hello")
 
-(define-command nil upgrade-nix ()
+(define-command nil upgrade-nix (upgrade)
   "upgrade Nix to the latest stable version"
-  nil nil nil
+  ""
+  nil
+  t
+  nil
   "Upgrade Nix to the stable version declared in Nixpkgs"
-  "upgrade-nix")
+  "upgrade")

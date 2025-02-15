@@ -8,16 +8,30 @@
 
 (in-package #:vix/src/derivation)
 
-(define-command derivation add^derivation-add ()
+(define-command derivation add (a)
   "add a store derivation"
-  nil nil nil
+  "path"
+  nil
+  t
+  nil
   "Add a derivation"
-  "derivation-add")
+  "v a path")
 
-(define-options derivation-show)
-(define-handler derivation-show ("derivation" "show"))
-(define-command derivation show^derivation-show ()
+(define-command derivation show (s)
   "show the contents of a store derivation"
-  nil t t
+  "derivation"
+  nil
+  t
+  nil
   "Show the `hello' derivation"
-  "derivation-show -n hello")
+  "v s nixpkgs#hello")
+
+(define-sub-commands derivation
+  add show)
+
+(define-command nil derivation (v)
+  "work with derivations"
+  "command"
+  nil
+  #'usage
+  t)

@@ -9,41 +9,41 @@
 (in-package #:vix/src/develop)
 
 (def- develop/options ()
+  "Return the options for the `develop' command."
   (list
    (clingon:make-option :string
-                        :description "specify command"
+                        :description "command"
                         :short-name #\c
                         :long-name "command"
                         :required nil
                         :key :opt-command)))
 
 (def- develop/handler (cmd)
-  "Handler for the `develop' command."
+  "Handler for the `devolp' command."
   (let* ((args (clingon:command-arguments cmd))
          (opt-command (clingon:getopt cmd :opt-command))
          (full-args (append args
                             (when opt-command '("--command")))))
     (nrun "develop" full-args)))
 
-(define-command nil develop (dev)
-  "run a dev shell of a derivation build environment"
-  nil
+(define-command nil develop (d)
+  "rebuild the system"
+  "[-c]"
   (develop/options)
   #'develop/handler
-  "Start a dev shell with the build environment of the current directory"
-  "dev"
-  "Start a dev shell and run `make' inside"
-  "dev -c make")
+  nil
+  "Run a dev shell"
+  "d"
+  "Run a dev and run `make' inside"
+  "d -c make")
 
-(def make/handler (cmd)
-  "Handler for the `make' command."
-  (let ((args (clingon:command-arguments cmd)))
-    (nrun "develop" "--command" "make" args)))
-
-(define-command nil make (mk)
+(define-command nil make (m)
   "run make inside a dev shell"
   nil
   nil
-  #'make/handler
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (nrun "develop" "--command" "make" args)))
+  nil
   "Run `make' inside a dev shell"
-  "make")
+  "m")

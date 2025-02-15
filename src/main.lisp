@@ -6,19 +6,20 @@
         #:marie
         #:vix/src/specials
         #:vix/src/core
+        #:vix/src/registry
         #:vix/src/rebuild
         #:vix/src/search
         #:vix/src/profile
         #:vix/src/flake
+        #:vix/src/store
         #:vix/src/develop
         #:vix/src/etc
-        #:vix/src/registry
         #:vix/src/config
         #:vix/src/derivation
         #:vix/src/hash
         #:vix/src/key
         #:vix/src/nar
-        #:vix/src/store))
+        ))
 
 (in-package #:vix/src/main)
 
@@ -34,20 +35,20 @@
                         :long-name "verbose"
                         :key :verbose)))
 
-(def- zsh-completion/command ()
+(def- zsh/command ()
   "Returns a command for generating the Zsh completion script"
   (clingon:make-command
-   :name "zsh-completion"
+   :name "zsh"
    :description "generate the Zsh completion script"
    :usage ""
    :handler (lambda (cmd)
               (let ((parent (clingon:command-parent cmd)))
                 (clingon:print-documentation :zsh-completions parent t)))))
 
-(defun print-doc/command ()
+(def- doc/command ()
   "Returns a command which will print the app's documentation"
   (clingon:make-command
-   :name "print-doc"
+   :name "doc"
    :description "print the documentation"
    :usage ""
    :handler (lambda (cmd)
@@ -60,90 +61,39 @@
                  ,@(loop :for command :in commands
                          :for name := (read-cat command "/command")
                          :collect `(,name)))))
-    (%mac install
-          remove
-          upgrade
-          list
-          rollback
-          history
-          wipe-history
-          diff-closures
+    (%mac
+     build
+     run
+     bundle
+     copy
+     edit
+     eval
+     fmt
+     repl
+     path-info
+     why-depends
+     shell
+     print-dev-env
+     daemon
+     realisation-info
+     upgrade-nix
 
-          init
-          metadata
-          show
-          update
-          new
-          clone
-          check
-          archive
-          prefetch
+     registry
+     rebuild
+     search
+     profile
+     flake
+     store
+     develop
+     make
 
-          rebuild
-          search
-
-          develop
-          make
-
-          build
-          run
-          bundle
-          copy
-          edit
-          eval
-          fmt
-          repl
-
-          path-info
-          why-depends
-          env-shell
-          print-dev-env
-          daemon
-          realisation-info
-          upgrade-nix
-
-          registry-add
-          registry-pin
-          registry-remove
-          registry-list
-
-          config-show
-          config-check
-
-          derivation-add
-          derivation-show
-
-          hash-file
-          hash-path
-          hash-convert
-
-          key-convert
-          key-generate
-
-          nar-cat
-          nar-dump-path
-          nar-ls
-
-          store-add
-          store-cat
-          store-copy-log
-          store-copy-sigs
-          store-delete
-          store-diff-closures
-          store-dump-path
-          store-gc
-          store-info
-          store-ls
-          store-make-content-addressed
-          store-optimise
-          store-path-from-hash-part
-          store-prefetch-file
-          store-repair
-          store-sign
-          store-verify
-
-          zsh-completion
-          print-doc)))
+     config
+     derivation
+     hash
+     key
+     nar
+     zsh
+     doc)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."
