@@ -79,6 +79,7 @@
      upgrade-nix
 
      registry
+
      rebuild
      search
      profile
