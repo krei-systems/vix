@@ -26,8 +26,8 @@ vix [global-options] [<command>] [command-options] [arguments ...]
 ``` shell
   profile, p            profile commands
   flake, f              flake commands
-  develop, d            rebuild the system
-  make, m               run make inside a dev shell
+  develop, d            run a dev shell
+  make, m               run `make' inside a dev shell
   rebuild, rb           rebuild the system
   search, s             search for packages
   run, r                run a Nix application
@@ -60,6 +60,7 @@ vix [global-options] [<command>] [command-options] [arguments ...]
 ## Authors
 
 * Rommel Martínez <ebzzry@icloud.com>
+* Michael Adrian Villareal <eldriv@proton.me>
 
 # vix profile
 
@@ -90,7 +91,7 @@ vix profile command
   remove, r         uninstall packages from a profile
   upgrade, u        upgrade packages using their most recent flake
   list, l           list the installed packages
-  rollback, b       roll back to a previous version of a profile
+  rollback, rb      roll back to a previous version of a profile
   history, h        show all versions of a profile
   wipe-history, w   delete non-current versions of a profile
   diff-closures, d  show the closure difference between each version of a profile
@@ -122,13 +123,13 @@ vix profile install package...
 Install a package from Nixpkgs:
 
 ``` shell
-vix install hello
+vix p i nixpkgs#hello
 ```
 
 Install a package from a specific Nixpkgs revision:
 
 ``` shell
-vix install nixpkgs/d734#hello
+vix p i nixpkgs/d734#hello
 ```
 
 # vix profile remove
@@ -156,13 +157,13 @@ vix profile remove package...
 Remove a package by name:
 
 ``` shell
-vix uninstall hello
+vix p r hello
 ```
 
 Remove all packages:
 
 ``` shell
-vix uninstall -- --all
+vix p r -- --all
 ```
 
 # vix profile upgrade
@@ -190,7 +191,7 @@ vix profile upgrade package...
 Upgrade a specific package by name:
 
 ``` shell
-vix upgrade hello
+vix p u hello
 ```
 
 # vix profile list
@@ -218,7 +219,7 @@ vix profile list
 List packages installed in the default profile:
 
 ``` shell
-vix list
+vix p l
 ```
 
 # vix profile rollback
@@ -246,13 +247,13 @@ vix profile rollback
 Roll back your default profile to the previous version:
 
 ``` shell
-vix rollback
+vix p rb
 ```
 
-Roll back your default profile to version n:
+Roll back your default profile to version 500:
 
 ``` shell
-vix rollback -t version-profile
+vix p rb -- --to 500
 ```
 
 # vix profile history
@@ -280,7 +281,7 @@ vix profile history
 Show the changes between each version of your default profile:
 
 ``` shell
-vix history
+vix p h
 ```
 
 # vix profile wipe-history
@@ -308,7 +309,7 @@ vix profile wipe-history
 Delete all versions of the default profile older than 30 days:
 
 ``` shell
-vix wipe-history -- --profile /tmp/profile --older-than 30d
+vix p w -- --profile /tmp/profile --older-than 30d
 ```
 
 # vix profile diff-closures
@@ -336,7 +337,7 @@ vix profile diff-closures
 Show what changed between each version of the NixOS system profile:
 
 ``` shell
-vix diff-closures -- --profile /nix/var/nix/profiles/system
+vix p d -- --profile /nix/var/nix/profiles/system
 ```
 
 # vix flake
@@ -642,12 +643,12 @@ vix f p dwarffs
 
 # vix develop
 
-`vix develop` -- rebuild the system
+`vix develop` -- run a dev shell
 
 ## Usage
 
 ``` shell
-vix develop [-c]
+vix develop [argument...|option...]
 ```
 
 ## Options
@@ -655,9 +656,8 @@ vix develop [-c]
 `vix develop` accepts the following options:
 
 ``` shell
-      --help             display usage information and exit
-      --version          display version and exit
-  -c, --command <VALUE>  command
+      --help     display usage information and exit
+      --version  display version and exit
 
 ```
 
@@ -672,12 +672,12 @@ vix d
 Run a dev and run `make' inside:
 
 ``` shell
-vix d -c make
+vix d -- -c make
 ```
 
 # vix make
 
-`vix make` -- run make inside a dev shell
+`vix make` -- run `make' inside a dev shell
 
 ## Usage
 
@@ -2382,10 +2382,15 @@ vix zsh-completions
 
 ## Examples
 
-Generate the Zsh completions of Vix:
+Generate the Zsh completions of Vix and enable them:
 
 ``` shell
 vix zsh-completions > ~/.zsh-completions/_vix
+cat >>! ~/.zshenv << EOF
+fpath=(~/.zsh-completions $fpath)
+autoload -U compinit
+compinit
+EOF
 ```
 
 # vix print-doc
@@ -2410,9 +2415,9 @@ vix print-doc
 
 ## Examples
 
-Generate the documentation of Vix:
+Generate the Markdown documentation of Vix and save it to README.md:
 
 ``` shell
-vix print-doc
+vix print-doc > README.md
 ```
 
