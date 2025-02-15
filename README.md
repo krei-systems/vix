@@ -30,6 +30,7 @@ vix [global-options] [<command>] [command-options] [arguments ...]
   make, m               run `make' inside a dev shell
   rebuild, rb           rebuild the system
   search, s             search for packages
+  find, fd              search for packages in the `nixpkgs' flake
   run, r                run a Nix application
   repl                  start an interactive environment for evaluating Nix expressions
   eval, e               evaluate a Nix expression
@@ -748,7 +749,7 @@ vix rb -s
 ## Usage
 
 ``` shell
-vix search package...
+vix search [-n|flake] package...
 ```
 
 ## Options
@@ -758,15 +759,45 @@ vix search package...
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
 
 ```
 
 ## Examples
 
-Search in Nixpkgs for packages named `firefox':
+Search in `nixpkgs' flake for packages named `firefox':
 
 ``` shell
-vix search nixpkgs firefox
+vix s -n firefox
+```
+
+# vix find
+
+`vix find` -- search for packages in the `nixpkgs' flake
+
+## Usage
+
+``` shell
+vix find package...
+```
+
+## Options
+
+`vix find` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+  -n, --nixpkgs  use the `nixpkgs' flake
+
+```
+
+## Examples
+
+Search in `nixpkgs' flake for packages named `firefox':
+
+``` shell
+vix fd firefox
 ```
 
 # vix run
@@ -918,7 +949,7 @@ Build the default package from the flake in the current directory:
 vix b
 ```
 
-Build `hello' and `cowsay' from Nixpkgs, leaving two result symlinks:
+Build `hello' and `cowsay' from `nixpkgs' flake, leaving two result symlinks:
 
 ``` shell
 vix b nixpkgs#hello nixpkgs#cowsay
@@ -1210,7 +1241,7 @@ vix upgrade-nix
 
 ## Examples
 
-Upgrade Nix to the stable version declared in Nixpkgs:
+Upgrade Nix to the stable version declared in `nixpkgs' flake:
 
 ``` shell
 vix upgrade
