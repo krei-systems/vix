@@ -199,3 +199,16 @@
   nil
   "Upgrade Nix to the stable version declared in `nixpkgs' flake"
   "upgrade")
+
+(define-command nil collect-garbage (g)
+  "run the garbage collector"
+  nil
+  nil
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (run! `("nix-collect-garbage" ,args))))
+  nil
+  "Garbage collect"
+  "g"
+  "Gargage collect and delete old versions"
+  "g -- -d")

@@ -94,6 +94,7 @@ EOF")
           nar
           fmt
           upgrade-nix
+          collect-garbage
           zsh-completions
           print-doc)))
 
