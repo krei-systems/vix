@@ -19,6 +19,15 @@
   "Use the command `nix' to run ARGS."
   (run! (append (list "nix") (flatten-list args))))
 
+(defv *nix-directory*
+  (uiop:subpathname (asdf:system-source-directory (asdf:find-system :vix))
+                    #P"nix/")
+  "The location of the nix skeleton files.")
+
+(def nix-path (path)
+  "Return a path from PATH relevant to the project directory."
+  (uiop:subpathname *nix-directory* path))
+
 (defv- *vix-config*
   (uiop:merge-pathnames* "vix.lisp"
                          (home ".config/vix/"))
