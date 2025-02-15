@@ -60,7 +60,7 @@ EOF")
   "print-doc > README.md")
 
 (def top-level/sub-commands ()
-  "Returns the list of sub-commands for the top-level command"
+  "Return the list of sub-commands for the top-level command"
   (macrolet ((%mac (&rest commands)
                `(list
                  ,@(loop :for command :in commands
