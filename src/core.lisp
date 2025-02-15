@@ -147,9 +147,8 @@ Nix command CMD from it."
   "Return a function for CLINGON:MAKE-COMMAND."
   (flet ((prefix (command)
            (prefix-command group command)))
-    (let* ((%group-raw (prin1-downcase (get-raw-name group)))
+    (let* ((%group (when group (prin1-downcase group)))
            (%command-raw (prin1-downcase (get-raw-name command)))
-           (%group (when group (prin1-downcase group)))
            (%command (prin1-downcase (get-name command)))
            (%aliases (when aliases (mapcar #'prin1-downcase aliases)))
            (%fn (read-cat (prefix %command) '/command))
