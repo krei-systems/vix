@@ -88,7 +88,7 @@ Nix command CMD from it."
          (append
           (list
            (clingon:make-option :flag
-                                :description "toggle Nixpkgs"
+                                :description "use the `nixpkgs' flake"
                                 :short-name #\n
                                 :long-name "nixpkgs"
                                 :required nil
