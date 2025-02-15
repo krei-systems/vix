@@ -32,12 +32,29 @@
 
 (define-command nil search (s)
   "search for packages"
-  "package..."
-  nil
+  "[-n|flake] package..."
   t
+  (lambda (cmd)
+    (let* ((args (clingon:command-arguments cmd))
+           (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
+           (final-args (cond (opt-nixpkgs (list "search" "nixpkgs" (or-args args)))
+                             (t (cons "search" args)))))
+      (apply #'nrun final-args)))
   nil
-  "Search in Nixpkgs for packages named `firefox'"
-  "search nixpkgs firefox")
+  "Search in `nixpkgs' flake for packages named `firefox'"
+  "search -n firefox")
+
+(define-command nil find (fd)
+  "search for packages in the `nixpkgs' flake"
+  "package..."
+  t
+  (lambda (cmd)
+    (let* ((args (clingon:command-arguments cmd))
+           (final-args (list "search" "nixpkgs" (or-args args))))
+      (apply #'nrun final-args)))
+  nil
+  "Search in `nixpkgs' flake for packages named `firefox'"
+  "find firefox")
 
 (define-command nil build (b)
   "build a derivation or fetch a store path"
@@ -47,7 +64,7 @@
   nil
   "Build the default package from the flake in the current directory"
   "b"
-  "Build `hello' and `cowsay' from Nixpkgs, leaving two result symlinks"
+  "Build `hello' and `cowsay' from `nixpkgs' flake, leaving two result symlinks"
   "b nixpkgs#hello nixpkgs#cowsay"
   )
 
@@ -180,5 +197,5 @@
   nil
   t
   nil
-  "Upgrade Nix to the stable version declared in Nixpkgs"
+  "Upgrade Nix to the stable version declared in `nixpkgs' flake"
   "upgrade")

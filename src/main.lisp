@@ -75,6 +75,7 @@ EOF")
           rebuild
 
           search
+          find
           run
           repl
           eval
