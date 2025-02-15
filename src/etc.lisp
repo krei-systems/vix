@@ -42,7 +42,7 @@
       (apply #'nrun final-args)))
   nil
   "Search in `nixpkgs' flake for packages named `firefox'"
-  "s -n firefox")
+  "s nixpkgs firefox")
 
 (define-command nil find (fd)
   "search for packages in the `nixpkgs' flake"
