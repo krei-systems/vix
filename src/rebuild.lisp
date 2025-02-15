@@ -1,5 +1,5 @@
 ;;;; -*- mode: lisp; syntax: common-lisp; base: 10; -*-
-;;;; rebuild.lisp --- rebuild the system
+;;;; rebuild.lisp --- rebuild the system configuration from a flake
 
 (uiop:define-package #:vix/src/rebuild
   (:use #:cl
@@ -8,26 +8,25 @@
 
 (in-package #:vix/src/rebuild)
 
-(defv- *flake* (uiop:native-namestring (home "etc/dev/")))
-
 (def- rebuild/options ()
   "Return the options for the `rebuild' command."
   (list
    (clingon:make-option :string
-                        :description "source flake"
+                        :description "specify flake"
                         :short-name #\f
                         :long-name "flake"
+                        :initial-value (uiop:native-namestring (home "etc/dev/"))
                         :required nil
                         :key :opt-flake)
    (clingon:make-option :flag
-                        :description "toggle switch"
+                        :description "enable switch"
                         :short-name #\s
                         :long-name "switch"
                         :initial-value (if (uiop:os-macosx-p) :true :false)
                         :required nil
                         :key :opt-switch)
    (clingon:make-option :flag
-                        :description "toggle upgrade"
+                        :description "enable upgrade"
                         :short-name #\u
                         :long-name "upgrade"
                         :initial-value (if (uiop:os-macosx-p) :false :true)
@@ -37,7 +36,7 @@
 (def- rebuild/handler (cmd)
   "Handler for the `rebuild' command."
   (let* ((args (clingon:command-arguments cmd))
-         (opt-flake (or (clingon:getopt cmd :opt-flake) *flake*))
+         (opt-flake (clingon:getopt cmd :opt-flake))
          (opt-switch (clingon:getopt cmd :opt-switch))
          (opt-upgrade (when opt-switch
                         (clingon:getopt cmd :opt-upgrade)))
@@ -52,7 +51,7 @@
      (t (clingon:print-usage-and-exit cmd t)))))
 
 (define-command nil rebuild (rb)
-  "rebuild the system"
+  "rebuild the system configuration from a flake"
   "[-s] [-su]"
   (rebuild/options)
   #'rebuild/handler
