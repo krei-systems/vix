@@ -768,7 +768,7 @@ vix search [-n|flake] package...
 Search in `nixpkgs' flake for packages named `firefox':
 
 ``` shell
-vix s -n firefox
+vix s nixpkgs firefox
 ```
 
 # vix find
