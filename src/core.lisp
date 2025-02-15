@@ -19,7 +19,7 @@
   "Use the command `nix' to run ARGS."
   (run! (append (list "nix") (flatten-list args))))
 
-(defv *nix-directory*
+(defv- *nix-directory*
   (uiop:subpathname (asdf:system-source-directory (asdf:find-system :vix))
                     #P"nix/")
   "The location of the nix skeleton files.")
@@ -87,8 +87,12 @@ Nix command CMD from it."
          ,%doc
          (append
           (list
-           ;; (clingon:make-option :flag :description "toggle Nixpkgs" :short-name #\n :long-name "nixpkgs" :required nil :key :opt-nixpkgs)
-           )
+           (clingon:make-option :flag
+                                :description "toggle Nixpkgs"
+                                :short-name #\n
+                                :long-name "nixpkgs"
+                                :required nil
+                                :key :opt-nixpkgs))
           ,@args)))))
 
 (def usage (cmd)
@@ -104,10 +108,10 @@ Nix command CMD from it."
       `(def- ,%fn (cmd)
          ,%doc
          (let* ((args (clingon:command-arguments cmd))
-                ;; (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
-                ;; (final-args (cond (opt-nixpkgs (append ',command-list (uiop:split-string (pipe-args args))))
-                ;;                   (t (append ',command-list args))))
-                (final-args (append ',command-list args))
+                (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
+                (final-args (cond (opt-nixpkgs (append ',command-list (uiop:split-string (pipe-args args))))
+                                  (t (append ',command-list args))))
+                ;; (final-args (append ',command-list args))
                 )
            (apply #'nrun final-args))))))
 

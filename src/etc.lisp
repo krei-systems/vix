@@ -42,7 +42,7 @@
 (define-command nil build (b)
   "build a derivation or fetch a store path"
   nil
-  nil
+  t
   t
   nil
   "Build the default package from the flake in the current directory"
@@ -54,7 +54,7 @@
 (define-command nil run (r)
   "run a Nix application"
   nil
-  nil
+  t
   t
   nil
   "Run `vim' from the `nixpkgs' flake"
@@ -63,7 +63,7 @@
 (define-command nil bundle (u)
   "bundle an application so that it works outside of the Nix store"
   nil
-  nil
+  t
   t
   nil
   "Bundle `hello'"
@@ -81,7 +81,7 @@
 (define-command nil edit (ed)
   "open the Nix expression of a Nix package in $EDITOR"
   nil
-  nil
+  t
   t
   nil
   "Open the Nix expression of the `hello' package"
@@ -119,7 +119,7 @@
 (define-command nil path-info (info)
   "query information about store paths"
   nil
-  nil
+  t
   t
   nil
   "Print the store path produced by nixpkgs#hello"
@@ -128,7 +128,7 @@
 (define-command nil why-depends (w)
   "show why a package has another package in its closure"
   nil
-  nil
+  t
   t
   nil
   "Show one path through the dependency graph leading from `hello' to `glibc'"
@@ -137,7 +137,7 @@
 (define-command nil shell (sh)
   "run a shell in which the specified packages are available"
   nil
-  nil
+  t
   (lambda (cmd)
     (let ((args (clingon:command-arguments cmd)))
       (nrun "env" "shell" args)))
@@ -148,7 +148,7 @@
 (define-command nil print-dev-env (print)
   "print shell code of derivation"
   nil
-  nil
+  t
   t
   nil
   "Get the build environment of `hello'"
@@ -168,7 +168,7 @@
 (define-command nil realisation (real)
   "manipulate a Nix realisation"
   nil
-  nil
+  t
   t
   nil
   "Show some information about the realisation of the package `hello'"

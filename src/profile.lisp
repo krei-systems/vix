@@ -11,7 +11,7 @@
 (define-command profile install (i)
   "install a package into a profile"
   "package..."
-  nil
+  t
   t
   nil
   "Install a package from Nixpkgs"

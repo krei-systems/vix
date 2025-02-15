@@ -93,7 +93,7 @@ with pkgs; rec {
   nil
   "Create a flake in the directory `hello'"
   "f n hello"
-  "Create a flake in the directory `hello' using template haskell-hello"
+  "Create a flake in the directory `hello' using the template `haskell-hello'"
   "f n hello -t templates#haskell-hello")
 
 (define-command flake clone (c)

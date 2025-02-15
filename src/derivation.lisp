@@ -20,7 +20,7 @@
 (define-command derivation show (s)
   "show the contents of a store derivation"
   "derivation"
-  nil
+  t
   t
   nil
   "Show the `hello' derivation"

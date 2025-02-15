@@ -102,7 +102,7 @@
 (define-command store make-content-addressed (m)
   "rewrite a path or closure to content-addressed form"
   "path"
-  nil
+  t
   t
   nil
   "Create a content-addressed representation of the closure of `hello'"

@@ -32,7 +32,7 @@
   nil
   t
   nil
-  "Remove the entry `nixpkgs' from the user registry"
+  "Remove the `nixpkgs' flake from the registry"
   "y r nixpkgs")
 
 (define-command registry pin (p)
@@ -41,7 +41,7 @@
   nil
   t
   nil
-  "Pin `nixpkgs' to its most recent Git revision"
+  "Pin the `nixpkgs' flake to its most recent revision"
   "y p nixpkgs")
 
 (define-sub-commands registry
