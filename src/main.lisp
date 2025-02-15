@@ -35,24 +35,27 @@
                         :long-name "verbose"
                         :key :verbose)))
 
-(def- zsh/command ()
-  "Returns a command for generating the Zsh completion script"
-  (clingon:make-command
-   :name "zsh"
-   :description "generate the Zsh completion script"
-   :usage ""
-   :handler (lambda (cmd)
-              (let ((parent (clingon:command-parent cmd)))
-                (clingon:print-documentation :zsh-completions parent t)))))
+(define-command nil zsh-completions (zsh)
+  "generate the Zsh completion script"
+  ""
+  nil
+  (lambda (cmd)
+    (let ((parent (clingon:command-parent cmd)))
+      (clingon:print-documentation :zsh-completions parent t)))
+  nil
+  "Generate the Zsh completions of Vix"
+  "zsh-completions > ~/.zsh-completions/_vix")
 
-(def- doc/command ()
-  "Returns a command which will print the app's documentation"
-  (clingon:make-command
-   :name "doc"
-   :description "print the documentation"
-   :usage ""
-   :handler (lambda (cmd)
-              (clingon:print-documentation :markdown (clingon:command-parent cmd) t))))
+(define-command nil print-doc (doc)
+  "print the documentation"
+  ""
+  nil
+  (lambda (cmd)
+    (clingon:print-documentation :markdown (clingon:command-parent
+                                            cmd) t))
+  nil
+  "Generate the documentation of Vix"
+  "print-doc")
 
 (def top-level/sub-commands ()
   "Returns the list of sub-commands for the top-level command"
@@ -61,40 +64,39 @@
                  ,@(loop :for command :in commands
                          :for name := (read-cat command "/command")
                          :collect `(,name)))))
-    (%mac
-     build
-     run
-     bundle
-     copy
-     edit
-     eval
-     fmt
-     repl
-     path-info
-     why-depends
-     shell
-     print-dev-env
-     daemon
-     realisation
-     upgrade-nix
+    (%mac build
+          run
+          bundle
+          copy
+          edit
+          eval
+          fmt
+          repl
+          path-info
+          why-depends
+          shell
+          print-dev-env
+          daemon
+          realisation
+          upgrade-nix
 
-     registry
+          registry
 
-     rebuild
-     search
-     profile
-     flake
-     store
-     develop
-     make
+          rebuild
+          search
+          profile
+          flake
+          store
+          develop
+          make
 
-     config
-     derivation
-     hash
-     key
-     nar
-     zsh
-     doc)))
+          config
+          derivation
+          hash
+          key
+          nar
+          zsh-completions
+          print-doc)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."
