@@ -23,12 +23,14 @@
                         :description "toggle switch"
                         :short-name #\s
                         :long-name "switch"
+                        :initial-value (if (uiop:os-macosx-p) :true :false)
                         :required nil
                         :key :opt-switch)
    (clingon:make-option :flag
                         :description "toggle upgrade"
                         :short-name #\u
                         :long-name "upgrade"
+                        :initial-value (if (uiop:os-macosx-p) :false :true)
                         :required nil
                         :key :opt-upgrade)))
 
