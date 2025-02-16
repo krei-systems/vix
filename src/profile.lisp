@@ -86,13 +86,9 @@
   "Show what changed between each version of the NixOS system profile"
   "p d -- --profile /nix/var/nix/profiles/system")
 
-(define-sub-commands profile
-  install remove upgrade list
-  rollback history wipe-history diff-closures)
-
 (define-command nil profile (p)
   "profile commands"
   "<command>"
   nil
   #'print-usage
-  t)
+  (install remove upgrade list rollback history wipe-history diff-closures))

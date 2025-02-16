@@ -74,25 +74,25 @@ EOF")
           find
           run
           repl
+          registry
+          store
           eval
           shell
           build
           bundle
           copy
           edit
-          path-info
-          why-depends
-          print-dev-env
           daemon
-          realisation
-          registry
-          store
           config
-          derivation
           hash
           key
           nar
           fmt
+          path-info
+          derivation
+          why-depends
+          print-dev-env
+          realisation
           upgrade-nix
           collect-garbage
           zsh-completions

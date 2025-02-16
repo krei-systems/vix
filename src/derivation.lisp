@@ -26,12 +26,9 @@
   "Show the `hello' derivation"
   "v s nixpkgs#hello")
 
-(define-sub-commands derivation
-  add show)
-
 (define-command nil derivation (v)
   "work with derivations"
   "<command>"
   nil
   #'print-usage
-  t)
+  (add show))

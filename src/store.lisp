@@ -163,14 +163,12 @@
   "Verify the entire Nix store"
   "store-verify -- --all")
 
-(define-sub-commands store
-  add cat copy-log copy-sigs delete diff-closures dump-path gc
-  info ls make-content-addressed optimise path-from-hash-part
-  prefetch-file repair sign verify)
-
 (define-command nil store (o)
   "manipulate the Nix store"
   "<command>"
   nil
   #'print-usage
-  t)
+  (add cat copy-log copy-sigs delete diff-closures
+       dump-path gc info ls
+       make-content-addressed optimise path-from-hash-part prefetch-file repair sign
+       verify) )

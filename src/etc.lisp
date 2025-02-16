@@ -47,7 +47,7 @@
 (define-command nil find (fd)
   "search for packages in the `nixpkgs' flake"
   "<package>..."
-  t
+  nil
   (lambda (cmd)
     (let* ((args (clingon:command-arguments cmd))
            (final-args (list "search" "nixpkgs" (or-args args))))
@@ -65,17 +65,16 @@
   "Build the default package from the flake in the current directory"
   "b"
   "Build `hello' and `cowsay' from `nixpkgs' flake, leaving two result symlinks"
-  "b nixpkgs#hello nixpkgs#cowsay"
-  )
+  "b nixpkgs#hello nixpkgs#cowsay")
 
-(define-command nil run (r)
+(define-command nil run ()
   "run a Nix application"
   nil
   t
   t
   nil
   "Run `vim' from the `nixpkgs' flake"
-  "r nixpkgs#vim")
+  "run nixpkgs#vim")
 
 (define-command nil bundle (u)
   "bundle an application so that it works outside of the Nix store"
@@ -133,23 +132,23 @@
   "Evaluate some simple Nix expressions"
   "repl")
 
-(define-command nil path-info (info)
+(define-command nil path-info (pi)
   "query information about store paths"
   nil
   t
   t
   nil
   "Print the store path produced by nixpkgs#hello"
-  "i nixpkgs#hello")
+  "pi nixpkgs#hello")
 
-(define-command nil why-depends (w)
+(define-command nil why-depends (wd)
   "show why a package has another package in its closure"
   nil
   t
   t
   nil
   "Show one path through the dependency graph leading from `hello' to `glibc'"
-  "w nixpkgs#hello nixpkgs#glibc")
+  "wd nixpkgs#hello nixpkgs#glibc")
 
 (define-command nil shell (sh)
   "run a shell in which the specified packages are available"
@@ -162,7 +161,7 @@
   "Start a shell providing `yt-dlp' from the `nixpkgs' flake"
   "sh nixpkgs#yt-dlp")
 
-(define-command nil print-dev-env (print)
+(define-command nil print-dev-env (pd)
   "print shell code of derivation"
   nil
   t
@@ -182,14 +181,16 @@
   "Run the daemon and force all connections to be trusted"
   "dm -- --force-trusted")
 
-(define-command nil realisation (real)
+(define-command nil realisation (rn)
   "manipulate a Nix realisation"
   nil
   t
-  t
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (nrun "realisation" "info" args)))
   nil
   "Show some information about the realisation of the package `hello'"
-  "real info nixpkgs#hello")
+  "rn nixpkgs#hello")
 
 (define-command nil upgrade-nix (upgrade)
   "upgrade Nix to the latest stable version"
@@ -200,7 +201,7 @@
   "Upgrade Nix to the stable version declared in `nixpkgs' flake"
   "upgrade")
 
-(define-command nil collect-garbage (g)
+(define-command nil collect-garbage (gc)
   "run the garbage collector"
   nil
   nil
@@ -210,6 +211,6 @@
       (run! `("nix-collect-garbage" ,@args))))
   nil
   "Garbage collect"
-  "g"
+  "gc"
   "Gargage collect and delete old versions"
-  "g -- -d")
+  "gc -- -d")

@@ -26,12 +26,8 @@
   "Check for problems"
   "cfg k")
 
-(define-sub-commands config
-  show check)
-
 (define-command nil config (cfg)
-  "manage the Nix settings"
-  "<command>"
+  "manage the Nix settings" "<command>"
   nil
   #'print-usage
-  t)
+  (show check))

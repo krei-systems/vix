@@ -168,7 +168,7 @@ Nix command CMD from it."
                       usage
                       options
                       handler
-                      sub-command
+                      sub-commands
                       &rest examples)
   "Define a function for CLINGON:MAKE-COMMAND.
 
@@ -187,7 +187,7 @@ HANDLER is a function object that accepts a single argument that will handle the
 command itself; T to define a handler that accepts a group and (sub) command; or
 NIL to define a basic handler that acts like T, but without the group parameter.
 
-SUB-COMMAND is T, to indicate that the command being defined will handle
+SUB-COMMANDS is T, to indicate that the command being defined will handle
 sub-commands.
 
 EXAMPLES is a list of description & command-line usage pairs for the command.
@@ -209,6 +209,8 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
                 ((null handler)
                  `(define-basic-handler ,group ,command))
                 (t nil))
+         ,(when (listp sub-commands)
+            `(define-sub-commands ,command ,@sub-commands))
          (def ,%fn ()
            (clingon:make-command
             :name ,%command
@@ -221,5 +223,5 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
             :handler ,(cond ((∨ (eql t handler) (null handler))
                              %handler)
                             (t handler))
-            ,@(when sub-command `(:sub-commands (,%sub-commands)))
+            ,@(when sub-commands `(:sub-commands (,%sub-commands)))
             ,@(when examples `(:examples (mini-help ,@examples)))))))))

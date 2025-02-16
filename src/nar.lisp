@@ -35,12 +35,9 @@
   "To list a specific file in a NAR file"
   "n l -- --long ./hello.nar /bin/hello")
 
-(define-sub-commands nar
-  cat dump-path ls)
-
 (define-command nil nar (n)
   "create or inspect nar files"
   "<command>"
   nil
   #'print-usage
-  t)
+  (cat dump-path ls))
