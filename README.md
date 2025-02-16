@@ -112,7 +112,7 @@ vix profile install package...
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -667,7 +667,7 @@ Run a dev shell:
 vix d
 ```
 
-Run a dev and run `make' inside:
+Run a dev shell and run `make' inside:
 
 ``` shell
 vix d -- -c make
@@ -718,9 +718,9 @@ vix rebuild [-f flake] [-s] [-u]
 ``` shell
       --help           display usage information and exit
       --version        display version and exit
-  -f, --flake <VALUE>  specify flake [default: /Users/ebzzry/etc/dev/]
-  -s, --switch         enable switch [default: TRUE]
-  -u, --upgrade        enable upgrade [default: FALSE]
+  -f, --flake <VALUE>  use the `flake' option [default: /Users/ebzzry/etc/dev/]
+  -s, --switch         use the `switch' option [default: TRUE]
+  -u, --upgrade        use the `upgrade' option [default: FALSE]
 
 ```
 
@@ -755,7 +755,7 @@ vix search [-n|flake] package...
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -784,7 +784,7 @@ vix find package...
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -813,7 +813,7 @@ vix run [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -904,7 +904,7 @@ vix shell [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -933,7 +933,7 @@ vix build [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -968,7 +968,7 @@ vix bundle [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -1025,7 +1025,7 @@ vix edit [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -1054,7 +1054,7 @@ vix path-info [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -1083,7 +1083,7 @@ vix why-depends [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -1112,7 +1112,7 @@ vix print-dev-env [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -1175,7 +1175,7 @@ vix realisation [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -1674,7 +1674,7 @@ vix store make-content-addressed path
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -2015,7 +2015,7 @@ vix derivation show derivation
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' flake
+  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 

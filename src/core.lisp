@@ -76,19 +76,20 @@ Nix command CMD from it."
         (cat prefix-string "/" cmd)
         cmd)))
 
-(defm make-opt (name type &rest rest)
+(defm make-opt (name type value &rest rest)
   "Return an option object from NAME."
-  (let* ((%foo (prin1-downcase name))
-         (%char (aref %foo 0))
-         (%opt-name (read-cat #\: "opt-" %foo))
-         (%desc (fmt "use the `~A' option" %foo)))
+  (let* ((%name name)
+         (%char (aref %name 0))
+         (%opt-name (read-cat ":" "opt-" %name))
+         (%desc (fmt "use the `~A' option" %name)))
     `(clingon:make-option
       ,type
       :description ,%desc
       :short-name ,%char
-      :long-name ,%foo
+      :long-name ,%name
       :required nil
       :key ,%opt-name
+      :initial-value ,value
       ,@rest)))
 
 (defm define-options (group command &rest args)
@@ -100,15 +101,7 @@ Nix command CMD from it."
       `(def- ,%fn ()
          ,%doc
          (append
-          (list
-           ;; (make-opt nixpkgs :flag :initial-value :true)
-           (clingon:make-option :flag
-                                :description "use the `nixpkgs' flake"
-                                :short-name #\n
-                                :long-name "nixpkgs"
-                                :required nil
-                                :key :opt-nixpkgs)
-           )
+          (list (make-opt "nixpkgs" :flag :true))
           ,@args)))))
 
 (def usage (cmd)
@@ -125,7 +118,9 @@ Nix command CMD from it."
          ,%doc
          (let* ((args (clingon:command-arguments cmd))
                 (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
-                (final-args (cond (opt-nixpkgs (append ',command-list (uiop:split-string (fence-args args))))
+                (final-args (cond (opt-nixpkgs
+                                   (append ',command-list
+                                           (uiop:split-string (fence-args args))))
                                   (t (append ',command-list args)))))
            (apply #'nrun final-args))))))
 
@@ -195,7 +190,7 @@ NIL to define a basic handler that acts like T, but without the group parameter.
 SUB-COMMAND is T, to indicate that the command being defined will handle
 sub-commands.
 
-EXAMPLES is a list of description/command-line usage pairs for the command.
+EXAMPLES is a list of description & command-line usage pairs for the command.
 "
   (flet ((prefix (command)
            (prefix-command group command)))
