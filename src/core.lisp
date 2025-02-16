@@ -29,21 +29,21 @@
   (uiop:subpathname *nix-directory* path))
 
 (defv- *vix-config*
-  (uiop:merge-pathnames* "vix.k" (home ".config/vix/"))
+  (uiop:merge-pathnames* "vix.lisp" (home ".config/vix/"))
   "The default location of Vix config.")
 
-(def- read-config ()
+(def- read-config (&optional key)
   "Read the contents of the vix config."
-  (mapcar #'read-from-string (uiop:read-file-lines *vix-config*)))
+  (let ((expr (uiop:read-file-form *vix-config*)))
+    (if key
+        (getf expr key)
+        expr)))
 
 (def- default-flake ()
   "Return the default flake."
-  (destructuring-bind (flake &rest args)
-      (read-config)
-    (declare (ignore args))
-    flake))
+  (read-config :flake))
 
-(def pipe-args (args)
+(def fence-args (args)
   (let* ((flake (default-flake))
          (fmt-args (if (empty-string-p flake)
                        `("~{~A~^ ~}" ,args)
@@ -108,7 +108,7 @@ Nix command CMD from it."
          ,%doc
          (let* ((args (clingon:command-arguments cmd))
                 (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
-                (final-args (cond (opt-nixpkgs (append ',command-list (uiop:split-string (pipe-args args))))
+                (final-args (cond (opt-nixpkgs (append ',command-list (uiop:split-string (fence-args args))))
                                   (t (append ',command-list args)))))
            (apply #'nrun final-args))))))
 
