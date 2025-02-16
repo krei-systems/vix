@@ -1,6 +1,6 @@
 # vix
 
-Vix is a program for interacting with the Nix ecosystem
+`vix` -- a program for interacting with the Nix ecosystem
 
 ## Usage
 
@@ -28,7 +28,7 @@ vix [global-options] [<command>] [command-options] [arguments ...]
   flake, f              flake commands
   develop, d            run a dev shell
   make, m               run `make' inside a dev shell
-  rebuild, rb           rebuild the system
+  rebuild, rb           rebuild the system configuration from a flake
   search, s             search for packages
   find, fd              search for packages in the `nixpkgs' flake
   run, r                run a Nix application
@@ -39,13 +39,11 @@ vix [global-options] [<command>] [command-options] [arguments ...]
   bundle, u             bundle an application so that it works outside of the Nix store
   copy, c               start an interactive environment for evaluating Nix expressions
   edit, ed              open the Nix expression of a Nix package in $EDITOR
-  fmt                   reformat your code in the standard style
   path-info, info       query information about store paths
   why-depends, w        show why a package has another package in its closure
   print-dev-env, print  print shell code of derivation
   daemon, dm            daemon to perform store operations on behalf of non-root clients
   realisation, real     manipulate a Nix realisation
-  upgrade-nix, upgrade  upgrade Nix to the latest stable version
   registry, y           manipulate the Nix registry
   store, o              manipulate the Nix store
   config, cfg           manage the Nix settings
@@ -53,15 +51,13 @@ vix [global-options] [<command>] [command-options] [arguments ...]
   hash, h               compute and convert cryptographic hashes
   key, k                generate and convert Nix signing keys
   nar, n                create or inspect nar files
+  fmt                   reformat your code in the standard style
+  upgrade-nix, upgrade  upgrade Nix to the latest stable version
+  collect-garbage, g    run the garbage collector
   zsh-completions, zsh  generate the Zsh completion script
   print-doc, doc        print the documentation
 
 ```
-
-## Authors
-
-* Rommel Martínez <ebzzry@icloud.com>
-* Michael Adrian Villareal <eldriv@proton.me>
 
 # vix profile
 
@@ -707,12 +703,12 @@ vix m
 
 # vix rebuild
 
-`vix rebuild` -- rebuild the system
+`vix rebuild` -- rebuild the system configuration from a flake
 
 ## Usage
 
 ``` shell
-vix rebuild [-s] [-su]
+vix rebuild [-f flake] [-s] [-u]
 ```
 
 ## Options
@@ -733,10 +729,10 @@ vix rebuild [-s] [-su]
 Rebuild the system from the flake specified in `~/src/system/':
 
 ``` shell
-vix rb -s -f ~/src/system
+vix rb -f ~/src/system -s
 ```
 
-Rebuild the system from flake and switch to it:
+Rebuild the system from the default flake and switch to it:
 
 ``` shell
 vix rb -s
@@ -1041,34 +1037,6 @@ Open the Nix expression of the `hello' package:
 vix ed nixpkgs#hello
 ```
 
-# vix fmt
-
-`vix fmt` -- reformat your code in the standard style
-
-## Usage
-
-``` shell
-vix fmt [argument...|option...]
-```
-
-## Options
-
-`vix fmt` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-
-```
-
-## Examples
-
-Format the current flake:
-
-``` shell
-vix fmt
-```
-
 # vix path-info
 
 `vix path-info` -- query information about store paths
@@ -1217,34 +1185,6 @@ Show some information about the realisation of the package `hello':
 
 ``` shell
 vix real info nixpkgs#hello
-```
-
-# vix upgrade-nix
-
-`vix upgrade-nix` -- upgrade Nix to the latest stable version
-
-## Usage
-
-``` shell
-vix upgrade-nix 
-```
-
-## Options
-
-`vix upgrade-nix` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-
-```
-
-## Examples
-
-Upgrade Nix to the stable version declared in `nixpkgs' flake:
-
-``` shell
-vix upgrade
 ```
 
 # vix registry
@@ -2401,6 +2341,96 @@ To list a specific file in a NAR file:
 
 ``` shell
 vix n l -- --long ./hello.nar /bin/hello
+```
+
+# vix fmt
+
+`vix fmt` -- reformat your code in the standard style
+
+## Usage
+
+``` shell
+vix fmt [argument...|option...]
+```
+
+## Options
+
+`vix fmt` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Format the current flake:
+
+``` shell
+vix fmt
+```
+
+# vix upgrade-nix
+
+`vix upgrade-nix` -- upgrade Nix to the latest stable version
+
+## Usage
+
+``` shell
+vix upgrade-nix 
+```
+
+## Options
+
+`vix upgrade-nix` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Upgrade Nix to the stable version declared in `nixpkgs' flake:
+
+``` shell
+vix upgrade
+```
+
+# vix collect-garbage
+
+`vix collect-garbage` -- run the garbage collector
+
+## Usage
+
+``` shell
+vix collect-garbage [argument...|option...]
+```
+
+## Options
+
+`vix collect-garbage` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Garbage collect:
+
+``` shell
+vix g
+```
+
+Gargage collect and delete old versions:
+
+``` shell
+vix g -- -d
 ```
 
 # vix zsh-completions
