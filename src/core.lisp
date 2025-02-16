@@ -93,7 +93,7 @@ Nix command CMD from it."
       ,@rest)))
 
 (defm define-options (group command &rest args)
-  "Return a list for defining options."
+  "Define a function that returns the options for COMMAND."
   (flet ((prefix (command)
            (prefix-command group command)))
     (let ((%fn (read-cat (prefix command) '/options))
@@ -104,7 +104,7 @@ Nix command CMD from it."
           (list (make-opt "nixpkgs" :flag :true))
           ,@args)))))
 
-(def usage (cmd)
+(def print-usage (cmd)
   "Print usage of CMD then exit."
   (clingon:print-usage-and-exit cmd t))
 
@@ -133,7 +133,7 @@ Nix command CMD from it."
       `(def- ,%fn (cmd)
          ,%doc
          (if (null args)
-             (usage cmd)
+             (print-usage cmd)
              (apply #'nrun final-args))))))
 
 (def- split-name (symbol &key (separator '(#\^)))
@@ -214,7 +214,7 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
             :name ,%command
             :aliases ',%aliases
             :description ,description
-            :usage ,(if (null usage) "[argument...|option...]" usage)
+            :usage ,(if (null usage) "[<argument>...|<option>...]" usage)
             :options ,(cond ((eql t options)
                              `(,%options))
                             (t options))

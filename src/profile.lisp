@@ -10,7 +10,7 @@
 
 (define-command profile install (i)
   "install a package into a profile"
-  "package..."
+  "<package>..."
   t
   t
   nil
@@ -21,7 +21,7 @@
 
 (define-command profile remove (r)
   "uninstall packages from a profile"
-  "package..."
+  "<package>..."
   nil
   t
   nil
@@ -32,7 +32,7 @@
 
 (define-command profile upgrade (u)
   "upgrade packages using their most recent flake"
-  "package..."
+  "<package>..."
   nil
   t
   nil
@@ -92,7 +92,7 @@
 
 (define-command nil profile (p)
   "profile commands"
-  "command"
+  "<command>"
   nil
-  #'usage
+  #'print-usage
   t)

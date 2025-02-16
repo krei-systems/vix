@@ -10,7 +10,7 @@
 
 (define-command hash file (f)
   "print hash of a regular file"
-  "file"
+  "<file>"
   nil
   t
   nil
@@ -19,7 +19,7 @@
 
 (define-command hash path (p)
   "print hash of the NAR serialisation of a path"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -28,7 +28,7 @@
 
 (define-command hash convert (c)
   "convert between hash formats"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -40,7 +40,7 @@
 
 (define-command nil hash (h)
   "compute and convert cryptographic hashes"
-  "command"
+  "<command>"
   nil
-  #'usage
+  #'print-usage
   t)

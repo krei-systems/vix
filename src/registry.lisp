@@ -19,7 +19,7 @@
 
 (define-command registry add (a)
   "create a flake in the current directory"
-  "flake location"
+  "<flake> <location>"
   nil
   t
   nil
@@ -28,7 +28,7 @@
 
 (define-command registry remove (r)
   "remove flake from user flake registry"
-  "flake"
+  "<flake>"
   nil
   t
   nil
@@ -37,7 +37,7 @@
 
 (define-command registry pin (p)
   "pin a flake to its current version"
-  "flake"
+  "<flake>"
   nil
   t
   nil
@@ -49,7 +49,7 @@
 
 (define-command nil registry (y)
   "manipulate the Nix registry"
-  "command"
+  "<command>"
   nil
-  #'usage
+  #'print-usage
   t)

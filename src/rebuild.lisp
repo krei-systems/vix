@@ -33,7 +33,7 @@
 
 (define-command nil rebuild (rb)
   "rebuild the system configuration from a flake"
-  "[-f flake] [-s] [-u]"
+  "[-f <flake>] [-s] [-u]"
   (rebuild/options)
   #'rebuild/handler
   nil

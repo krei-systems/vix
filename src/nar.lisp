@@ -10,7 +10,7 @@
 
 (define-command nar cat (c)
   "print the contents of a file inside a NAR file on stdout"
-  "file"
+  "<file>"
   nil
   t
   nil
@@ -19,7 +19,7 @@
 
 (define-command nar dump-path (d)
   "serialise a path to stdout in NAR format"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -28,7 +28,7 @@
 
 (define-command nar ls (l)
   "show information about a path inside a NAR file"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -40,7 +40,7 @@
 
 (define-command nil nar (n)
   "create or inspect nar files"
-  "command"
+  "<command>"
   nil
-  #'usage
+  #'print-usage
   t)

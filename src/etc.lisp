@@ -32,7 +32,7 @@
 
 (define-command nil search (s)
   "search for packages"
-  "[-n|flake] package..."
+  "[-n|<flake>] <package>..."
   t
   (lambda (cmd)
     (let* ((args (clingon:command-arguments cmd))
@@ -46,7 +46,7 @@
 
 (define-command nil find (fd)
   "search for packages in the `nixpkgs' flake"
-  "package..."
+  "<package>..."
   t
   (lambda (cmd)
     (let* ((args (clingon:command-arguments cmd))

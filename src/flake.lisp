@@ -87,7 +87,7 @@ with pkgs; rec {
 
 (define-command flake new (n)
   "create a flake in the specified directory from a template"
-  "flake"
+  "<directory>"
   nil
   t
   nil
@@ -98,7 +98,7 @@ with pkgs; rec {
 
 (define-command flake clone (c)
   "clone flake repository"
-  "flake"
+  "<flake>"
   nil
   t
   nil
@@ -137,7 +137,7 @@ with pkgs; rec {
 
 (define-command nil flake (f)
   "flake commands"
-  "command"
+  "<command>"
   nil
-  #'usage
+  #'print-usage
   t)

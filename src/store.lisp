@@ -10,7 +10,7 @@
 
 (define-command store add (a)
   "add a file or directory to the Nix store"
-  "location"
+  "<location>"
   nil
   t
   nil
@@ -19,7 +19,7 @@
 
 (define-command store cat (c)
   "print the contents of a file in the Nix store on stdout"
-  "location"
+  "<location>"
   nil
   t
   nil
@@ -28,7 +28,7 @@
 
 (define-command store copy-log (y)
   "copy build logs between Nix stores"
-  "location"
+  "<location>"
   nil
   t
   nil
@@ -47,7 +47,7 @@
 
 (define-command store delete (d)
   "delete paths from the Nix store"
-  "path..."
+  "<path>..."
   nil
   t
   nil
@@ -56,7 +56,7 @@
 
 (define-command store diff-closures (u)
   "show what packages and versions were added and removed"
-  "path..."
+  "<path>..."
   nil
   t
   nil
@@ -65,7 +65,7 @@
 
 (define-command store dump-path (p)
   "serialise a store path to stdout in NAR format"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -83,7 +83,7 @@
 
 (define-command store info (o)
   "test whether a store can be accessed"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -92,7 +92,7 @@
 
 (define-command store ls (l)
   "show information about a path in the Nix store"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -101,7 +101,7 @@
 
 (define-command store make-content-addressed (m)
   "rewrite a path or closure to content-addressed form"
-  "path"
+  "<path>"
   t
   t
   nil
@@ -119,7 +119,7 @@
 
 (define-command store path-from-hash-part (h)
   "get a store path from its hash part"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -128,7 +128,7 @@
 
 (define-command store prefetch-file (f)
   "download a file into the Nix store"
-  "location"
+  "<loca>tion"
   nil
   t
   nil
@@ -137,7 +137,7 @@
 
 (define-command store repair (r)
   "repair store paths"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -170,7 +170,7 @@
 
 (define-command nil store (o)
   "manipulate the Nix store"
-  "command"
+  "<command>"
   nil
-  #'usage
+  #'print-usage
   t)

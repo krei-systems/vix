@@ -31,7 +31,7 @@
 
 (define-command nil config (cfg)
   "manage the Nix settings"
-  "command"
+  "<command>"
   nil
-  #'usage
+  #'print-usage
   t)

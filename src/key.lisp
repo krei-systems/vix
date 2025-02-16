@@ -10,7 +10,7 @@
 
 (define-command key convert (c)
   "generate a public key for verifying store paths"
-  "key"
+  "<key>"
   nil
   t
   nil
@@ -31,7 +31,7 @@
 
 (define-command nil key (k)
   "generate and convert Nix signing keys"
-  "command"
+  "<command>"
   nil
-  #'usage
+  #'print-usage
   t)

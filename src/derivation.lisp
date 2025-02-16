@@ -10,7 +10,7 @@
 
 (define-command derivation add (a)
   "add a store derivation"
-  "path"
+  "<path>"
   nil
   t
   nil
@@ -19,7 +19,7 @@
 
 (define-command derivation show (s)
   "show the contents of a store derivation"
-  "derivation"
+  "<derivation>"
   t
   t
   nil
@@ -31,7 +31,7 @@
 
 (define-command nil derivation (v)
   "work with derivations"
-  "command"
+  "<command>"
   nil
-  #'usage
+  #'print-usage
   t)
