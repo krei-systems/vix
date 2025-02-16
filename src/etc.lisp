@@ -206,7 +206,8 @@
   nil
   (lambda (cmd)
     (let ((args (clingon:command-arguments cmd)))
-      (run! `("nix-collect-garbage" ,args))))
+      (dbg args)
+      (run! `("nix-collect-garbage" ,@args))))
   nil
   "Garbage collect"
   "g"
