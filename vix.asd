@@ -1,17 +1,11 @@
 ;;;; -*- mode: lisp; syntax: common-lisp; base: 10; -*-
-;;;; vix.asd --- top-level ASDF file for vix
+;;;; vix.asd --- main ASDF file of vix
 
 (defsystem #:vix
     :name "vix"
-    :long-name "vix"
-    :description ""
-    :long-description ""
     :version (:read-file-form #P"version.lisp")
-    :author "Rommel Martínez <ebzzry@icloud.com>"
-    :license ""
-    :homepage ""
-    :bug-tracker ""
-    :source-control ""
+    :description "A program for interacting with the Nix ecosystem"
+    :author "Krei, Inc."
     :class :package-inferred-system
     :depends-on (#:marie
                  #:clingon

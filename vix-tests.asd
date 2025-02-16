@@ -3,15 +3,9 @@
 
 (defsystem #:vix-tests
     :name "vix-tests"
-    :long-name "vix"
-    :description ""
-    :long-description ""
     :version (:read-file-form #P"version-tests.lisp")
-    :author "Rommel Martínez <ebzzry@icloud.com>"
-    :license ""
-    :homepage ""
-    :bug-tracker ""
-    :source-control ""
+    :description "Test ASDF file of vix"
+    :author "Krei, Inc."
     :class :package-inferred-system
     :depends-on (#:fiveam
                  #:marie

@@ -11,6 +11,9 @@
 (def- rebuild/options ()
   "Return the options for the `rebuild' command."
   (list
+   ;; (make-opt flake :string (uiop:native-namestring (home "etc/dev/")))
+   ;; (make-opt switch :flag :true)
+   ;; (make-opt upgrade :flag :false)
    (clingon:make-option :string
                         :description "specify flake"
                         :short-name #\f
@@ -31,7 +34,8 @@
                         :long-name "upgrade"
                         :initial-value :false
                         :required nil
-                        :key :opt-upgrade)))
+                        :key :opt-upgrade)
+   ))
 
 (def- rebuild/handler (cmd)
   "Handler for the `rebuild' command."

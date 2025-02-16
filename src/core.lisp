@@ -30,7 +30,7 @@
 
 (defv- *vix-config*
   (uiop:merge-pathnames* "vix.lisp" (home ".config/vix/"))
-  "The default location of Vix config.")
+  "The default location of vix config.")
 
 (def- read-config (&optional key)
   "Read the contents of the vix config."
@@ -76,6 +76,21 @@ Nix command CMD from it."
         (cat prefix-string "/" cmd)
         cmd)))
 
+(defm make-opt (name type &rest rest)
+  "Return an option object from NAME."
+  (let* ((%foo (prin1-downcase name))
+         (%char (aref %foo 0))
+         (%opt-name (read-cat #\: "opt-" %foo))
+         (%desc (fmt "use the `~A' option" %foo)))
+    `(clingon:make-option
+      ,type
+      :description ,%desc
+      :short-name ,%char
+      :long-name ,%foo
+      :required nil
+      :key ,%opt-name
+      ,@rest)))
+
 (defm define-options (group command &rest args)
   "Return a list for defining options."
   (flet ((prefix (command)
@@ -86,12 +101,14 @@ Nix command CMD from it."
          ,%doc
          (append
           (list
+           ;; (make-opt nixpkgs :flag :initial-value :true)
            (clingon:make-option :flag
                                 :description "use the `nixpkgs' flake"
                                 :short-name #\n
                                 :long-name "nixpkgs"
                                 :required nil
-                                :key :opt-nixpkgs))
+                                :key :opt-nixpkgs)
+           )
           ,@args)))))
 
 (def usage (cmd)
@@ -99,7 +116,7 @@ Nix command CMD from it."
   (clingon:print-usage-and-exit cmd t))
 
 (defm define-handler (group command command-list)
-  "Define a function for handling command."
+  "Define a handler for COMMAND."
   (flet ((prefix (command)
            (prefix-command group command)))
     (let ((%fn (read-cat (prefix command) '/handler))
@@ -113,15 +130,16 @@ Nix command CMD from it."
            (apply #'nrun final-args))))))
 
 (defm define-basic-handler (group command)
-  "Define a basic handler for handling commands."
-  `(lambda (cmd)
-     (let* ((args (clingon:command-arguments cmd))
-            (final-args (if (¬ (empty-string-p ,group))
-                            (list ,group ,command args)
-                            (list ,command args))))
-       (if (null args)
-           (usage cmd)
-           (apply #'nrun final-args)))))
+  "Define a basic handler for handling COMMAND."
+  (flet ((prefix (command)
+           (prefix-command group command)))
+    (let ((%fn (read-cat (prefix command) '/handler))
+          (%doc (fmt "The basic handler for the `~A' command." command)))
+      `(def- ,%fn (cmd)
+         ,%doc
+         (if (null args)
+             (usage cmd)
+             (apply #'nrun final-args))))))
 
 (def- split-name (symbol &key (separator '(#\^)))
   "Return the split of SYMBOL by SEPARATOR."
@@ -152,7 +170,10 @@ Nix command CMD from it."
 
 (defm define-command (group command aliases
                       description
-                      usage options handler sub-command
+                      usage
+                      options
+                      handler
+                      sub-command
                       &rest examples)
   "Define a function for CLINGON:MAKE-COMMAND.
 
@@ -186,21 +207,24 @@ EXAMPLES is a list of description/command-line usage pairs for the command.
            (%options (read-cat (prefix %command) '/options))
            (%handler (read-cat "#'" (prefix %command) '/handler))
            (%sub-commands (read-cat (prefix %command) '/sub-commands)))
-      `(def ,%fn ()
-         (clingon:make-command
-          :name ,%command
-          :aliases ',%aliases
-          :description ,description
-          :usage (if (null ,usage) "[argument...|option...]" ,usage)
-          :options (cond ((eql t ,options)
-                          (define-options ,group ,command)
-                          (,%options))
-                         (t ,options))
-          :handler (cond ((eql t ,handler)
-                          (define-handler ,group ,command (,%group ,%command-raw))
-                          ,%handler)
-                         ((null ,handler)
-                          (define-basic-handler ,%group ,%command-raw))
-                         (t ,handler))
-          ,@(when sub-command `(:sub-commands (,%sub-commands)))
-          ,@(when examples `(:examples (mini-help ,@examples))))))))
+      `(progn
+         ,(when (eql t options) `(define-options ,group ,command))
+         ,(cond ((eql t handler)
+                 `(define-handler ,group ,command (,%group ,%command-raw)))
+                ((null handler)
+                 `(define-basic-handler ,group ,command))
+                (t nil))
+         (def ,%fn ()
+           (clingon:make-command
+            :name ,%command
+            :aliases ',%aliases
+            :description ,description
+            :usage ,(if (null usage) "[argument...|option...]" usage)
+            :options ,(cond ((eql t options)
+                             `(,%options))
+                            (t options))
+            :handler ,(cond ((∨ (eql t handler) (null handler))
+                             %handler)
+                            (t handler))
+            ,@(when sub-command `(:sub-commands (,%sub-commands)))
+            ,@(when examples `(:examples (mini-help ,@examples)))))))))

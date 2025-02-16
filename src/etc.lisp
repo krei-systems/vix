@@ -16,7 +16,7 @@
   nil
   "Run a dev shell"
   "d"
-  "Run a dev and run `make' inside"
+  "Run a dev shell and run `make' inside"
   "d -- -c make")
 
 (define-command nil make (m)
