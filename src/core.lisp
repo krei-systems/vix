@@ -29,8 +29,7 @@
   (uiop:subpathname *nix-directory* path))
 
 (defv- *vix-config*
-  (uiop:merge-pathnames* "vix.lisp"
-                         (home ".config/vix/"))
+  (uiop:merge-pathnames* "vix.k" (home ".config/vix/"))
   "The default location of Vix config.")
 
 (def- read-config ()
