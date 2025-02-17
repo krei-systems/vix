@@ -15,19 +15,9 @@
                     #P"nix/")
   "The location of the nix skeleton files.")
 
-(defv- *vix-config*
-  (uiop:merge-pathnames* "vix.lisp" (home ".config/vix/"))
-  "The default location of vix config.")
-
-
-;;; fns
-
 (def nix-skel-path (path)
   "Return a path from PATH relevant to the project directory."
   (uiop:subpathname *nix-skel-directory* path))
-
-
-;;; interface
 
 (defk +main-program+
   '("nix")
