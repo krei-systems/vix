@@ -10,7 +10,7 @@
 (in-package #:vix/src/core)
 
 
-;;; common fns
+;;; run stuff
 
 (def run! (cmd)
   "Run CMD."
@@ -18,7 +18,14 @@
 
 (def nrun (&rest args)
   "Use the command `nix' to run ARGS."
-  (run! (append (list "nix") (flatten-list args))))
+  (run! (append (list *nix-program*) args)))
+
+
+;;; common fns
+
+(def or-args (args)
+  "Return a string separated by #\|."
+  (format nil "~{~A~^|~}" args))
 
 (def mini-help (&rest args)
   "Return a list suitable for the example usage of a command."

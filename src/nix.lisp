@@ -10,6 +10,10 @@
 
 ;;; variables
 
+(defv *nix-program*
+  "nix"
+  "The name of the nix command line program.")
+
 (defv- *nix-skel-directory*
   (uiop:subpathname (asdf:system-source-directory (asdf:find-system :vix))
                     #P"nix/")
@@ -46,7 +50,3 @@
                        `("~{~A~^ ~}" ,args)
                        `(,(cat "~{" flake "#~A~^ ~}") ,args))))
     (apply #'format nil fmt-args)))
-
-(def or-args (args)
-  "Return a string from ARGS suitable for the `search' command."
-  (format nil "~{~A~^|~}" args))
