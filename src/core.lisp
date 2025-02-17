@@ -95,9 +95,7 @@ command CMD from it."
           (%doc (fmt "Return the options for the `~A' command." command)))
       `(def- ,%fn ()
          ,%doc
-         (append
-          (list (make-opt +main-option+ nil :flag :true))
-          ,@args)))))
+         (append (list) ,@args)))))
 
 (defm define-handler (group command command-list)
   "Define a handler for COMMAND."
@@ -108,11 +106,7 @@ command CMD from it."
       `(def- ,%fn (cmd)
          ,%doc
          (let* ((args (clingon:command-arguments cmd))
-                (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
-                (final-args (cond (opt-nixpkgs
-                                   (append ',command-list
-                                           (uiop:split-string (fence-args args))))
-                                  (t (append ',command-list args)))))
+                (final-args (append ',command-list args)))
            (apply #'exe final-args))))))
 
 (defm define-basic-handler (group command)
@@ -177,11 +171,15 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
            (%sub-commands (read-cat (prefix %command) '/sub-commands)))
       `(progn
          ,(when (eql t options) `(define-options ,group ,command))
-         ,(cond ((eql t handler)
-                 `(define-handler ,group ,command (,%group ,%command-raw)))
-                ((null handler)
-                 `(define-basic-handler ,group ,command))
-                (t nil))
+         ,(cond
+            ;; commands with groups
+            ((eql t handler)
+             `(define-handler ,group ,command (,%group ,%command-raw)))
+            ;; commands without groups
+            ((null handler)
+             `(define-basic-handler ,group ,command))
+            ;; use the specified handler
+            (t nil))
          ,(when (listp sub-commands)
             `(define-sub-commands ,command ,@sub-commands))
          (def ,%fn ()

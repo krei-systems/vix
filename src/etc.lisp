@@ -36,9 +36,7 @@
   t
   (lambda (cmd)
     (let* ((args (clingon:command-arguments cmd))
-           (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
-           (final-args (cond (opt-nixpkgs (list "search" "nixpkgs" (or-args args)))
-                             (t (cons "search" args)))))
+           (final-args (cons "search" args)))
       (apply #'exe final-args)))
   nil
   "Search in `nixpkgs' flake for packages named `firefox'"
