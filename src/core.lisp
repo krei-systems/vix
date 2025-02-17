@@ -66,9 +66,6 @@ Nix command CMD from it."
   (let ((args (clingon:command-arguments cmd)))
     (funcall fn args)))
 
-
-;;; entry points
-
 (def- prefix-command (prefix cmd)
   "Return a prefix string for CMD if PREFIX is true."
   (let ((prefix-string (if prefix (prin1-to-string prefix) "")))
@@ -76,12 +73,12 @@ Nix command CMD from it."
         (cat prefix-string "/" cmd)
         cmd)))
 
-(defm make-opt (name type value &rest rest)
+(defm make-opt (name desc type value &rest rest)
   "Return an option object from NAME."
   (let* ((%name name)
          (%char (aref %name 0))
          (%opt-name (read-cat ":" "opt-" %name))
-         (%desc (fmt "use the `~A' option" %name)))
+         (%desc (if desc desc (fmt "use the `~A' option" %name))))
     `(clingon:make-option
       ,type
       :description ,%desc
@@ -92,6 +89,31 @@ Nix command CMD from it."
       :initial-value ,value
       ,@rest)))
 
+(def- split-name (symbol &key (separator '(#\^)))
+  "Return the split of SYMBOL by SEPARATOR."
+  (uiop:split-string (prin1-to-string symbol) :separator separator))
+
+(def- get-raw-name (symbol)
+  (destructuring-bind (main-name &optional alt-name)
+      (split-name symbol)
+    (declare (ignore alt-name))
+    (read-from-string main-name)))
+
+(def- get-name (symbol)
+  (destructuring-bind (main-name &optional alt-name)
+      (split-name symbol)
+    (declare (ignorable alt-name))
+    (if alt-name
+        (read-from-string alt-name)
+        (read-from-string main-name))))
+
+(def print-usage (cmd)
+  "Print usage of CMD then exit."
+  (clingon:print-usage-and-exit cmd t))
+
+
+;;; command generators
+
 (defm define-options (group command &rest args)
   "Define a function that returns the options for COMMAND."
   (flet ((prefix (command)
@@ -101,12 +123,8 @@ Nix command CMD from it."
       `(def- ,%fn ()
          ,%doc
          (append
-          (list (make-opt "nixpkgs" :flag :true))
+          (list (make-opt "nixpkgs" nil :flag :true))
           ,@args)))))
-
-(def print-usage (cmd)
-  "Print usage of CMD then exit."
-  (clingon:print-usage-and-exit cmd t))
 
 (defm define-handler (group command command-list)
   "Define a handler for COMMAND."
@@ -135,24 +153,6 @@ Nix command CMD from it."
          (if (null args)
              (print-usage cmd)
              (apply #'nrun final-args))))))
-
-(def- split-name (symbol &key (separator '(#\^)))
-  "Return the split of SYMBOL by SEPARATOR."
-  (uiop:split-string (prin1-to-string symbol) :separator separator))
-
-(def- get-raw-name (symbol)
-  (destructuring-bind (main-name &optional alt-name)
-      (split-name symbol)
-    (declare (ignore alt-name))
-    (read-from-string main-name)))
-
-(def- get-name (symbol)
-  (destructuring-bind (main-name &optional alt-name)
-      (split-name symbol)
-    (declare (ignorable alt-name))
-    (if alt-name
-        (read-from-string alt-name)
-        (read-from-string main-name))))
 
 (defm define-sub-commands (name &rest sub-commands)
   "Return a list of subcommands for NAME from ARGS."
@@ -225,3 +225,62 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
                             (t handler))
             ,@(when sub-commands `(:sub-commands (,%sub-commands)))
             ,@(when examples `(:examples (mini-help ,@examples)))))))))
+
+
+;;; main generators
+
+(defm define-main-options (name options)
+  "Define a function to return the list of options for the main command."
+  (let* ((%name (prin1-downcase name))
+         (%fn (read-cat %name '/options)))
+    `(def ,%fn ()
+       "Return the options for the main command."
+       (list
+        ,@(loop :for option :in options :collect `(make-opt ,@option))))))
+
+(defm define-main-sub-commands (name commands)
+  "Define a function to define the sub-commands of main."
+  (let* ((%name (prin1-downcase name))
+         (%fn (read-cat %name '/sub-commands)))
+    `(def ,%fn ()
+       (list
+        ,@(loop :for command :in commands
+                :for command-name := (read-cat command '/command)
+                :collect `(,command-name))))))
+
+(defm define-main-command (name desc options sub-commands)
+  "Define a function as the main command."
+  (let* ((%name (prin1-downcase name))
+         (%fn (read-cat %name '/command))
+         (%options (read-cat %name '/options))
+         (%sub-commands (read-cat %name '/sub-commands)))
+    `(progn
+       (define-main-options ,name ,options)
+       (define-main-sub-commands ,name ,sub-commands)
+       (def ,%fn ()
+         "Define the main command"
+         (clingon:make-command
+          :name ,+project-name+
+          :version ,+project-version+
+          :description ,desc
+          :options (,%options)
+          :handler #'print-usage
+          :sub-commands (,%sub-commands))))))
+
+(defm define-main (name)
+  "Define the main entry point function."
+  (let* ((%name (prin1-downcase name))
+         (%command (read-cat %name '/command)))
+    `(def ,name (&rest args)
+       "The main entry point of the program."
+       (let ((app (,%command)))
+         (handler-case (clingon:run app)
+           (#+sbcl sb-sys:interactive-interrupt
+            #+ccl ccl:interrupt-signal-condition
+            #+clisp system::simple-interrupt-condition
+            #+ecl ext:interactive-interrupt
+            #+allegro excl:interrupt-signal
+            #+lispworks mp:process-interrupt
+            () nil)
+           (error (c)
+             (format t "Oof, an unknown error occured:~&~A~&" c)))))))

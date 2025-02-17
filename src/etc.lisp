@@ -214,3 +214,29 @@
   "gc"
   "Gargage collect and delete old versions"
   "gc -- -d")
+
+(define-command nil zsh-completions (zsh)
+  "generate the Zsh completion script"
+  ""
+  nil
+  (lambda (cmd)
+    (let ((parent (clingon:command-parent cmd)))
+      (clingon:print-documentation :zsh-completions parent t)))
+  nil
+  "Generate the Zsh completions of Vix and enable them"
+  "zsh-completions > ~/.zsh-completions/_vix
+cat >>! ~/.zshenv << EOF
+fpath=(~/.zsh-completions $fpath)
+autoload -U compinit
+compinit
+EOF")
+
+(define-command nil print-doc (doc)
+  "print the documentation"
+  ""
+  nil
+  (lambda (cmd)
+    (clingon:print-documentation :markdown (clingon:command-parent cmd) t))
+  nil
+  "Generate the Markdown documentation of Vix and save it to README.md"
+  "print-doc > README.md")

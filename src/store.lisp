@@ -168,7 +168,6 @@
   "<command>"
   nil
   #'print-usage
-  (add cat copy-log copy-sigs delete diff-closures
-       dump-path gc info ls
-       make-content-addressed optimise path-from-hash-part prefetch-file repair sign
-       verify) )
+  (add cat copy-log copy-sigs delete diff-closures dump-path gc info ls
+       make-content-addressed optimise path-from-hash-part prefetch-file repair
+       sign verify))
