@@ -25,7 +25,7 @@
   nil
   (lambda (cmd)
     (let ((args (clingon:command-arguments cmd)))
-      (nrun "develop" "--command" "make" args)))
+      (exe "develop" "--command" "make" args)))
   nil
   "Run `make' inside a dev shell"
   "m")
@@ -39,7 +39,7 @@
            (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
            (final-args (cond (opt-nixpkgs (list "search" "nixpkgs" (or-args args)))
                              (t (cons "search" args)))))
-      (apply #'nrun final-args)))
+      (apply #'exe final-args)))
   nil
   "Search in `nixpkgs' flake for packages named `firefox'"
   "s nixpkgs firefox")
@@ -51,7 +51,7 @@
   (lambda (cmd)
     (let* ((args (clingon:command-arguments cmd))
            (final-args (list "search" "nixpkgs" (or-args args))))
-      (apply #'nrun final-args)))
+      (apply #'exe final-args)))
   nil
   "Search in `nixpkgs' flake for packages named `firefox'"
   "fd firefox")
@@ -156,7 +156,7 @@
   t
   (lambda (cmd)
     (let ((args (clingon:command-arguments cmd)))
-      (nrun "env" "shell" args)))
+      (exe "env" "shell" args)))
   nil
   "Start a shell providing `yt-dlp' from the `nixpkgs' flake"
   "sh nixpkgs#yt-dlp")
@@ -187,7 +187,7 @@
   t
   (lambda (cmd)
     (let ((args (clingon:command-arguments cmd)))
-      (nrun "realisation" "info" args)))
+      (exe "realisation" "info" args)))
   nil
   "Show some information about the realisation of the package `hello'"
   "rn nixpkgs#hello")
@@ -208,7 +208,7 @@
   (lambda (cmd)
     (let ((args (clingon:command-arguments cmd)))
       (dbg args)
-      (run! `("nix-collect-garbage" ,@args))))
+      (exe! `("nix-collect-garbage" ,@args))))
   nil
   "Garbage collect"
   "gc"

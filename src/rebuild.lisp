@@ -26,9 +26,9 @@
                             (when opt-upgrade '("--upgrade")))))
     (uiop:os-cond
      ((uiop:os-macosx-p)
-      (run! `("darwin-rebuild" "--flake" ,opt-flake ,@full-args)))
+      (exe! `("darwin-rebuild" "--flake" ,opt-flake ,@full-args)))
      ((uiop:os-unix-p)
-      (run! `("sudo" "nixos-rebuild" "--flake" ,opt-flake ,@full-args)))
+      (exe! `("sudo" "nixos-rebuild" "--flake" ,opt-flake ,@full-args)))
      (t (clingon:print-usage-and-exit cmd t)))))
 
 (define-command nil rebuild (rb)

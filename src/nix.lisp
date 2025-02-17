@@ -10,10 +10,6 @@
 
 ;;; variables
 
-(defv *nix-program*
-  "nix"
-  "The name of the nix command line program.")
-
 (defv- *nix-skel-directory*
   (uiop:subpathname (asdf:system-source-directory (asdf:find-system :vix))
                     #P"nix/")
@@ -43,6 +39,14 @@
 
 
 ;;; interface
+
+(defk +main-program+
+  '("nix")
+  "The name of the main command line program.")
+
+(defk +main-option+
+  "nixpkgs"
+  "The common option name across commands.")
 
 (def fence-args (args)
   (let* ((flake (default-flake))

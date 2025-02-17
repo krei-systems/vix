@@ -12,13 +12,13 @@
 
 ;;; run stuff
 
-(def run! (cmd)
+(def exe! (cmd)
   "Run CMD."
   (uiop:run-program cmd :input :interactive :output :interactive :error-output :interactive))
 
-(def nrun (&rest args)
-  "Use the command `nix' to run ARGS."
-  (run! (append (list *nix-program*) args)))
+(def exe (&rest args)
+  "Use the main program command to run ARGS."
+  (exe! (append +main-program+ args)))
 
 
 ;;; common fns
@@ -34,7 +34,7 @@
           :collect (cons (fmt "~A:" desc) (fmt "~A ~A" +project-name+ usage)))))
 
 (def cmd-handler (cmd fn)
-  "Define a function that parses the command arguments from CMD and runs the Nix
+  "Define a function that parses the command arguments from CMD and runs the
 command CMD from it."
   (let ((args (clingon:command-arguments cmd)))
     (funcall fn args)))
@@ -48,7 +48,7 @@ command CMD from it."
 
 (defm make-opt (name desc type value &rest rest)
   "Return an option object from NAME."
-  (let* ((%name name)
+  (let* ((%name (eval name))
          (%char (aref %name 0))
          (%opt-name (read-cat ":" "opt-" %name))
          (%desc (if desc desc (fmt "use the `~A' option" %name))))
@@ -96,7 +96,7 @@ command CMD from it."
       `(def- ,%fn ()
          ,%doc
          (append
-          (list (make-opt "nixpkgs" nil :flag :true))
+          (list (make-opt +main-option+ nil :flag :true))
           ,@args)))))
 
 (defm define-handler (group command command-list)
@@ -113,7 +113,7 @@ command CMD from it."
                                    (append ',command-list
                                            (uiop:split-string (fence-args args))))
                                   (t (append ',command-list args)))))
-           (apply #'nrun final-args))))))
+           (apply #'exe final-args))))))
 
 (defm define-basic-handler (group command)
   "Define a basic handler for handling COMMAND."
@@ -125,7 +125,7 @@ command CMD from it."
          ,%doc
          (if (null args)
              (print-usage cmd)
-             (apply #'nrun final-args))))))
+             (apply #'exe final-args))))))
 
 (defm define-sub-commands (name &rest sub-commands)
   "Return a list of subcommands for NAME from ARGS."
