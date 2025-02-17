@@ -4,12 +4,13 @@
 (uiop:define-package #:vix/src/core
   (:use #:cl
         #:marie
-        #:vix/src/specials))
+        #:vix/src/specials
+        #:vix/src/nix))
 
 (in-package #:vix/src/core)
 
 
-;;; utils
+;;; common fns
 
 (def run! (cmd)
   "Run CMD."
@@ -19,41 +20,6 @@
   "Use the command `nix' to run ARGS."
   (run! (append (list "nix") (flatten-list args))))
 
-(defv- *nix-directory*
-  (uiop:subpathname (asdf:system-source-directory (asdf:find-system :vix))
-                    #P"nix/")
-  "The location of the nix skeleton files.")
-
-(def nix-path (path)
-  "Return a path from PATH relevant to the project directory."
-  (uiop:subpathname *nix-directory* path))
-
-(defv- *vix-config*
-  (uiop:merge-pathnames* "vix.lisp" (home ".config/vix/"))
-  "The default location of vix config.")
-
-(def- read-config (&optional key)
-  "Read the contents of the vix config."
-  (let ((expr (uiop:read-file-form *vix-config*)))
-    (if key
-        (getf expr key)
-        expr)))
-
-(def- default-flake ()
-  "Return the default flake."
-  (read-config :flake))
-
-(def fence-args (args)
-  (let* ((flake (default-flake))
-         (fmt-args (if (empty-string-p flake)
-                       `("~{~A~^ ~}" ,args)
-                       `(,(cat "~{" flake "#~A~^ ~}") ,args))))
-    (apply #'format nil fmt-args)))
-
-(def or-args (args)
-  "Return a string from ARGS suitable for the `search' command."
-  (format nil "~{~A~^|~}" args))
-
 (def mini-help (&rest args)
   "Return a list suitable for the example usage of a command."
   (let ((parts (partition args 2)))
@@ -61,8 +27,8 @@
           :collect (cons (fmt "~A:" desc) (fmt "~A ~A" +project-name+ usage)))))
 
 (def cmd-handler (cmd fn)
-  "Define a function that parses the command arguments from CCMD and runs the
-Nix command CMD from it."
+  "Define a function that parses the command arguments from CMD and runs the Nix
+command CMD from it."
   (let ((args (clingon:command-arguments cmd)))
     (funcall fn args)))
 

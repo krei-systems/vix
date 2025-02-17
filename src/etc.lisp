@@ -4,6 +4,7 @@
 (uiop:define-package #:vix/src/etc
   (:use #:cl
         #:marie
+        #:vix/src/nix
         #:vix/src/core))
 
 (in-package #:vix/src/etc)

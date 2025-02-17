@@ -10,6 +10,7 @@
     :depends-on (#:marie
                  #:clingon
                  #:vix/src/specials
+                 #:vix/src/nix
                  #:vix/src/core
                  #:vix/src/registry
                  #:vix/src/rebuild
