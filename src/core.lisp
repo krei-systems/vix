@@ -18,7 +18,7 @@
 
 (def exe (&rest args)
   "Use the main program command to run ARGS."
-  (exe! (append +main-program+ args)))
+  (exe! (append +main-program+ (flatten-list args))))
 
 
 ;;; common fns
