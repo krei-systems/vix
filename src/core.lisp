@@ -1,11 +1,10 @@
 ;;;; -*- mode: lisp; syntax: common-lisp; base: 10; -*-
-;;;; core.lisp --- core functions
+;;;; core.lisp --- core CLI functions
 
 (uiop:define-package #:vix/src/core
   (:use #:cl
         #:marie
-        #:vix/src/specials
-        #:vix/src/nix))
+        #:vix/src/specials))
 
 (in-package #:vix/src/core)
 
@@ -18,13 +17,13 @@
 
 (def exe (&rest args)
   "Use the main program command to run ARGS."
-  (exe! (append +main-program+ (flatten-list args))))
+  (exe! (append +exe+ (flatten-list args))))
 
 
 ;;; common fns
 
 (def or-args (args)
-  "Return a string separated by #\|."
+  "Return a string separated by #\|, from the list ARGS."
   (format nil "~{~A~^|~}" args))
 
 (def mini-help (&rest args)
@@ -219,30 +218,30 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
                 :for command-name := (read-cat command '/command)
                 :collect `(,command-name))))))
 
-(defm define-main-command (name desc options sub-commands)
+(defm define-main-command (options sub-commands)
   "Define a function as the main command."
-  (let* ((%name (prin1-downcase name))
+  (let* ((%name "main")
          (%fn (read-cat %name '/command))
          (%options (read-cat %name '/options))
          (%sub-commands (read-cat %name '/sub-commands)))
     `(progn
-       (define-main-options ,name ,options)
-       (define-main-sub-commands ,name ,sub-commands)
+       (define-main-options main ,options)
+       (define-main-sub-commands main ,sub-commands)
        (def ,%fn ()
          "Define the main command"
          (clingon:make-command
           :name ,+project-name+
           :version ,+project-version+
-          :description ,desc
+          :description ,+project-description+
           :options (,%options)
           :handler #'print-usage
           :sub-commands (,%sub-commands))))))
 
-(defm define-main (name)
+(defm define-main ()
   "Define the main entry point function."
-  (let* ((%name (prin1-downcase name))
+  (let* ((%name "main")
          (%command (read-cat %name '/command)))
-    `(def ,name (&rest args)
+    `(def main (&rest args)
        "The main entry point of the program."
        (let ((app (,%command)))
          (handler-case (clingon:run app)

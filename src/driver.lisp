@@ -5,7 +5,6 @@
   (:nicknames #:vix)
   (:use #:uiop/common-lisp)
   (:use-reexport #:vix/src/specials
-                 #:vix/src/nix
                  #:vix/src/core
                  #:vix/src/registry
                  #:vix/src/rebuild

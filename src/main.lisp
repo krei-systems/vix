@@ -23,40 +23,39 @@
 
 ;;; entry point
 
-(define-main-command main
-  "a program for interacting with the Nix ecosystem"
-  (("verbose" "verbosity" :counter 0))
-  (profile
-   flake
-   develop
-   make
-   rebuild
-   search
-   find
-   run
-   repl
-   registry
-   store
-   eval
-   shell
-   build
-   bundle
-   copy
-   edit
-   daemon
-   config
-   hash
-   key
-   nar
-   fmt
-   path-info
-   derivation
-   why-depends
-   print-dev-env
-   realisation
-   upgrade-nix
-   collect-garbage
-   zsh-completions
-   print-doc))
+(define-main-command
+    (("verbose" "verbosity" :counter 0))
+    (profile
+     flake
+     develop
+     make
+     rebuild
+     search
+     find
+     run
+     repl
+     registry
+     store
+     eval
+     shell
+     build
+     bundle
+     copy
+     edit
+     daemon
+     config
+     hash
+     key
+     nar
+     fmt
+     path-info
+     derivation
+     why-depends
+     print-dev-env
+     realisation
+     upgrade-nix
+     collect-garbage
+     zsh-completions
+     print-doc))
 
-(define-main main)
+(define-main)
