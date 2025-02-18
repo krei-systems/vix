@@ -1,12 +1,12 @@
 ;;;; -*- mode: lisp; syntax: common-lisp; base: 10; -*-
-;;;; etc.lisp --- etc the system
+;;;; ext.lisp --- ext operations
 
-(uiop:define-package #:vix/src/etc
+(uiop:define-package #:vix/src/ext
   (:use #:cl
         #:marie
         #:vix/src/core))
 
-(in-package #:vix/src/etc)
+(in-package #:vix/src/ext)
 
 (define-command nil develop (d)
   "run a dev shell"

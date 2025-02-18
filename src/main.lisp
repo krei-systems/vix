@@ -11,7 +11,7 @@
         #:vix/src/profile
         #:vix/src/flake
         #:vix/src/store
-        #:vix/src/etc
+        #:vix/src/ext
         #:vix/src/config
         #:vix/src/derivation
         #:vix/src/hash
