@@ -1,6 +1,6 @@
 # vix
 
-`vix` -- a program for interacting with the Nix ecosystem
+`vix` -- a thin wrapper for interacting with the Nix CLI ecosystem.
 
 ## Usage
 
@@ -15,7 +15,7 @@ vix [global-options] [<command>] [command-options] [arguments ...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -v, --verbose  Verbosity [default: 0]
+  -v, --verbose  verbosity [default: 0]
 
 ```
 
@@ -31,29 +31,29 @@ vix [global-options] [<command>] [command-options] [arguments ...]
   rebuild, rb           rebuild the system configuration from a flake
   search, s             search for packages
   find, fd              search for packages in the `nixpkgs' flake
-  run, r                run a Nix application
+  run                   run a Nix application
   repl                  start an interactive environment for evaluating Nix expressions
+  registry, r           manipulate the Nix registry
+  store, o              manipulate the Nix store
   eval, e               evaluate a Nix expression
   shell, sh             run a shell in which the specified packages are available
   build, b              build a derivation or fetch a store path
   bundle, u             bundle an application so that it works outside of the Nix store
   copy, c               start an interactive environment for evaluating Nix expressions
   edit, ed              open the Nix expression of a Nix package in $EDITOR
-  path-info, info       query information about store paths
-  why-depends, w        show why a package has another package in its closure
-  print-dev-env, print  print shell code of derivation
   daemon, dm            daemon to perform store operations on behalf of non-root clients
-  realisation, real     manipulate a Nix realisation
-  registry, y           manipulate the Nix registry
-  store, o              manipulate the Nix store
   config, cfg           manage the Nix settings
-  derivation, v         work with derivations
   hash, h               compute and convert cryptographic hashes
   key, k                generate and convert Nix signing keys
   nar, n                create or inspect nar files
   fmt                   reformat your code in the standard style
+  path-info, pi         query information about store paths
+  derivation, v         work with derivations
+  why-depends, wd       show why a package has another package in its closure
+  print-dev-env, pd     print shell code of derivation
+  realisation, rn       manipulate a Nix realisation
   upgrade-nix, upgrade  upgrade Nix to the latest stable version
-  collect-garbage, g    run the garbage collector
+  collect-garbage, gc   run the garbage collector
   zsh-completions, zsh  generate the Zsh completion script
   print-doc, doc        print the documentation
 
@@ -66,7 +66,7 @@ vix [global-options] [<command>] [command-options] [arguments ...]
 ## Usage
 
 ``` shell
-vix profile command
+vix profile <command>
 ```
 
 ## Options
@@ -102,7 +102,7 @@ vix profile command
 ## Usage
 
 ``` shell
-vix profile install package...
+vix profile install <package>...
 ```
 
 ## Options
@@ -112,7 +112,6 @@ vix profile install package...
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -137,7 +136,7 @@ vix p i nixpkgs/d734#hello
 ## Usage
 
 ``` shell
-vix profile remove package...
+vix profile remove <package>...
 ```
 
 ## Options
@@ -171,7 +170,7 @@ vix p r -- --all
 ## Usage
 
 ``` shell
-vix profile upgrade package...
+vix profile upgrade <package>...
 ```
 
 ## Options
@@ -345,7 +344,7 @@ vix p d -- --profile /nix/var/nix/profiles/system
 ## Usage
 
 ``` shell
-vix flake command
+vix flake <command>
 ```
 
 ## Options
@@ -500,7 +499,7 @@ vix f u
 ## Usage
 
 ``` shell
-vix flake new flake
+vix flake new <directory>
 ```
 
 ## Options
@@ -534,7 +533,7 @@ vix f n hello -t templates#haskell-hello
 ## Usage
 
 ``` shell
-vix flake clone flake
+vix flake clone <flake>
 ```
 
 ## Options
@@ -646,7 +645,7 @@ vix f p dwarffs
 ## Usage
 
 ``` shell
-vix develop [argument...|option...]
+vix develop [<argument>...|<option>...]
 ```
 
 ## Options
@@ -680,7 +679,7 @@ vix d -- -c make
 ## Usage
 
 ``` shell
-vix make [argument...|option...]
+vix make [<argument>...|<option>...]
 ```
 
 ## Options
@@ -708,7 +707,7 @@ vix m
 ## Usage
 
 ``` shell
-vix rebuild [-f flake] [-s] [-u]
+vix rebuild [-f <flake>] [-s] [-u]
 ```
 
 ## Options
@@ -718,9 +717,9 @@ vix rebuild [-f flake] [-s] [-u]
 ``` shell
       --help           display usage information and exit
       --version        display version and exit
-  -f, --flake <VALUE>  use the `flake' option [default: /Users/ebzzry/etc/dev/]
-  -s, --switch         use the `switch' option [default: TRUE]
-  -u, --upgrade        use the `upgrade' option [default: FALSE]
+  -f, --flake <VALUE>  specify flake to use [default: /Users/ebzzry/etc/dev/]
+  -s, --switch         switch to profile after rebuild [default: TRUE]
+  -u, --upgrade        upgrade to latest version [default: FALSE]
 
 ```
 
@@ -745,7 +744,7 @@ vix rb -s
 ## Usage
 
 ``` shell
-vix search [-n|flake] package...
+vix search [-n|<flake>] <package>...
 ```
 
 ## Options
@@ -755,7 +754,6 @@ vix search [-n|flake] package...
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -774,7 +772,7 @@ vix s nixpkgs firefox
 ## Usage
 
 ``` shell
-vix find package...
+vix find <package>...
 ```
 
 ## Options
@@ -784,7 +782,6 @@ vix find package...
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -803,7 +800,7 @@ vix fd firefox
 ## Usage
 
 ``` shell
-vix run [argument...|option...]
+vix run [<argument>...|<option>...]
 ```
 
 ## Options
@@ -813,7 +810,6 @@ vix run [argument...|option...]
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -822,7 +818,7 @@ vix run [argument...|option...]
 Run `vim' from the `nixpkgs' flake:
 
 ``` shell
-vix r nixpkgs#vim
+vix run nixpkgs#vim
 ```
 
 # vix repl
@@ -832,7 +828,7 @@ vix r nixpkgs#vim
 ## Usage
 
 ``` shell
-vix repl [argument...|option...]
+vix repl [<argument>...|<option>...]
 ```
 
 ## Options
@@ -853,340 +849,6 @@ Evaluate some simple Nix expressions:
 vix repl
 ```
 
-# vix eval
-
-`vix eval` -- evaluate a Nix expression
-
-## Usage
-
-``` shell
-vix eval [argument...|option...]
-```
-
-## Options
-
-`vix eval` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-
-```
-
-## Examples
-
-Evaluate a Nix expression given on the command line:
-
-``` shell
-vix e -- --expr '1 + 2'
-```
-
-Print the store path of the `hello' package:
-
-``` shell
-vix e -- --raw nixpkgs#hello
-```
-
-# vix shell
-
-`vix shell` -- run a shell in which the specified packages are available
-
-## Usage
-
-``` shell
-vix shell [argument...|option...]
-```
-
-## Options
-
-`vix shell` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
-
-```
-
-## Examples
-
-Start a shell providing `yt-dlp' from the `nixpkgs' flake:
-
-``` shell
-vix sh nixpkgs#yt-dlp
-```
-
-# vix build
-
-`vix build` -- build a derivation or fetch a store path
-
-## Usage
-
-``` shell
-vix build [argument...|option...]
-```
-
-## Options
-
-`vix build` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
-
-```
-
-## Examples
-
-Build the default package from the flake in the current directory:
-
-``` shell
-vix b
-```
-
-Build `hello' and `cowsay' from `nixpkgs' flake, leaving two result symlinks:
-
-``` shell
-vix b nixpkgs#hello nixpkgs#cowsay
-```
-
-# vix bundle
-
-`vix bundle` -- bundle an application so that it works outside of the Nix store
-
-## Usage
-
-``` shell
-vix bundle [argument...|option...]
-```
-
-## Options
-
-`vix bundle` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
-
-```
-
-## Examples
-
-Bundle `hello':
-
-``` shell
-vix u nixpkgs#vim
-```
-
-# vix copy
-
-`vix copy` -- start an interactive environment for evaluating Nix expressions
-
-## Usage
-
-``` shell
-vix copy [argument...|option...]
-```
-
-## Options
-
-`vix copy` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-
-```
-
-## Examples
-
-Copy all store paths from a local binary cache:
-
-``` shell
-vix c -- --all --from file:///tmp/cache
-```
-
-# vix edit
-
-`vix edit` -- open the Nix expression of a Nix package in $EDITOR
-
-## Usage
-
-``` shell
-vix edit [argument...|option...]
-```
-
-## Options
-
-`vix edit` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
-
-```
-
-## Examples
-
-Open the Nix expression of the `hello' package:
-
-``` shell
-vix ed nixpkgs#hello
-```
-
-# vix path-info
-
-`vix path-info` -- query information about store paths
-
-## Usage
-
-``` shell
-vix path-info [argument...|option...]
-```
-
-## Options
-
-`vix path-info` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
-
-```
-
-## Examples
-
-Print the store path produced by nixpkgs#hello:
-
-``` shell
-vix i nixpkgs#hello
-```
-
-# vix why-depends
-
-`vix why-depends` -- show why a package has another package in its closure
-
-## Usage
-
-``` shell
-vix why-depends [argument...|option...]
-```
-
-## Options
-
-`vix why-depends` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
-
-```
-
-## Examples
-
-Show one path through the dependency graph leading from `hello' to `glibc':
-
-``` shell
-vix w nixpkgs#hello nixpkgs#glibc
-```
-
-# vix print-dev-env
-
-`vix print-dev-env` -- print shell code of derivation
-
-## Usage
-
-``` shell
-vix print-dev-env [argument...|option...]
-```
-
-## Options
-
-`vix print-dev-env` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
-
-```
-
-## Examples
-
-Get the build environment of `hello':
-
-``` shell
-vix print nixpkgs#hello
-```
-
-# vix daemon
-
-`vix daemon` -- daemon to perform store operations on behalf of non-root clients
-
-## Usage
-
-``` shell
-vix daemon [argument...|option...]
-```
-
-## Options
-
-`vix daemon` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-
-```
-
-## Examples
-
-Run the daemon:
-
-``` shell
-vix dm
-```
-
-Run the daemon and force all connections to be trusted:
-
-``` shell
-vix dm -- --force-trusted
-```
-
-# vix realisation
-
-`vix realisation` -- manipulate a Nix realisation
-
-## Usage
-
-``` shell
-vix realisation [argument...|option...]
-```
-
-## Options
-
-`vix realisation` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
-
-```
-
-## Examples
-
-Show some information about the realisation of the package `hello':
-
-``` shell
-vix real info nixpkgs#hello
-```
-
 # vix registry
 
 `vix registry` -- manipulate the Nix registry
@@ -1194,7 +856,7 @@ vix real info nixpkgs#hello
 ## Usage
 
 ``` shell
-vix registry command
+vix registry <command>
 ```
 
 ## Options
@@ -1244,7 +906,7 @@ vix registry list
 Show the contents of all registries:
 
 ``` shell
-vix y l
+vix r l
 ```
 
 # vix registry add
@@ -1254,7 +916,7 @@ vix y l
 ## Usage
 
 ``` shell
-vix registry add flake location
+vix registry add <flake> <location>
 ```
 
 ## Options
@@ -1272,7 +934,7 @@ vix registry add flake location
 Set the `nixpkgs' flake identifier to a specific branch of Nixpkgs:
 
 ``` shell
-vix y a nixpkgs github:NixOS/nixpkgs/nixos-20.03
+vix r a nixpkgs github:NixOS/nixpkgs/nixos-20.03
 ```
 
 # vix registry remove
@@ -1282,7 +944,7 @@ vix y a nixpkgs github:NixOS/nixpkgs/nixos-20.03
 ## Usage
 
 ``` shell
-vix registry remove flake
+vix registry remove <flake>
 ```
 
 ## Options
@@ -1300,7 +962,7 @@ vix registry remove flake
 Remove the `nixpkgs' flake from the registry:
 
 ``` shell
-vix y r nixpkgs
+vix r r nixpkgs
 ```
 
 # vix registry pin
@@ -1310,7 +972,7 @@ vix y r nixpkgs
 ## Usage
 
 ``` shell
-vix registry pin flake
+vix registry pin <flake>
 ```
 
 ## Options
@@ -1328,7 +990,7 @@ vix registry pin flake
 Pin the `nixpkgs' flake to its most recent revision:
 
 ``` shell
-vix y p nixpkgs
+vix r p nixpkgs
 ```
 
 # vix store
@@ -1338,7 +1000,7 @@ vix y p nixpkgs
 ## Usage
 
 ``` shell
-vix store command
+vix store <command>
 ```
 
 ## Options
@@ -1383,7 +1045,7 @@ vix store command
 ## Usage
 
 ``` shell
-vix store add location
+vix store add <location>
 ```
 
 ## Options
@@ -1411,7 +1073,7 @@ vix s a ./dir
 ## Usage
 
 ``` shell
-vix store cat location
+vix store cat <location>
 ```
 
 ## Options
@@ -1439,7 +1101,7 @@ vix s c --store https://cache.nixos.org/ /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn
 ## Usage
 
 ``` shell
-vix store copy-log location
+vix store copy-log <location>
 ```
 
 ## Options
@@ -1495,7 +1157,7 @@ vix s i
 ## Usage
 
 ``` shell
-vix store delete path...
+vix store delete <path>...
 ```
 
 ## Options
@@ -1523,7 +1185,7 @@ vix s d /nix/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10
 ## Usage
 
 ``` shell
-vix store diff-closures path...
+vix store diff-closures <path>...
 ```
 
 ## Options
@@ -1552,7 +1214,7 @@ vix s u /nix/var/nix/profiles/system-655-link /nix/var/nix/profiles/system-658-l
 ## Usage
 
 ``` shell
-vix store dump-path path
+vix store dump-path <path>
 ```
 
 ## Options
@@ -1608,7 +1270,7 @@ vix s g
 ## Usage
 
 ``` shell
-vix store info path
+vix store info <path>
 ```
 
 ## Options
@@ -1636,7 +1298,7 @@ vix s o -- --store ssh://mac1
 ## Usage
 
 ``` shell
-vix store ls path
+vix store ls <path>
 ```
 
 ## Options
@@ -1664,7 +1326,7 @@ vix s l -- --store https://cache.nixos.org/ --long --recursive /nix/store/0i2jd6
 ## Usage
 
 ``` shell
-vix store make-content-addressed path
+vix store make-content-addressed <path>
 ```
 
 ## Options
@@ -1674,7 +1336,6 @@ vix store make-content-addressed path
 ``` shell
       --help     display usage information and exit
       --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
 
 ```
 
@@ -1721,7 +1382,7 @@ vix s t
 ## Usage
 
 ``` shell
-vix store path-from-hash-part path
+vix store path-from-hash-part <path>
 ```
 
 ## Options
@@ -1749,7 +1410,7 @@ vix s h --store https://cache.nixos.org/ 0i2jd68mp5g6h2sa5k9c85rb80sn8hi9
 ## Usage
 
 ``` shell
-vix store prefetch-file location
+vix store prefetch-file <loca>tion
 ```
 
 ## Options
@@ -1777,7 +1438,7 @@ vix s f https://releases.nixos.org/nix/nix-2.3.10/nix-2.3.10.tar.xz
 ## Usage
 
 ``` shell
-vix store repair path
+vix store repair <path>
 ```
 
 ## Options
@@ -1854,6 +1515,220 @@ Verify the entire Nix store:
 vix store-verify -- --all
 ```
 
+# vix eval
+
+`vix eval` -- evaluate a Nix expression
+
+## Usage
+
+``` shell
+vix eval [<argument>...|<option>...]
+```
+
+## Options
+
+`vix eval` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Evaluate a Nix expression given on the command line:
+
+``` shell
+vix e -- --expr '1 + 2'
+```
+
+Print the store path of the `hello' package:
+
+``` shell
+vix e -- --raw nixpkgs#hello
+```
+
+# vix shell
+
+`vix shell` -- run a shell in which the specified packages are available
+
+## Usage
+
+``` shell
+vix shell [<argument>...|<option>...]
+```
+
+## Options
+
+`vix shell` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Start a shell providing `yt-dlp' from the `nixpkgs' flake:
+
+``` shell
+vix sh nixpkgs#yt-dlp
+```
+
+# vix build
+
+`vix build` -- build a derivation or fetch a store path
+
+## Usage
+
+``` shell
+vix build [<argument>...|<option>...]
+```
+
+## Options
+
+`vix build` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Build the default package from the flake in the current directory:
+
+``` shell
+vix b
+```
+
+Build `hello' and `cowsay' from `nixpkgs' flake, leaving two result symlinks:
+
+``` shell
+vix b nixpkgs#hello nixpkgs#cowsay
+```
+
+# vix bundle
+
+`vix bundle` -- bundle an application so that it works outside of the Nix store
+
+## Usage
+
+``` shell
+vix bundle [<argument>...|<option>...]
+```
+
+## Options
+
+`vix bundle` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Bundle `hello':
+
+``` shell
+vix u nixpkgs#vim
+```
+
+# vix copy
+
+`vix copy` -- start an interactive environment for evaluating Nix expressions
+
+## Usage
+
+``` shell
+vix copy [<argument>...|<option>...]
+```
+
+## Options
+
+`vix copy` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Copy all store paths from a local binary cache:
+
+``` shell
+vix c -- --all --from file:///tmp/cache
+```
+
+# vix edit
+
+`vix edit` -- open the Nix expression of a Nix package in $EDITOR
+
+## Usage
+
+``` shell
+vix edit [<argument>...|<option>...]
+```
+
+## Options
+
+`vix edit` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Open the Nix expression of the `hello' package:
+
+``` shell
+vix ed nixpkgs#hello
+```
+
+# vix daemon
+
+`vix daemon` -- daemon to perform store operations on behalf of non-root clients
+
+## Usage
+
+``` shell
+vix daemon [<argument>...|<option>...]
+```
+
+## Options
+
+`vix daemon` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Run the daemon:
+
+``` shell
+vix dm
+```
+
+Run the daemon and force all connections to be trusted:
+
+``` shell
+vix dm -- --force-trusted
+```
+
 # vix config
 
 `vix config` -- manage the Nix settings
@@ -1861,7 +1736,7 @@ vix store-verify -- --all
 ## Usage
 
 ``` shell
-vix config command
+vix config <command>
 ```
 
 ## Options
@@ -1940,93 +1815,6 @@ Check for problems:
 vix cfg k
 ```
 
-# vix derivation
-
-`vix derivation` -- work with derivations
-
-## Usage
-
-``` shell
-vix derivation command
-```
-
-## Options
-
-`vix derivation` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-
-```
-
-## Sub Commands
-
-`vix derivation` provides the following sub commands:
-
-``` shell
-  add, a   add a store derivation
-  show, s  show the contents of a store derivation
-
-```
-
-# vix derivation add
-
-`vix derivation add` -- add a store derivation
-
-## Usage
-
-``` shell
-vix derivation add path
-```
-
-## Options
-
-`vix derivation add` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-
-```
-
-## Examples
-
-Add a derivation:
-
-``` shell
-vix v a path
-```
-
-# vix derivation show
-
-`vix derivation show` -- show the contents of a store derivation
-
-## Usage
-
-``` shell
-vix derivation show derivation
-```
-
-## Options
-
-`vix derivation show` accepts the following options:
-
-``` shell
-      --help     display usage information and exit
-      --version  display version and exit
-  -n, --nixpkgs  use the `nixpkgs' option [default: TRUE]
-
-```
-
-## Examples
-
-Show the `hello' derivation:
-
-``` shell
-vix v s nixpkgs#hello
-```
-
 # vix hash
 
 `vix hash` -- compute and convert cryptographic hashes
@@ -2034,7 +1822,7 @@ vix v s nixpkgs#hello
 ## Usage
 
 ``` shell
-vix hash command
+vix hash <command>
 ```
 
 ## Options
@@ -2065,7 +1853,7 @@ vix hash command
 ## Usage
 
 ``` shell
-vix hash file file
+vix hash file <file>
 ```
 
 ## Options
@@ -2093,7 +1881,7 @@ vix h f file.txt
 ## Usage
 
 ``` shell
-vix hash path path
+vix hash path <path>
 ```
 
 ## Options
@@ -2121,7 +1909,7 @@ vix h p /foo/bar/
 ## Usage
 
 ``` shell
-vix hash convert path
+vix hash convert <path>
 ```
 
 ## Options
@@ -2149,7 +1937,7 @@ vix h c -- --hash-algo sha1 800d59cfcd3c05e900cb4e214be48f6b886a08df
 ## Usage
 
 ``` shell
-vix key command
+vix key <command>
 ```
 
 ## Options
@@ -2179,7 +1967,7 @@ vix key command
 ## Usage
 
 ``` shell
-vix key convert key
+vix key convert <key>
 ```
 
 ## Options
@@ -2235,7 +2023,7 @@ vix k g -- --key-name cache.example.org-1 > ./secret-key
 ## Usage
 
 ``` shell
-vix nar command
+vix nar <command>
 ```
 
 ## Options
@@ -2266,7 +2054,7 @@ vix nar command
 ## Usage
 
 ``` shell
-vix nar cat file
+vix nar cat <file>
 ```
 
 ## Options
@@ -2294,7 +2082,7 @@ vix n c ./hello.nar /share/man/man1/hello.1.gz | gunzip
 ## Usage
 
 ``` shell
-vix nar dump-path path
+vix nar dump-path <path>
 ```
 
 ## Options
@@ -2322,7 +2110,7 @@ vix n d ./foo > foo.nar
 ## Usage
 
 ``` shell
-vix nar ls path
+vix nar ls <path>
 ```
 
 ## Options
@@ -2350,7 +2138,7 @@ vix n l -- --long ./hello.nar /bin/hello
 ## Usage
 
 ``` shell
-vix fmt [argument...|option...]
+vix fmt [<argument>...|<option>...]
 ```
 
 ## Options
@@ -2369,6 +2157,204 @@ Format the current flake:
 
 ``` shell
 vix fmt
+```
+
+# vix path-info
+
+`vix path-info` -- query information about store paths
+
+## Usage
+
+``` shell
+vix path-info [<argument>...|<option>...]
+```
+
+## Options
+
+`vix path-info` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Print the store path produced by nixpkgs#hello:
+
+``` shell
+vix pi nixpkgs#hello
+```
+
+# vix derivation
+
+`vix derivation` -- work with derivations
+
+## Usage
+
+``` shell
+vix derivation <command>
+```
+
+## Options
+
+`vix derivation` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Sub Commands
+
+`vix derivation` provides the following sub commands:
+
+``` shell
+  add, a   add a store derivation
+  show, s  show the contents of a store derivation
+
+```
+
+# vix derivation add
+
+`vix derivation add` -- add a store derivation
+
+## Usage
+
+``` shell
+vix derivation add <path>
+```
+
+## Options
+
+`vix derivation add` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Add a derivation:
+
+``` shell
+vix v a path
+```
+
+# vix derivation show
+
+`vix derivation show` -- show the contents of a store derivation
+
+## Usage
+
+``` shell
+vix derivation show <derivation>
+```
+
+## Options
+
+`vix derivation show` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Show the `hello' derivation:
+
+``` shell
+vix v s nixpkgs#hello
+```
+
+# vix why-depends
+
+`vix why-depends` -- show why a package has another package in its closure
+
+## Usage
+
+``` shell
+vix why-depends [<argument>...|<option>...]
+```
+
+## Options
+
+`vix why-depends` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Show one path through the dependency graph leading from `hello' to `glibc':
+
+``` shell
+vix wd nixpkgs#hello nixpkgs#glibc
+```
+
+# vix print-dev-env
+
+`vix print-dev-env` -- print shell code of derivation
+
+## Usage
+
+``` shell
+vix print-dev-env [<argument>...|<option>...]
+```
+
+## Options
+
+`vix print-dev-env` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Get the build environment of `hello':
+
+``` shell
+vix print nixpkgs#hello
+```
+
+# vix realisation
+
+`vix realisation` -- manipulate a Nix realisation
+
+## Usage
+
+``` shell
+vix realisation [<argument>...|<option>...]
+```
+
+## Options
+
+`vix realisation` accepts the following options:
+
+``` shell
+      --help     display usage information and exit
+      --version  display version and exit
+
+```
+
+## Examples
+
+Show some information about the realisation of the package `hello':
+
+``` shell
+vix rn nixpkgs#hello
 ```
 
 # vix upgrade-nix
@@ -2406,7 +2392,7 @@ vix upgrade
 ## Usage
 
 ``` shell
-vix collect-garbage [argument...|option...]
+vix collect-garbage [<argument>...|<option>...]
 ```
 
 ## Options
@@ -2424,13 +2410,13 @@ vix collect-garbage [argument...|option...]
 Garbage collect:
 
 ``` shell
-vix g
+vix gc
 ```
 
 Gargage collect and delete old versions:
 
 ``` shell
-vix g -- -d
+vix gc -- -d
 ```
 
 # vix zsh-completions

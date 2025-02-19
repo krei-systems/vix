@@ -19,8 +19,8 @@
   "The version number of the project.")
 
 (defk +project-description+
-  "0.0.1"
-  "A program for interacting with the Nix ecosystem.")
+  "a thin wrapper for interacting with the Nix CLI ecosystem."
+  "The project description.")
 
 (defk +exe+
   '("nix")
