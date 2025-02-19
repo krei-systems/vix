@@ -5,7 +5,7 @@
     :name "vix"
     :version (:read-file-form #P"version.lisp")
     :description "A program for interacting with the Nix ecosystem"
-    :author "Krei, Inc."
+    :author "Rommel Martínez <ebzzry@icloud.com>"
     :class :package-inferred-system
     :depends-on (#:marie
                  #:clingon

@@ -11,8 +11,8 @@
 (define-command nil develop (d)
   "run a dev shell"
   nil
-  nil
-  nil
+  t
+  t
   nil
   "Run a dev shell"
   "d"

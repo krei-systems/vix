@@ -5,7 +5,6 @@
     :name "vix-tests"
     :version (:read-file-form #P"version-tests.lisp")
     :description "Test ASDF file of vix"
-    :author "Krei, Inc."
     :class :package-inferred-system
     :depends-on (#:fiveam
                  #:marie
