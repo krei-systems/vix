@@ -1,12 +1,101 @@
 #+title: Vix
-#+options: toc:t
-* vix
+* Table of contents :TOC:
+- [[#overview][Overview]]
+- [[#commands][Commands]]
+  - [[#vix][vix]]
+  - [[#vix-profile][vix profile]]
+  - [[#vix-profile-install][vix profile install]]
+  - [[#vix-profile-remove][vix profile remove]]
+  - [[#vix-profile-upgrade][vix profile upgrade]]
+  - [[#vix-profile-list][vix profile list]]
+  - [[#vix-profile-rollback][vix profile rollback]]
+  - [[#vix-profile-history][vix profile history]]
+  - [[#vix-profile-wipe-history][vix profile wipe-history]]
+  - [[#vix-profile-diff-closures][vix profile diff-closures]]
+  - [[#vix-flake][vix flake]]
+  - [[#vix-flake-init][vix flake init]]
+  - [[#vix-flake-metadata][vix flake metadata]]
+  - [[#vix-flake-show][vix flake show]]
+  - [[#vix-flake-update][vix flake update]]
+  - [[#vix-flake-new][vix flake new]]
+  - [[#vix-flake-clone][vix flake clone]]
+  - [[#vix-flake-check][vix flake check]]
+  - [[#vix-flake-archive][vix flake archive]]
+  - [[#vix-flake-prefetch][vix flake prefetch]]
+  - [[#vix-develop][vix develop]]
+  - [[#vix-make][vix make]]
+  - [[#vix-rebuild][vix rebuild]]
+  - [[#vix-search][vix search]]
+  - [[#vix-find][vix find]]
+  - [[#vix-run][vix run]]
+  - [[#vix-repl][vix repl]]
+  - [[#vix-registry][vix registry]]
+  - [[#vix-registry-list][vix registry list]]
+  - [[#vix-registry-add][vix registry add]]
+  - [[#vix-registry-remove][vix registry remove]]
+  - [[#vix-registry-pin][vix registry pin]]
+  - [[#vix-store][vix store]]
+  - [[#vix-store-add][vix store add]]
+  - [[#vix-store-cat][vix store cat]]
+  - [[#vix-store-copy-log][vix store copy-log]]
+  - [[#vix-store-copy-sigs][vix store copy-sigs]]
+  - [[#vix-store-delete][vix store delete]]
+  - [[#vix-store-diff-closures][vix store diff-closures]]
+  - [[#vix-store-dump-path][vix store dump-path]]
+  - [[#vix-store-gc][vix store gc]]
+  - [[#vix-store-info][vix store info]]
+  - [[#vix-store-ls][vix store ls]]
+  - [[#vix-store-make-content-addressed][vix store make-content-addressed]]
+  - [[#vix-store-optimise][vix store optimise]]
+  - [[#vix-store-path-from-hash-part][vix store path-from-hash-part]]
+  - [[#vix-store-prefetch-file][vix store prefetch-file]]
+  - [[#vix-store-repair][vix store repair]]
+  - [[#vix-store-sign][vix store sign]]
+  - [[#vix-store-verify][vix store verify]]
+  - [[#vix-eval][vix eval]]
+  - [[#vix-shell][vix shell]]
+  - [[#vix-build][vix build]]
+  - [[#vix-bundle][vix bundle]]
+  - [[#vix-copy][vix copy]]
+  - [[#vix-edit][vix edit]]
+  - [[#vix-daemon][vix daemon]]
+  - [[#vix-config][vix config]]
+  - [[#vix-config-show][vix config show]]
+  - [[#vix-config-check][vix config check]]
+  - [[#vix-hash][vix hash]]
+  - [[#vix-hash-file][vix hash file]]
+  - [[#vix-hash-path][vix hash path]]
+  - [[#vix-hash-convert][vix hash convert]]
+  - [[#vix-key][vix key]]
+  - [[#vix-key-convert][vix key convert]]
+  - [[#vix-key-generate][vix key generate]]
+  - [[#vix-nar][vix nar]]
+  - [[#vix-nar-cat][vix nar cat]]
+  - [[#vix-nar-dump-path][vix nar dump-path]]
+  - [[#vix-nar-ls][vix nar ls]]
+  - [[#vix-fmt][vix fmt]]
+  - [[#vix-path-info][vix path-info]]
+  - [[#vix-derivation][vix derivation]]
+  - [[#vix-derivation-add][vix derivation add]]
+  - [[#vix-derivation-show][vix derivation show]]
+  - [[#vix-why-depends][vix why-depends]]
+  - [[#vix-print-dev-env][vix print-dev-env]]
+  - [[#vix-realisation][vix realisation]]
+  - [[#vix-upgrade-nix][vix upgrade-nix]]
+  - [[#vix-collect-garbage][vix collect-garbage]]
+  - [[#vix-zsh-completions][vix zsh-completions]]
+  - [[#vix-print-doc][vix print-doc]]
+
+* Overview
+Vix is a thin wrapper for interacting with the Nix CLI ecosystem
+* Commands
+** vix
 :PROPERTIES:
 :CUSTOM_ID: vix
 :END:
 =vix= -- a thin wrapper for interacting with the Nix CLI ecosystem.
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage
 :END:
@@ -14,7 +103,7 @@
 vix [global-options] [<command>] [command-options] [arguments ...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options
 :END:
@@ -26,7 +115,7 @@ vix [global-options] [<command>] [command-options] [arguments ...]
   -v, --verbose  verbosity [default: 0]
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands
 :END:
@@ -67,13 +156,13 @@ vix [global-options] [<command>] [command-options] [arguments ...]
   print-doc, doc        print the documentation
 #+end_src
 
-* vix profile
+** vix profile
 :PROPERTIES:
 :CUSTOM_ID: vix-profile
 :END:
 =vix profile= -- profile commands
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-1
 :END:
@@ -81,7 +170,7 @@ vix [global-options] [<command>] [command-options] [arguments ...]
 vix profile <command>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-1
 :END:
@@ -92,7 +181,7 @@ vix profile <command>
       --version  display version and exit
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands-1
 :END:
@@ -109,13 +198,13 @@ vix profile <command>
   diff-closures, d  show the closure difference between each version of a profile
 #+end_src
 
-* vix profile install
+** vix profile install
 :PROPERTIES:
 :CUSTOM_ID: vix-profile-install
 :END:
 =vix profile install= -- install a package into a profile
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-2
 :END:
@@ -123,7 +212,7 @@ vix profile <command>
 vix profile install <package>...
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-2
 :END:
@@ -134,7 +223,7 @@ vix profile install <package>...
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples
 :END:
@@ -150,13 +239,13 @@ Install a package from a specific Nixpkgs revision:
 vix p i nixpkgs/d734#hello
 #+end_src
 
-* vix profile remove
+** vix profile remove
 :PROPERTIES:
 :CUSTOM_ID: vix-profile-remove
 :END:
 =vix profile remove= -- uninstall packages from a profile
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-3
 :END:
@@ -164,7 +253,7 @@ vix p i nixpkgs/d734#hello
 vix profile remove <package>...
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-3
 :END:
@@ -175,7 +264,7 @@ vix profile remove <package>...
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-1
 :END:
@@ -191,13 +280,13 @@ Remove all packages:
 vix p r -- --all
 #+end_src
 
-* vix profile upgrade
+** vix profile upgrade
 :PROPERTIES:
 :CUSTOM_ID: vix-profile-upgrade
 :END:
 =vix profile upgrade= -- upgrade packages using their most recent flake
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-4
 :END:
@@ -205,7 +294,7 @@ vix p r -- --all
 vix profile upgrade <package>...
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-4
 :END:
@@ -216,7 +305,7 @@ vix profile upgrade <package>...
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-2
 :END:
@@ -226,21 +315,21 @@ Upgrade a specific package by name:
 vix p u hello
 #+end_src
 
-* vix profile list
+** vix profile list
 :PROPERTIES:
 :CUSTOM_ID: vix-profile-list
 :END:
 =vix profile list= -- list the installed packages
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-5
 :END:
 #+begin_src shell
-vix profile list 
+vix profile list
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-5
 :END:
@@ -251,7 +340,7 @@ vix profile list
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-3
 :END:
@@ -261,21 +350,21 @@ List packages installed in the default profile:
 vix p l
 #+end_src
 
-* vix profile rollback
+** vix profile rollback
 :PROPERTIES:
 :CUSTOM_ID: vix-profile-rollback
 :END:
 =vix profile rollback= -- roll back to a previous version of a profile
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-6
 :END:
 #+begin_src shell
-vix profile rollback 
+vix profile rollback
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-6
 :END:
@@ -286,7 +375,7 @@ vix profile rollback
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-4
 :END:
@@ -302,21 +391,21 @@ Roll back your default profile to version 500:
 vix p rb -- --to 500
 #+end_src
 
-* vix profile history
+** vix profile history
 :PROPERTIES:
 :CUSTOM_ID: vix-profile-history
 :END:
 =vix profile history= -- show all versions of a profile
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-7
 :END:
 #+begin_src shell
-vix profile history 
+vix profile history
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-7
 :END:
@@ -327,7 +416,7 @@ vix profile history
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-5
 :END:
@@ -337,21 +426,21 @@ Show the changes between each version of your default profile:
 vix p h
 #+end_src
 
-* vix profile wipe-history
+** vix profile wipe-history
 :PROPERTIES:
 :CUSTOM_ID: vix-profile-wipe-history
 :END:
 =vix profile wipe-history= -- delete non-current versions of a profile
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-8
 :END:
 #+begin_src shell
-vix profile wipe-history 
+vix profile wipe-history
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-8
 :END:
@@ -362,7 +451,7 @@ vix profile wipe-history
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-6
 :END:
@@ -372,22 +461,22 @@ Delete all versions of the default profile older than 30 days:
 vix p w -- --profile /tmp/profile --older-than 30d
 #+end_src
 
-* vix profile diff-closures
+** vix profile diff-closures
 :PROPERTIES:
 :CUSTOM_ID: vix-profile-diff-closures
 :END:
 =vix profile diff-closures= -- show the closure difference between each
 version of a profile
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-9
 :END:
 #+begin_src shell
-vix profile diff-closures 
+vix profile diff-closures
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-9
 :END:
@@ -398,7 +487,7 @@ vix profile diff-closures
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-7
 :END:
@@ -408,13 +497,13 @@ Show what changed between each version of the NixOS system profile:
 vix p d -- --profile /nix/var/nix/profiles/system
 #+end_src
 
-* vix flake
+** vix flake
 :PROPERTIES:
 :CUSTOM_ID: vix-flake
 :END:
 =vix flake= -- flake commands
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-10
 :END:
@@ -422,7 +511,7 @@ vix p d -- --profile /nix/var/nix/profiles/system
 vix flake <command>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-10
 :END:
@@ -433,7 +522,7 @@ vix flake <command>
       --version  display version and exit
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands-2
 :END:
@@ -451,21 +540,21 @@ vix flake <command>
   prefetch, p  download the flake source tree into the Nix store
 #+end_src
 
-* vix flake init
+** vix flake init
 :PROPERTIES:
 :CUSTOM_ID: vix-flake-init
 :END:
 =vix flake init= -- create a flake in the current directory
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-11
 :END:
 #+begin_src shell
-vix flake init 
+vix flake init
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-11
 :END:
@@ -476,7 +565,7 @@ vix flake init
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-8
 :END:
@@ -486,21 +575,21 @@ Create a flake using the default template:
 vix f i
 #+end_src
 
-* vix flake metadata
+** vix flake metadata
 :PROPERTIES:
 :CUSTOM_ID: vix-flake-metadata
 :END:
 =vix flake metadata= -- show flake metadata
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-12
 :END:
 #+begin_src shell
-vix flake metadata 
+vix flake metadata
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-12
 :END:
@@ -511,7 +600,7 @@ vix flake metadata
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-9
 :END:
@@ -521,21 +610,21 @@ Show flake metadata:
 vix f m
 #+end_src
 
-* vix flake show
+** vix flake show
 :PROPERTIES:
 :CUSTOM_ID: vix-flake-show
 :END:
 =vix flake show= -- show the outputs provided by a flake
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-13
 :END:
 #+begin_src shell
-vix flake show 
+vix flake show
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-13
 :END:
@@ -546,7 +635,7 @@ vix flake show
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-10
 :END:
@@ -562,21 +651,21 @@ List available templates:
 vix f s templates
 #+end_src
 
-* vix flake update
+** vix flake update
 :PROPERTIES:
 :CUSTOM_ID: vix-flake-update
 :END:
 =vix flake update= -- update flake lock file
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-14
 :END:
 #+begin_src shell
-vix flake update 
+vix flake update
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-14
 :END:
@@ -587,7 +676,7 @@ vix flake update
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-11
 :END:
@@ -597,14 +686,14 @@ Update all inputs:
 vix f u
 #+end_src
 
-* vix flake new
+** vix flake new
 :PROPERTIES:
 :CUSTOM_ID: vix-flake-new
 :END:
 =vix flake new= -- create a flake in the specified directory from a
 template
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-15
 :END:
@@ -612,7 +701,7 @@ template
 vix flake new <directory>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-15
 :END:
@@ -623,7 +712,7 @@ vix flake new <directory>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-12
 :END:
@@ -640,13 +729,13 @@ Create a flake in the directory
 vix f n hello -t templates#haskell-hello
 #+end_src
 
-* vix flake clone
+** vix flake clone
 :PROPERTIES:
 :CUSTOM_ID: vix-flake-clone
 :END:
 =vix flake clone= -- clone flake repository
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-16
 :END:
@@ -654,7 +743,7 @@ vix f n hello -t templates#haskell-hello
 vix flake clone <flake>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-16
 :END:
@@ -665,7 +754,7 @@ vix flake clone <flake>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-13
 :END:
@@ -675,21 +764,21 @@ Check out the source code of the dwarffs flake:
 vix f c dwarffs -- --dest dwarffs
 #+end_src
 
-* vix flake check
+** vix flake check
 :PROPERTIES:
 :CUSTOM_ID: vix-flake-check
 :END:
 =vix flake check= -- check whether the flake evaluates and run its tests
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-17
 :END:
 #+begin_src shell
-vix flake check 
+vix flake check
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-17
 :END:
@@ -700,7 +789,7 @@ vix flake check
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-14
 :END:
@@ -710,21 +799,21 @@ Evaluate the flake in the current directory, and build its checks:
 vix f k
 #+end_src
 
-* vix flake archive
+** vix flake archive
 :PROPERTIES:
 :CUSTOM_ID: vix-flake-archive
 :END:
 =vix flake archive= -- copy a flake and all its inputs to a store
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-18
 :END:
 #+begin_src shell
-vix flake archive 
+vix flake archive
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-18
 :END:
@@ -735,7 +824,7 @@ vix flake archive
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-15
 :END:
@@ -745,22 +834,22 @@ Fetch the dwarffs flake to the local Nix store:
 vix f a dwarffs
 #+end_src
 
-* vix flake prefetch
+** vix flake prefetch
 :PROPERTIES:
 :CUSTOM_ID: vix-flake-prefetch
 :END:
 =vix flake prefetch= -- download the flake source tree into the Nix
 store
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-19
 :END:
 #+begin_src shell
-vix flake prefetch 
+vix flake prefetch
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-19
 :END:
@@ -771,7 +860,7 @@ vix flake prefetch
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-16
 :END:
@@ -781,13 +870,13 @@ Download the dwarffs flake:
 vix f p dwarffs
 #+end_src
 
-* vix develop
+** vix develop
 :PROPERTIES:
 :CUSTOM_ID: vix-develop
 :END:
 =vix develop= -- run a dev shell
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-20
 :END:
@@ -795,7 +884,7 @@ vix f p dwarffs
 vix develop [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-20
 :END:
@@ -806,7 +895,7 @@ vix develop [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-17
 :END:
@@ -822,13 +911,13 @@ Run a dev shell and run `make' inside:
 vix d -- -c make
 #+end_src
 
-* vix make
+** vix make
 :PROPERTIES:
 :CUSTOM_ID: vix-make
 :END:
 =vix make= -- run `make' inside a dev shell
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-21
 :END:
@@ -836,7 +925,7 @@ vix d -- -c make
 vix make [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-21
 :END:
@@ -847,7 +936,7 @@ vix make [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-18
 :END:
@@ -857,13 +946,13 @@ Run `make' inside a dev shell:
 vix m
 #+end_src
 
-* vix rebuild
+** vix rebuild
 :PROPERTIES:
 :CUSTOM_ID: vix-rebuild
 :END:
 =vix rebuild= -- rebuild the system configuration from a flake
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-22
 :END:
@@ -871,7 +960,7 @@ vix m
 vix rebuild [-f <flake>] [-s] [-u]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-22
 :END:
@@ -885,7 +974,7 @@ vix rebuild [-f <flake>] [-s] [-u]
   -u, --upgrade        upgrade to latest version [default: FALSE]
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-19
 :END:
@@ -901,13 +990,13 @@ Rebuild the system from the default flake and switch to it:
 vix rb -s
 #+end_src
 
-* vix search
+** vix search
 :PROPERTIES:
 :CUSTOM_ID: vix-search
 :END:
 =vix search= -- search for packages
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-23
 :END:
@@ -915,7 +1004,7 @@ vix rb -s
 vix search [-n|<flake>] <package>...
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-23
 :END:
@@ -926,7 +1015,7 @@ vix search [-n|<flake>] <package>...
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-20
 :END:
@@ -936,13 +1025,13 @@ Search in =nixpkgs' flake for packages named=firefox':
 vix s nixpkgs firefox
 #+end_src
 
-* vix find
+** vix find
 :PROPERTIES:
 :CUSTOM_ID: vix-find
 :END:
 =vix find= -- search for packages in the `nixpkgs' flake
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-24
 :END:
@@ -950,7 +1039,7 @@ vix s nixpkgs firefox
 vix find <package>...
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-24
 :END:
@@ -961,7 +1050,7 @@ vix find <package>...
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-21
 :END:
@@ -971,13 +1060,13 @@ Search in =nixpkgs' flake for packages named=firefox':
 vix fd firefox
 #+end_src
 
-* vix run
+** vix run
 :PROPERTIES:
 :CUSTOM_ID: vix-run
 :END:
 =vix run= -- run a Nix application
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-25
 :END:
@@ -985,7 +1074,7 @@ vix fd firefox
 vix run [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-25
 :END:
@@ -996,7 +1085,7 @@ vix run [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-22
 :END:
@@ -1006,14 +1095,14 @@ Run =vim' from the=nixpkgs' flake:
 vix run nixpkgs#vim
 #+end_src
 
-* vix repl
+** vix repl
 :PROPERTIES:
 :CUSTOM_ID: vix-repl
 :END:
 =vix repl= -- start an interactive environment for evaluating Nix
 expressions
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-26
 :END:
@@ -1021,7 +1110,7 @@ expressions
 vix repl [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-26
 :END:
@@ -1032,7 +1121,7 @@ vix repl [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-23
 :END:
@@ -1042,13 +1131,13 @@ Evaluate some simple Nix expressions:
 vix repl
 #+end_src
 
-* vix registry
+** vix registry
 :PROPERTIES:
 :CUSTOM_ID: vix-registry
 :END:
 =vix registry= -- manipulate the Nix registry
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-27
 :END:
@@ -1056,7 +1145,7 @@ vix repl
 vix registry <command>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-27
 :END:
@@ -1067,7 +1156,7 @@ vix registry <command>
       --version  display version and exit
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands-3
 :END:
@@ -1080,21 +1169,21 @@ vix registry <command>
   pin, p     pin a flake to its current version
 #+end_src
 
-* vix registry list
+** vix registry list
 :PROPERTIES:
 :CUSTOM_ID: vix-registry-list
 :END:
 =vix registry list= -- list available Nix flakes
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-28
 :END:
 #+begin_src shell
-vix registry list 
+vix registry list
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-28
 :END:
@@ -1105,7 +1194,7 @@ vix registry list
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-24
 :END:
@@ -1115,13 +1204,13 @@ Show the contents of all registries:
 vix r l
 #+end_src
 
-* vix registry add
+** vix registry add
 :PROPERTIES:
 :CUSTOM_ID: vix-registry-add
 :END:
 =vix registry add= -- create a flake in the current directory
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-29
 :END:
@@ -1129,7 +1218,7 @@ vix r l
 vix registry add <flake> <location>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-29
 :END:
@@ -1140,7 +1229,7 @@ vix registry add <flake> <location>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-25
 :END:
@@ -1150,13 +1239,13 @@ Set the `nixpkgs' flake identifier to a specific branch of Nixpkgs:
 vix r a nixpkgs github:NixOS/nixpkgs/nixos-20.03
 #+end_src
 
-* vix registry remove
+** vix registry remove
 :PROPERTIES:
 :CUSTOM_ID: vix-registry-remove
 :END:
 =vix registry remove= -- remove flake from user flake registry
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-30
 :END:
@@ -1164,7 +1253,7 @@ vix r a nixpkgs github:NixOS/nixpkgs/nixos-20.03
 vix registry remove <flake>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-30
 :END:
@@ -1175,7 +1264,7 @@ vix registry remove <flake>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-26
 :END:
@@ -1185,13 +1274,13 @@ Remove the `nixpkgs' flake from the registry:
 vix r r nixpkgs
 #+end_src
 
-* vix registry pin
+** vix registry pin
 :PROPERTIES:
 :CUSTOM_ID: vix-registry-pin
 :END:
 =vix registry pin= -- pin a flake to its current version
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-31
 :END:
@@ -1199,7 +1288,7 @@ vix r r nixpkgs
 vix registry pin <flake>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-31
 :END:
@@ -1210,7 +1299,7 @@ vix registry pin <flake>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-27
 :END:
@@ -1220,13 +1309,13 @@ Pin the `nixpkgs' flake to its most recent revision:
 vix r p nixpkgs
 #+end_src
 
-* vix store
+** vix store
 :PROPERTIES:
 :CUSTOM_ID: vix-store
 :END:
 =vix store= -- manipulate the Nix store
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-32
 :END:
@@ -1234,7 +1323,7 @@ vix r p nixpkgs
 vix store <command>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-32
 :END:
@@ -1245,7 +1334,7 @@ vix store <command>
       --version  display version and exit
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands-4
 :END:
@@ -1271,13 +1360,13 @@ vix store <command>
   verify, v                  verify the integrity of store paths
 #+end_src
 
-* vix store add
+** vix store add
 :PROPERTIES:
 :CUSTOM_ID: vix-store-add
 :END:
 =vix store add= -- add a file or directory to the Nix store
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-33
 :END:
@@ -1285,7 +1374,7 @@ vix store <command>
 vix store add <location>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-33
 :END:
@@ -1296,7 +1385,7 @@ vix store add <location>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-28
 :END:
@@ -1306,14 +1395,14 @@ Add a directory to the store:
 vix s a ./dir
 #+end_src
 
-* vix store cat
+** vix store cat
 :PROPERTIES:
 :CUSTOM_ID: vix-store-cat
 :END:
 =vix store cat= -- print the contents of a file in the Nix store on
 stdout
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-34
 :END:
@@ -1321,7 +1410,7 @@ stdout
 vix store cat <location>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-34
 :END:
@@ -1332,7 +1421,7 @@ vix store cat <location>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-29
 :END:
@@ -1342,13 +1431,13 @@ Show the contents of a file in a binary cache:
 vix s c --store https://cache.nixos.org/ /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10/bin/hello
 #+end_src
 
-* vix store copy-log
+** vix store copy-log
 :PROPERTIES:
 :CUSTOM_ID: vix-store-copy-log
 :END:
 =vix store copy-log= -- copy build logs between Nix stores
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-35
 :END:
@@ -1356,7 +1445,7 @@ vix s c --store https://cache.nixos.org/ /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn
 vix store copy-log <location>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-35
 :END:
@@ -1367,7 +1456,7 @@ vix store copy-log <location>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-30
 :END:
@@ -1377,21 +1466,21 @@ Copy build logs between Nix stores:
 vix s y --from https://cache.nixos.org --eval-store auto nixpkgs#hello
 #+end_src
 
-* vix store copy-sigs
+** vix store copy-sigs
 :PROPERTIES:
 :CUSTOM_ID: vix-store-copy-sigs
 :END:
 =vix store copy-sigs= -- copy store path signatures from substituters
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-36
 :END:
 #+begin_src shell
-vix store copy-sigs 
+vix store copy-sigs
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-36
 :END:
@@ -1402,7 +1491,7 @@ vix store copy-sigs
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-31
 :END:
@@ -1412,13 +1501,13 @@ Copy sigs:
 vix s i
 #+end_src
 
-* vix store delete
+** vix store delete
 :PROPERTIES:
 :CUSTOM_ID: vix-store-delete
 :END:
 =vix store delete= -- delete paths from the Nix store
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-37
 :END:
@@ -1426,7 +1515,7 @@ vix s i
 vix store delete <path>...
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-37
 :END:
@@ -1437,7 +1526,7 @@ vix store delete <path>...
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-32
 :END:
@@ -1447,14 +1536,14 @@ Delete a specific store path:
 vix s d /nix/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10
 #+end_src
 
-* vix store diff-closures
+** vix store diff-closures
 :PROPERTIES:
 :CUSTOM_ID: vix-store-diff-closures
 :END:
 =vix store diff-closures= -- show what packages and versions were added
 and removed
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-38
 :END:
@@ -1462,7 +1551,7 @@ and removed
 vix store diff-closures <path>...
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-38
 :END:
@@ -1473,7 +1562,7 @@ vix store diff-closures <path>...
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-33
 :END:
@@ -1484,13 +1573,13 @@ profile:
 vix s u /nix/var/nix/profiles/system-655-link /nix/var/nix/profiles/system-658-link
 #+end_src
 
-* vix store dump-path
+** vix store dump-path
 :PROPERTIES:
 :CUSTOM_ID: vix-store-dump-path
 :END:
 =vix store dump-path= -- serialise a store path to stdout in NAR format
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-39
 :END:
@@ -1498,7 +1587,7 @@ vix s u /nix/var/nix/profiles/system-655-link /nix/var/nix/profiles/system-658-l
 vix store dump-path <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-39
 :END:
@@ -1509,7 +1598,7 @@ vix store dump-path <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-34
 :END:
@@ -1519,21 +1608,21 @@ To get a NAR from the binary cache https://cache.nixos.org/:
 vix s p -- --store https://cache.nixos.org/ /nix/store/7crrmih8c52r8fbnqb933dxrsp44md93-glibc-2.25 > glibc.nar
 #+end_src
 
-* vix store gc
+** vix store gc
 :PROPERTIES:
 :CUSTOM_ID: vix-store-gc
 :END:
 =vix store gc= -- perform garbage collection on a Nix store
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-40
 :END:
 #+begin_src shell
-vix store gc 
+vix store gc
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-40
 :END:
@@ -1544,7 +1633,7 @@ vix store gc
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-35
 :END:
@@ -1554,13 +1643,13 @@ Delete unreachable paths in the Nix store:
 vix s g
 #+end_src
 
-* vix store info
+** vix store info
 :PROPERTIES:
 :CUSTOM_ID: vix-store-info
 :END:
 =vix store info= -- test whether a store can be accessed
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-41
 :END:
@@ -1568,7 +1657,7 @@ vix s g
 vix store info <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-41
 :END:
@@ -1579,7 +1668,7 @@ vix store info <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-36
 :END:
@@ -1589,13 +1678,13 @@ Test whether connecting to a remote Nix store via SSH works:
 vix s o -- --store ssh://mac1
 #+end_src
 
-* vix store ls
+** vix store ls
 :PROPERTIES:
 :CUSTOM_ID: vix-store-ls
 :END:
 =vix store ls= -- show information about a path in the Nix store
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-42
 :END:
@@ -1603,7 +1692,7 @@ vix s o -- --store ssh://mac1
 vix store ls <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-42
 :END:
@@ -1614,7 +1703,7 @@ vix store ls <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-37
 :END:
@@ -1624,14 +1713,14 @@ To list the contents of a store path in a binary cache:
 vix s l -- --store https://cache.nixos.org/ --long --recursive /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10
 #+end_src
 
-* vix store make-content-addressed
+** vix store make-content-addressed
 :PROPERTIES:
 :CUSTOM_ID: vix-store-make-content-addressed
 :END:
 =vix store make-content-addressed= -- rewrite a path or closure to
 content-addressed form
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-43
 :END:
@@ -1639,7 +1728,7 @@ content-addressed form
 vix store make-content-addressed <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-43
 :END:
@@ -1650,7 +1739,7 @@ vix store make-content-addressed <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-38
 :END:
@@ -1660,22 +1749,22 @@ Create a content-addressed representation of the closure of `hello':
 vix s m nixpkgs#hello
 #+end_src
 
-* vix store optimise
+** vix store optimise
 :PROPERTIES:
 :CUSTOM_ID: vix-store-optimise
 :END:
 =vix store optimise= -- replace identical files in the store by hard
 links
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-44
 :END:
 #+begin_src shell
-vix store optimise 
+vix store optimise
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-44
 :END:
@@ -1686,7 +1775,7 @@ vix store optimise
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-39
 :END:
@@ -1696,13 +1785,13 @@ Optimise the Nix store:
 vix s t
 #+end_src
 
-* vix store path-from-hash-part
+** vix store path-from-hash-part
 :PROPERTIES:
 :CUSTOM_ID: vix-store-path-from-hash-part
 :END:
 =vix store path-from-hash-part= -- get a store path from its hash part
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-45
 :END:
@@ -1710,7 +1799,7 @@ vix s t
 vix store path-from-hash-part <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-45
 :END:
@@ -1721,7 +1810,7 @@ vix store path-from-hash-part <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-40
 :END:
@@ -1731,13 +1820,13 @@ Return the full store path with the given hash part:
 vix s h --store https://cache.nixos.org/ 0i2jd68mp5g6h2sa5k9c85rb80sn8hi9
 #+end_src
 
-* vix store prefetch-file
+** vix store prefetch-file
 :PROPERTIES:
 :CUSTOM_ID: vix-store-prefetch-file
 :END:
 =vix store prefetch-file= -- download a file into the Nix store
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-46
 :END:
@@ -1745,7 +1834,7 @@ vix s h --store https://cache.nixos.org/ 0i2jd68mp5g6h2sa5k9c85rb80sn8hi9
 vix store prefetch-file <loca>tion
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-46
 :END:
@@ -1756,7 +1845,7 @@ vix store prefetch-file <loca>tion
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-41
 :END:
@@ -1766,13 +1855,13 @@ Download a file to the Nix store:
 vix s f https://releases.nixos.org/nix/nix-2.3.10/nix-2.3.10.tar.xz
 #+end_src
 
-* vix store repair
+** vix store repair
 :PROPERTIES:
 :CUSTOM_ID: vix-store-repair
 :END:
 =vix store repair= -- repair store paths
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-47
 :END:
@@ -1780,7 +1869,7 @@ vix s f https://releases.nixos.org/nix/nix-2.3.10/nix-2.3.10.tar.xz
 vix store repair <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-47
 :END:
@@ -1791,7 +1880,7 @@ vix store repair <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-42
 :END:
@@ -1801,21 +1890,21 @@ Repair a store path, after determining that it is corrupt:
 vix s r /nix/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10
 #+end_src
 
-* vix store sign
+** vix store sign
 :PROPERTIES:
 :CUSTOM_ID: vix-store-sign
 :END:
 =vix store sign= -- sign store paths with a local key
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-48
 :END:
 #+begin_src shell
-vix store sign 
+vix store sign
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-48
 :END:
@@ -1826,7 +1915,7 @@ vix store sign
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-43
 :END:
@@ -1836,21 +1925,21 @@ Sign store:
 vix s n
 #+end_src
 
-* vix store verify
+** vix store verify
 :PROPERTIES:
 :CUSTOM_ID: vix-store-verify
 :END:
 =vix store verify= -- verify the integrity of store paths
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-49
 :END:
 #+begin_src shell
-vix store verify 
+vix store verify
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-49
 :END:
@@ -1861,7 +1950,7 @@ vix store verify
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-44
 :END:
@@ -1871,13 +1960,13 @@ Verify the entire Nix store:
 vix store-verify -- --all
 #+end_src
 
-* vix eval
+** vix eval
 :PROPERTIES:
 :CUSTOM_ID: vix-eval
 :END:
 =vix eval= -- evaluate a Nix expression
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-50
 :END:
@@ -1885,7 +1974,7 @@ vix store-verify -- --all
 vix eval [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-50
 :END:
@@ -1896,7 +1985,7 @@ vix eval [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-45
 :END:
@@ -1912,13 +2001,13 @@ Print the store path of the `hello' package:
 vix e -- --raw nixpkgs#hello
 #+end_src
 
-* vix shell
+** vix shell
 :PROPERTIES:
 :CUSTOM_ID: vix-shell
 :END:
 =vix shell= -- run a shell in which the specified packages are available
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-51
 :END:
@@ -1926,7 +2015,7 @@ vix e -- --raw nixpkgs#hello
 vix shell [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-51
 :END:
@@ -1937,7 +2026,7 @@ vix shell [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-46
 :END:
@@ -1947,13 +2036,13 @@ Start a shell providing =yt-dlp' from the=nixpkgs' flake:
 vix sh nixpkgs#yt-dlp
 #+end_src
 
-* vix build
+** vix build
 :PROPERTIES:
 :CUSTOM_ID: vix-build
 :END:
 =vix build= -- build a derivation or fetch a store path
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-52
 :END:
@@ -1961,7 +2050,7 @@ vix sh nixpkgs#yt-dlp
 vix build [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-52
 :END:
@@ -1972,7 +2061,7 @@ vix build [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-47
 :END:
@@ -1989,14 +2078,14 @@ symlinks:
 vix b nixpkgs#hello nixpkgs#cowsay
 #+end_src
 
-* vix bundle
+** vix bundle
 :PROPERTIES:
 :CUSTOM_ID: vix-bundle
 :END:
 =vix bundle= -- bundle an application so that it works outside of the
 Nix store
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-53
 :END:
@@ -2004,7 +2093,7 @@ Nix store
 vix bundle [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-53
 :END:
@@ -2015,7 +2104,7 @@ vix bundle [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-48
 :END:
@@ -2025,14 +2114,14 @@ Bundle `hello':
 vix u nixpkgs#vim
 #+end_src
 
-* vix copy
+** vix copy
 :PROPERTIES:
 :CUSTOM_ID: vix-copy
 :END:
 =vix copy= -- start an interactive environment for evaluating Nix
 expressions
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-54
 :END:
@@ -2040,7 +2129,7 @@ expressions
 vix copy [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-54
 :END:
@@ -2051,7 +2140,7 @@ vix copy [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-49
 :END:
@@ -2061,13 +2150,13 @@ Copy all store paths from a local binary cache:
 vix c -- --all --from file:///tmp/cache
 #+end_src
 
-* vix edit
+** vix edit
 :PROPERTIES:
 :CUSTOM_ID: vix-edit
 :END:
 =vix edit= -- open the Nix expression of a Nix package in $EDITOR
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-55
 :END:
@@ -2075,7 +2164,7 @@ vix c -- --all --from file:///tmp/cache
 vix edit [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-55
 :END:
@@ -2086,7 +2175,7 @@ vix edit [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-50
 :END:
@@ -2096,14 +2185,14 @@ Open the Nix expression of the `hello' package:
 vix ed nixpkgs#hello
 #+end_src
 
-* vix daemon
+** vix daemon
 :PROPERTIES:
 :CUSTOM_ID: vix-daemon
 :END:
 =vix daemon= -- daemon to perform store operations on behalf of non-root
 clients
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-56
 :END:
@@ -2111,7 +2200,7 @@ clients
 vix daemon [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-56
 :END:
@@ -2122,7 +2211,7 @@ vix daemon [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-51
 :END:
@@ -2138,13 +2227,13 @@ Run the daemon and force all connections to be trusted:
 vix dm -- --force-trusted
 #+end_src
 
-* vix config
+** vix config
 :PROPERTIES:
 :CUSTOM_ID: vix-config
 :END:
 =vix config= -- manage the Nix settings
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-57
 :END:
@@ -2152,7 +2241,7 @@ vix dm -- --force-trusted
 vix config <command>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-57
 :END:
@@ -2163,7 +2252,7 @@ vix config <command>
       --version  display version and exit
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands-5
 :END:
@@ -2174,22 +2263,22 @@ vix config <command>
   check, k  check your system for potential problems
 #+end_src
 
-* vix config show
+** vix config show
 :PROPERTIES:
 :CUSTOM_ID: vix-config-show
 :END:
 =vix config show= -- show the Nix configuration or the value of a
 specific setting
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-58
 :END:
 #+begin_src shell
-vix config show 
+vix config show
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-58
 :END:
@@ -2200,7 +2289,7 @@ vix config show
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-52
 :END:
@@ -2210,21 +2299,21 @@ Show configuration:
 vix cfg s
 #+end_src
 
-* vix config check
+** vix config check
 :PROPERTIES:
 :CUSTOM_ID: vix-config-check
 :END:
 =vix config check= -- check your system for potential problems
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-59
 :END:
 #+begin_src shell
-vix config check 
+vix config check
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-59
 :END:
@@ -2235,7 +2324,7 @@ vix config check
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-53
 :END:
@@ -2245,13 +2334,13 @@ Check for problems:
 vix cfg k
 #+end_src
 
-* vix hash
+** vix hash
 :PROPERTIES:
 :CUSTOM_ID: vix-hash
 :END:
 =vix hash= -- compute and convert cryptographic hashes
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-60
 :END:
@@ -2259,7 +2348,7 @@ vix cfg k
 vix hash <command>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-60
 :END:
@@ -2270,7 +2359,7 @@ vix hash <command>
       --version  display version and exit
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands-6
 :END:
@@ -2282,13 +2371,13 @@ vix hash <command>
   convert, c  convert between hash formats
 #+end_src
 
-* vix hash file
+** vix hash file
 :PROPERTIES:
 :CUSTOM_ID: vix-hash-file
 :END:
 =vix hash file= -- print hash of a regular file
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-61
 :END:
@@ -2296,7 +2385,7 @@ vix hash <command>
 vix hash file <file>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-61
 :END:
@@ -2307,7 +2396,7 @@ vix hash file <file>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-54
 :END:
@@ -2317,13 +2406,13 @@ Print hash of `file.txt':
 vix h f file.txt
 #+end_src
 
-* vix hash path
+** vix hash path
 :PROPERTIES:
 :CUSTOM_ID: vix-hash-path
 :END:
 =vix hash path= -- print hash of the NAR serialisation of a path
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-62
 :END:
@@ -2331,7 +2420,7 @@ vix h f file.txt
 vix hash path <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-62
 :END:
@@ -2342,7 +2431,7 @@ vix hash path <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-55
 :END:
@@ -2352,13 +2441,13 @@ Print hash of path `/foo/bar/':
 vix h p /foo/bar/
 #+end_src
 
-* vix hash convert
+** vix hash convert
 :PROPERTIES:
 :CUSTOM_ID: vix-hash-convert
 :END:
 =vix hash convert= -- convert between hash formats
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-63
 :END:
@@ -2366,7 +2455,7 @@ vix h p /foo/bar/
 vix hash convert <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-63
 :END:
@@ -2377,7 +2466,7 @@ vix hash convert <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-56
 :END:
@@ -2387,13 +2476,13 @@ Convert a hash:
 vix h c -- --hash-algo sha1 800d59cfcd3c05e900cb4e214be48f6b886a08df
 #+end_src
 
-* vix key
+** vix key
 :PROPERTIES:
 :CUSTOM_ID: vix-key
 :END:
 =vix key= -- generate and convert Nix signing keys
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-64
 :END:
@@ -2401,7 +2490,7 @@ vix h c -- --hash-algo sha1 800d59cfcd3c05e900cb4e214be48f6b886a08df
 vix key <command>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-64
 :END:
@@ -2412,7 +2501,7 @@ vix key <command>
       --version  display version and exit
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands-7
 :END:
@@ -2423,13 +2512,13 @@ vix key <command>
   generate, g  generate a secret key for signing store paths
 #+end_src
 
-* vix key convert
+** vix key convert
 :PROPERTIES:
 :CUSTOM_ID: vix-key-convert
 :END:
 =vix key convert= -- generate a public key for verifying store paths
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-65
 :END:
@@ -2437,7 +2526,7 @@ vix key <command>
 vix key convert <key>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-65
 :END:
@@ -2448,7 +2537,7 @@ vix key convert <key>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-57
 :END:
@@ -2458,21 +2547,21 @@ Convert a secret key to a public key:
 vix k c foo
 #+end_src
 
-* vix key generate
+** vix key generate
 :PROPERTIES:
 :CUSTOM_ID: vix-key-generate
 :END:
 =vix key generate= -- generate a secret key for signing store paths
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-66
 :END:
 #+begin_src shell
-vix key generate 
+vix key generate
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-66
 :END:
@@ -2483,7 +2572,7 @@ vix key generate
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-58
 :END:
@@ -2493,13 +2582,13 @@ Generate a new secret key:
 vix k g -- --key-name cache.example.org-1 > ./secret-key
 #+end_src
 
-* vix nar
+** vix nar
 :PROPERTIES:
 :CUSTOM_ID: vix-nar
 :END:
 =vix nar= -- create or inspect nar files
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-67
 :END:
@@ -2507,7 +2596,7 @@ vix k g -- --key-name cache.example.org-1 > ./secret-key
 vix nar <command>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-67
 :END:
@@ -2518,7 +2607,7 @@ vix nar <command>
       --version  display version and exit
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands-8
 :END:
@@ -2530,14 +2619,14 @@ vix nar <command>
   ls, l         show information about a path inside a NAR file
 #+end_src
 
-* vix nar cat
+** vix nar cat
 :PROPERTIES:
 :CUSTOM_ID: vix-nar-cat
 :END:
 =vix nar cat= -- print the contents of a file inside a NAR file on
 stdout
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-68
 :END:
@@ -2545,7 +2634,7 @@ stdout
 vix nar cat <file>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-68
 :END:
@@ -2556,7 +2645,7 @@ vix nar cat <file>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-59
 :END:
@@ -2566,13 +2655,13 @@ To display a file in a NAR file:
 vix n c ./hello.nar /share/man/man1/hello.1.gz | gunzip
 #+end_src
 
-* vix nar dump-path
+** vix nar dump-path
 :PROPERTIES:
 :CUSTOM_ID: vix-nar-dump-path
 :END:
 =vix nar dump-path= -- serialise a path to stdout in NAR format
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-69
 :END:
@@ -2580,7 +2669,7 @@ vix n c ./hello.nar /share/man/man1/hello.1.gz | gunzip
 vix nar dump-path <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-69
 :END:
@@ -2591,7 +2680,7 @@ vix nar dump-path <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-60
 :END:
@@ -2601,13 +2690,13 @@ To serialise directory `foo' as a NAR file:
 vix n d ./foo > foo.nar
 #+end_src
 
-* vix nar ls
+** vix nar ls
 :PROPERTIES:
 :CUSTOM_ID: vix-nar-ls
 :END:
 =vix nar ls= -- show information about a path inside a NAR file
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-70
 :END:
@@ -2615,7 +2704,7 @@ vix n d ./foo > foo.nar
 vix nar ls <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-70
 :END:
@@ -2626,7 +2715,7 @@ vix nar ls <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-61
 :END:
@@ -2636,13 +2725,13 @@ To list a specific file in a NAR file:
 vix n l -- --long ./hello.nar /bin/hello
 #+end_src
 
-* vix fmt
+** vix fmt
 :PROPERTIES:
 :CUSTOM_ID: vix-fmt
 :END:
 =vix fmt= -- reformat your code in the standard style
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-71
 :END:
@@ -2650,7 +2739,7 @@ vix n l -- --long ./hello.nar /bin/hello
 vix fmt [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-71
 :END:
@@ -2661,7 +2750,7 @@ vix fmt [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-62
 :END:
@@ -2671,13 +2760,13 @@ Format the current flake:
 vix fmt
 #+end_src
 
-* vix path-info
+** vix path-info
 :PROPERTIES:
 :CUSTOM_ID: vix-path-info
 :END:
 =vix path-info= -- query information about store paths
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-72
 :END:
@@ -2685,7 +2774,7 @@ vix fmt
 vix path-info [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-72
 :END:
@@ -2696,7 +2785,7 @@ vix path-info [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-63
 :END:
@@ -2706,13 +2795,13 @@ Print the store path produced by nixpkgs#hello:
 vix pi nixpkgs#hello
 #+end_src
 
-* vix derivation
+** vix derivation
 :PROPERTIES:
 :CUSTOM_ID: vix-derivation
 :END:
 =vix derivation= -- work with derivations
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-73
 :END:
@@ -2720,7 +2809,7 @@ vix pi nixpkgs#hello
 vix derivation <command>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-73
 :END:
@@ -2731,7 +2820,7 @@ vix derivation <command>
       --version  display version and exit
 #+end_src
 
-** Sub Commands
+*** Sub Commands
 :PROPERTIES:
 :CUSTOM_ID: sub-commands-9
 :END:
@@ -2742,13 +2831,13 @@ vix derivation <command>
   show, s  show the contents of a store derivation
 #+end_src
 
-* vix derivation add
+** vix derivation add
 :PROPERTIES:
 :CUSTOM_ID: vix-derivation-add
 :END:
 =vix derivation add= -- add a store derivation
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-74
 :END:
@@ -2756,7 +2845,7 @@ vix derivation <command>
 vix derivation add <path>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-74
 :END:
@@ -2767,7 +2856,7 @@ vix derivation add <path>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-64
 :END:
@@ -2777,13 +2866,13 @@ Add a derivation:
 vix v a path
 #+end_src
 
-* vix derivation show
+** vix derivation show
 :PROPERTIES:
 :CUSTOM_ID: vix-derivation-show
 :END:
 =vix derivation show= -- show the contents of a store derivation
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-75
 :END:
@@ -2791,7 +2880,7 @@ vix v a path
 vix derivation show <derivation>
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-75
 :END:
@@ -2802,7 +2891,7 @@ vix derivation show <derivation>
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-65
 :END:
@@ -2812,14 +2901,14 @@ Show the `hello' derivation:
 vix v s nixpkgs#hello
 #+end_src
 
-* vix why-depends
+** vix why-depends
 :PROPERTIES:
 :CUSTOM_ID: vix-why-depends
 :END:
 =vix why-depends= -- show why a package has another package in its
 closure
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-76
 :END:
@@ -2827,7 +2916,7 @@ closure
 vix why-depends [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-76
 :END:
@@ -2838,7 +2927,7 @@ vix why-depends [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-66
 :END:
@@ -2849,13 +2938,13 @@ Show one path through the dependency graph leading from
 vix wd nixpkgs#hello nixpkgs#glibc
 #+end_src
 
-* vix print-dev-env
+** vix print-dev-env
 :PROPERTIES:
 :CUSTOM_ID: vix-print-dev-env
 :END:
 =vix print-dev-env= -- print shell code of derivation
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-77
 :END:
@@ -2863,7 +2952,7 @@ vix wd nixpkgs#hello nixpkgs#glibc
 vix print-dev-env [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-77
 :END:
@@ -2874,7 +2963,7 @@ vix print-dev-env [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-67
 :END:
@@ -2884,13 +2973,13 @@ Get the build environment of `hello':
 vix print nixpkgs#hello
 #+end_src
 
-* vix realisation
+** vix realisation
 :PROPERTIES:
 :CUSTOM_ID: vix-realisation
 :END:
 =vix realisation= -- manipulate a Nix realisation
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-78
 :END:
@@ -2898,7 +2987,7 @@ vix print nixpkgs#hello
 vix realisation [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-78
 :END:
@@ -2909,7 +2998,7 @@ vix realisation [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-68
 :END:
@@ -2919,21 +3008,21 @@ Show some information about the realisation of the package `hello':
 vix rn nixpkgs#hello
 #+end_src
 
-* vix upgrade-nix
+** vix upgrade-nix
 :PROPERTIES:
 :CUSTOM_ID: vix-upgrade-nix
 :END:
 =vix upgrade-nix= -- upgrade Nix to the latest stable version
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-79
 :END:
 #+begin_src shell
-vix upgrade-nix 
+vix upgrade-nix
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-79
 :END:
@@ -2944,7 +3033,7 @@ vix upgrade-nix
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-69
 :END:
@@ -2954,13 +3043,13 @@ Upgrade Nix to the stable version declared in `nixpkgs' flake:
 vix upgrade
 #+end_src
 
-* vix collect-garbage
+** vix collect-garbage
 :PROPERTIES:
 :CUSTOM_ID: vix-collect-garbage
 :END:
 =vix collect-garbage= -- run the garbage collector
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-80
 :END:
@@ -2968,7 +3057,7 @@ vix upgrade
 vix collect-garbage [<argument>...|<option>...]
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-80
 :END:
@@ -2979,7 +3068,7 @@ vix collect-garbage [<argument>...|<option>...]
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-70
 :END:
@@ -2995,21 +3084,21 @@ Gargage collect and delete old versions:
 vix gc -- -d
 #+end_src
 
-* vix zsh-completions
+** vix zsh-completions
 :PROPERTIES:
 :CUSTOM_ID: vix-zsh-completions
 :END:
 =vix zsh-completions= -- generate the Zsh completion script
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-81
 :END:
 #+begin_src shell
-vix zsh-completions 
+vix zsh-completions
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-81
 :END:
@@ -3020,7 +3109,7 @@ vix zsh-completions
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-71
 :END:
@@ -3035,21 +3124,21 @@ compinit
 EOF
 #+end_src
 
-* vix print-doc
+** vix print-doc
 :PROPERTIES:
 :CUSTOM_ID: vix-print-doc
 :END:
 =vix print-doc= -- print the documentation
 
-** Usage
+*** Usage
 :PROPERTIES:
 :CUSTOM_ID: usage-82
 :END:
 #+begin_src shell
-vix print-doc 
+vix print-doc
 #+end_src
 
-** Options
+*** Options
 :PROPERTIES:
 :CUSTOM_ID: options-82
 :END:
@@ -3060,7 +3149,7 @@ vix print-doc
       --version  display version and exit
 #+end_src
 
-** Examples
+*** Examples
 :PROPERTIES:
 :CUSTOM_ID: examples-72
 :END:
