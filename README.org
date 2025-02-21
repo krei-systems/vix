@@ -1,4 +1,5 @@
 #+title: Vix
+#+options: toc:t
 * vix
 :PROPERTIES:
 :CUSTOM_ID: vix
